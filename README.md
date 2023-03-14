@@ -29,7 +29,7 @@ Full Wireframe
 ## Backend
 ### Models
 1. A User has many Reservations, has many Ratings; has many Parks through Reservations; has many Courts through Parks
-2. A Reservation has many Parks; has many Courts through Reservations; belongs to a User
+2. A Reservation belongs to a User, belongs to a Park
 3. A Park has many Reservations, has many Courts; has many Users through Reservations
 4. A Court belongs to a Park
 5. A Rating belongs to a User, belongs to a Park
