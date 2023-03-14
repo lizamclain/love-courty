@@ -1,6 +1,6 @@
 # Love-Courtly
 
-Love-Courtly allows users to book reservations at tennis courts in their area.
+Love-Courtly allows users create an account to book reservations at tennis courts in their area and rate the tennis parks.
 
 ## github repo
 https://github.com/lizareed5/love-courtly
@@ -27,7 +27,6 @@ Full Wireframe
 11. A User can rate a park
 
 ## Backend
-Breakdown of the Backend:
 ### Models
 1. A User has many Reservations, has many Ratings; has many Parks through Reservations; has many Courts through Parks
 2. A Reservation has many Parks; has many Courts through Reservations; belongs to a User
@@ -59,6 +58,14 @@ Breakdown of the Backend:
 <br></br>
 
 ### Seed Data Example
+<img
+    src="client/assets/seeds1.png"
+    alt="Example of seeds data"
+    title="Example of seeds data">
+    <img
+    src="client/assets/seeds2.png"
+    alt="Example of seeds data"
+    title="Example of seeds data">
 
 ### API Endpoints
 <img
@@ -133,6 +140,11 @@ Edit Profile
 * User can book a lesson with a pro and gain skills through the lesson
 * User can have skills
 * POST / PATCH / DELETE requests for Reservations use appropriate logic to determine if a court at a park is available for the desired date/time/duration and books/does not book the appropriate court in the reservation
+ERD with StretchERD with Stretch Goals
+<img
+    src="client/assets/ERD_with_stretch.png"
+    alt="ERD with Stretch"
+    title="ERD with Stretch">
 
 ## Technologies
 * Ruby
