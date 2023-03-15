@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 
-export default function ParkList() {
+import ParkCard from './ParkCard'
+
+export default function ParkList({parks}) {
+    const parkCardsList = parks.map(park =>
+        <ParkCard
+            key={park.id}
+            park={park}
+        />
+    )
+
     return (
         <div>
-            <h1>ParkList</h1>
+            <ul className="parks cards">{parkCardsList}</ul>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Home from './components/Home';
-import ParksBrowse from './components/ParksBrowse';
+import BrowseParks from './components/BrowseParks';
 import ParkPage from './components/ParkPage';
 import ProfilePage from './components/ProfilePage';
 import MyReservations from './components/MyReservations';
@@ -35,7 +35,7 @@ function App() {
         />
         <Route
           path="/parks"
-          element={<ParksBrowse/>}
+          element={<BrowseParks/>}
         />
         <Route
           path="/parks/:id"

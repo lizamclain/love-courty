@@ -55,7 +55,7 @@ puts 'done seeding users 👤'
 puts 'seeding 15 parks 🌳'
 Park.create(
     name: "Ted Rhodes Park",
-    park_image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rent.com%2Ftennessee%2Fnashville-apartments%2F505-nashville-4-100065707&psig=AOvVaw1eHgWeJNGMo3MQSs7iYdxL&ust=1678852205238000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCJCjuvzB2v0CFQAAAAAdAAAAABAE",
+    park_image: "https://www.nashville.com/wp-content/uploads/2017/06/8.jpg",
     address: "1901 Ed Temple Blvd., Nashville, TN 37228",
     directions: "https://www.google.com/maps/dir//Ted+Rhodes+Park,+1901+Ed+Temple+Blvd,+Nashville,+TN+37228/@36.1901112,-86.8291332,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x88646732db3e9b41:0x738093040d3d6dec!2m2!1d-86.8257994!2d36.1845391!3e0",
     neighborhood: "North Nashville",
@@ -168,7 +168,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 7,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Centennial Sportsplex",
@@ -181,7 +181,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 10,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Two Rivers Park",
@@ -194,7 +194,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 8,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Shelby Park",
@@ -207,7 +207,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 9,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Madison Park",
@@ -220,7 +220,7 @@ Park.create(
     number_of_courts: 2,
     price_per_hour: 6,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Woodmont Park",
@@ -233,7 +233,7 @@ Park.create(
     number_of_courts: 1,
     price_per_hour: 4,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Green Hills Park",
@@ -246,7 +246,7 @@ Park.create(
     number_of_courts: 3,
     price_per_hour: 7,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 puts 'done seeding parks 🌳'
 

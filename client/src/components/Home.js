@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 import NavBar from './NavBar';
 import News from './News'
 
 export default function Home() {
+
     return (
         <div>
             <NavBar/>
