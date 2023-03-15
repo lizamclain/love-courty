@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function EditProfile() {
+export default function EditProfile({user}) {
     const navigate = useNavigate();
 
     const handleBackClick = () => {
@@ -10,18 +10,18 @@ export default function EditProfile() {
 
     // state for form --> bring in currentUser state
     const initialState = {
-        first_name: '',
-        last_name: '',
-        email: '',
-        age: '',
-        phone: '',
-        user_image: '',
-        password: '',
-        tennis_level: '',
-        play_preference: '',
-        court_preference: '',
-        year_started: '',
-        bio: ''
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        age: user.age,
+        phone: user.phone,
+        user_image: user.user_image,
+        password: user.password,
+        tennis_level: user.tennis_level,
+        play_preference: user.play_preference,
+        court_preference: user.court_preference,
+        year_started: user.year_started,
+        bio: user.bio
     };
     const [formState, setFormState] = useState(initialState);
 
@@ -33,11 +33,15 @@ export default function EditProfile() {
         const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formState)
+        // bring in PATCH fetch request /users/user.id
     }
 
     const handleDeleteClick = () => {
         console.log('deleted')
     }
+
+    // make bio box bigger
+    // have a way to actually see / copy paste the bio? or click the field and then editing is allowed?
 
     return (
         <div>
@@ -45,35 +49,38 @@ export default function EditProfile() {
             <button onClick={handleBackClick}>back to profile</button>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
-                    <input name="first_name" type="text" placeholder="first_name" onChange={handleChange}/>
-                    <input name="last_name" type="text" placeholder="last_name" onChange={handleChange}/>
-                    <input name="email" type="text" placeholder="email" onChange={handleChange}/>
+                    <input name="first_name" type="text" placeholder={user.first_name} onChange={handleChange}/>
+                    <input name="last_name" type="text" placeholder={user.last_name} onChange={handleChange}/>
+                    <input name="email" type="text" placeholder={user.email} onChange={handleChange}/>
                     {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
                     value={value} onChange={setValue}
                     /> */}
-                    <input name="phone" type="text" placeholder="phone" onChange={handleChange} />
-                    <input name="age" type="number" placeholder="age" onChange={handleChange}/>
-                    <input name="password" type="password" placeholder="password" onChange={handleChange}/>
+                    <input name="phone" type="text" placeholder={user.phone} onChange={handleChange} />
+                    <input name="age" type="number" placeholder={user.age} onChange={handleChange}/>
+                    <input name="password" type="password" placeholder={user.password} onChange={handleChange}/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
-                    <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange}/>
-                    <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange}>
-                        <option selected disabled hidden>Choose Your Tennis Level</option>
-                        <option value="1.0">1.5</option>
-                        <option value="1.0">2.0</option>
-                        <option value="1.0">2.5</option>
-                        <option value="1.0">3.0</option>
-                        <option value="1.0">3.5</option>
-                        <option value="1.0">4.0</option>
-                        <option value="1.0">4.5</option>
+                    <input name="user_image" type="text" placeholder={user.user_image} onChange={handleChange}/>
+                    <label for="tennis_level_select">Tennis Level:</label>
+                    <select id="tennis_level-select" name="tennis_level" type="select" placeholder={user.tennis_level} onChange={handleChange}>
+                        <option selected disabled hidden>{user.tennis_level}</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
                     </select>
-                    <select name="play_preference" type="select" placeholder="play_preference" onChange={handleChange}>
-                        <option selected disabled hidden>Choose Your Play Preference</option>
+                    <label for="play_preference_select">Play Preference:</label>
+                    <select id="play_preference_select" name="court_preference" type="select" placeholder={user.play_preference} onChange={handleChange}>
+                        <option selected disabled hidden>{user.play_preference}</option>
                         <option value="Singles">Singles</option>
                         <option value="Doubles">Doubles</option>
                         <option value="Singles and Doubles">Singles and Doubles</option>
                     </select>
-                    <select name="court_preference" type="select" placeholder="court_preference" onChange={handleChange}>
-                        <option selected disabled hidden>Choose Your Court Preference</option>
+                    <label for="court_preference_select">Court Preference:</label>
+                    <select id="court_preference_select" name="court_preference" type="select" placeholder={user.court_preference} onChange={handleChange}>
+                        <option selected disabled hidden>{user.court_preference}</option>
                         <option value="hard">hard</option>
                         <option value="clay">clay</option>
                         <option value="grass">grass</option>
@@ -82,8 +89,8 @@ export default function EditProfile() {
                         <option value="clay and grass">clay and grass</option>
                         <option value="all surfaces">all surfaces</option>
                     </select>
-                    <input name="year_started" type="number" placeholder="year you started" onChange={handleChange}/>
-                    <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange}/>
+                    <input name="year_started" type="number" placeholder={user.year_started} onChange={handleChange}/>
+                    <input name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
                     <input type="submit" value="save" />
                 </form>
                 <button onClick={handleDeleteClick}>Delete Account</button>

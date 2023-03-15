@@ -80,15 +80,15 @@ function App() {
         />
         <Route
           path="/profile/:id"
-          element={<ProfilePage updateUser={updateUser}/>}
+          element={<ProfilePage updateUser={updateUser} user={user}/>}
         />
         <Route
           path="/profile/:id/reservations"
-          element={<MyReservations updateUser={updateUser}/>}
+          element={<MyReservations updateUser={updateUser} user={user}/>}
         />
         <Route
           path="/profile/:id/edit"
-          element={<EditProfile/>}
+          element={<EditProfile user={user}/>}
         />
       </Routes>
     </div>
