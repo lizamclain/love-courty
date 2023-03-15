@@ -13,6 +13,7 @@ import MyReservations from './components/MyReservations';
 import EditProfile from './components/EditProfile';
 
 function App() {
+  const [parkId, setParkId] = useState()
 
   return (
     <div className="App">
@@ -35,11 +36,11 @@ function App() {
         />
         <Route
           path="/parks"
-          element={<BrowseParks/>}
+          element={<BrowseParks setParkId={setParkId}/>}
         />
         <Route
           path="/parks/:id"
-          element={<ParkPage/>}
+          element={<ParkPage parkId={parkId}/>}
         />
         <Route
           path="/profile/:id"

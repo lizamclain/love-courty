@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 
 import ParkList from './ParkList'
 
-export default function ParkBrowse() {
+export default function BrowseParks({ setParkId }) {
     const [parks, setParks] = useState([])
 
     useEffect (() => {
@@ -18,7 +18,7 @@ export default function ParkBrowse() {
         <div>
             <NavBar></NavBar>
             <h1>Browse all Parks</h1>
-            <ParkList parks={parks}/>
+            <ParkList parks={parks} setParkId={setParkId}/>
         </div>
     )
 }

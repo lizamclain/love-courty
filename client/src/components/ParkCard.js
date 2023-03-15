@@ -2,11 +2,13 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
 
-export default function Park({park}) {
+export default function ParkCard({park, setParkId}) {
     const navigate = useNavigate();
 
     const handleParkClick = () => {
+        setParkId(park.id)
         navigate(`/parks/${park.id}`)
+        // console.log(park.id)
     }
     return (
         <div>

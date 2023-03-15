@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar';
 import { Container } from 'semantic-ui-react'
 
-export default function ParkPage() {
+export default function ParkPage({parkId}) {
     const [park, setPark] = useState([])
 
     useEffect(() => {
-        // fetch(`${park.id}`)
-        fetch(`1`)
+        fetch(`${parkId}`)
+        // fetch(`1`)
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
