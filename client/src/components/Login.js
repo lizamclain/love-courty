@@ -32,6 +32,8 @@ export default function Login({ updateUser }) {
                 })
             } else {
                 res.json().then(json => setErrors(json.errors))
+                alert(errors)
+                // make errors more specific
             }
         })
     }

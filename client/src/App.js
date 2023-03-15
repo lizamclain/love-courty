@@ -15,11 +15,14 @@ import EditProfile from './components/EditProfile';
 function App() {
   const [parkId, setParkId] = useState()
   const [user, setUser] = useState(null)
+  const [errors, setErrors] = useState(null)
 
   useEffect(() => {
-    fetch("/me").then((response) => {
-      if (response.ok) {
-        response.json().then((user) => setUser(user));
+    fetch("/me").then((res) => {
+      if (res.ok) {
+        res.json().then((user) => setUser(user));
+      } else {
+        setUser(null)
       }
     });
   }, []);
@@ -27,11 +30,32 @@ function App() {
   const updateUser = (user) => setUser(user)
   console.log(user)
 
+  if(!user) return (
+    <>
+        <Routes>
+          <Route
+            path="/"
+            element={<LandingPage updateUser={updateUser}/>}
+          />
+          <Route
+            path="/login"
+            element={<Login updateUser={updateUser}/>}
+          />
+          <Route
+            path="/signup"
+            element={<Signup updateUser={updateUser}/>}
+          />
+        </Routes>
+    </>
+  )
+  //fix errors
+  if(errors) return <h1>{errors}</h1>
+
   return (
     <div className="App">
       <Routes>
         <Route
-          exact path="/"
+          path="/"
           element={<LandingPage updateUser={updateUser}/>}
         />
         <Route
@@ -44,7 +68,7 @@ function App() {
         />
         <Route
           path="/home"
-          element={<Home updateUser={updateUser}/>}
+          element={<Home updateUser={updateUser} user={user}/>}
         />
         <Route
           path="/parks"
