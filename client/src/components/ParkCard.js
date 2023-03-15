@@ -12,7 +12,7 @@ export default function Park({park}) {
         <div>
             <Card>
                 <Card.Content>
-                    <Card.Header>{park.name} ⭐️4.5</Card.Header>
+                    <Card.Header>{park.name} ⭐️{park.avg_rating}</Card.Header>
                     <Card.Meta>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m
                     </Card.Meta>
                     <Image src={park.park_image} alt={park.name}/>

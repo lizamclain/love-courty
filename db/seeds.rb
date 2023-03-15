@@ -437,11 +437,11 @@ puts 'seeding 50 reservations 📆'
 end
 puts 'done seeding reservations 📆'
 
-puts 'creating 300 ratings ⭐️'
-300.times do Rating.create(
+puts 'creating 350 ratings ⭐️'
+350.times do Rating.create(
     user_id: User.all.sample.id,
     park_id: Park.all.sample.id,
-    rating: Faker::Number.within(range: 1..5)
+    rating: Faker::Number.within(range: 4..5)
 )
 end
 puts 'done creating ratings ⭐️'
