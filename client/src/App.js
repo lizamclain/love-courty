@@ -14,41 +14,52 @@ import EditProfile from './components/EditProfile';
 
 function App() {
   const [parkId, setParkId] = useState()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    fetch("/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  const updateUser = (user) => setUser(user)
 
   return (
     <div className="App">
       <Routes>
         <Route
           exact path="/"
-          element={<LandingPage/>}
+          element={<LandingPage updateUser={updateUser}/>}
         />
         <Route
           path="/login"
-          element={<Login/>}
+          element={<Login updateUser={updateUser}/>}
         />
         <Route
           path="/signup"
-          element={<Signup/>}
+          element={<Signup updateUser={updateUser}/>}
         />
         <Route
           path="/home"
-          element={<Home/>}
+          element={<Home updateUser={updateUser}/>}
         />
         <Route
           path="/parks"
-          element={<BrowseParks setParkId={setParkId}/>}
+          element={<BrowseParks updateUser={updateUser} setParkId={setParkId}/>}
         />
         <Route
           path="/parks/:id"
-          element={<ParkPage parkId={parkId}/>}
+          element={<ParkPage updateUser={updateUser} parkId={parkId}/>}
         />
         <Route
           path="/profile/:id"
-          element={<ProfilePage/>}
+          element={<ProfilePage updateUser={updateUser}/>}
         />
         <Route
           path="/profile/:id/reservations"
-          element={<MyReservations/>}
+          element={<MyReservations updateUser={updateUser}/>}
         />
         <Route
           path="/profile/:id/edit"

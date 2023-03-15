@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import NavBar from './NavBar';
 
-export default function Profile() {
+export default function Profile({updateUser}) {
     const navigate = useNavigate();
 
     const handleEditBtnClick = () => {
@@ -12,7 +12,7 @@ export default function Profile() {
 
     return (
         <div>
-            <NavBar></NavBar>
+            <NavBar updateUser={updateUser}></NavBar>
             <h1>My Profile</h1>
             <button onClick={handleEditBtnClick}>Edit Profile</button>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function Login({ updateUser }) {
     const navigate = useNavigate();
 
     // state for form
@@ -9,23 +9,37 @@ export default function Login() {
         email: '',
         password: ''
     };
-    const [formState, setFormState] = useState(initialState);
+    const [formData, setFormData] = useState(initialState);
+    const [errors, setErrors] = useState([])
 
     const handleSignupBtnClick = () => {
         navigate('/signup')
     }
 
-    // helper functions for input
-    const handleChange = (e) => {
-        setFormState({...formState, [e.target.name]: e.target.value});
-    }
-
     // handle submit with fetch POST request
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formState)
+        fetch('/login', {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body:JSON.stringify(formData)
+        })
+        .then(res => {
+            if(res.ok){
+                res.json().then(user => {
+                    updateUser(user)
+                    navigate('/home')
+                })
+            } else {
+                res.json().then(json => setErrors(json.errors))
+            }
+        })
     }
 
+    // helper functions for input
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+    }
     return (
         <div>
             <p>Don't have an account?</p>

@@ -1,9 +1,23 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function NavBar() {
+export default function NavBar({updateUser}) {
+    const navigate = useNavigate();
 
     // want to add dropdown from profile pic that includes settings and logout
+
+    const handleLogout = () => {
+        fetch('/logout', {
+            method: 'DELETE',
+        })
+        .then(res => {
+            if(res.ok) {
+                updateUser(null)
+                navigate('/')
+            }
+        })
+    }
 
     return (
         <nav>
@@ -26,6 +40,7 @@ export default function NavBar() {
             </NavLink>
             <NavLink
                 to='/'
+                onClick={handleLogout}
             >logout
             </NavLink>
         </nav>
