@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_14_170405) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_15_160553) do
   create_table "courts", force: :cascade do |t|
     t.integer "park_id"
     t.integer "court_number"
@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_14_170405) do
     t.string "play_preference"
     t.string "court_preference"
     t.integer "year_started"
-    t.string "password"
+    t.string "password_digest"
     t.string "user_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

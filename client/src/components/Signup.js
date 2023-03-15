@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 
-export default function Signup() {
+export default function Signup({updateUser}) {
     const navigate = useNavigate();
     const [value, setValue] = useState()
+    const [errors, setErrors] = useState([])
 
     // state for form
     const initialState = {
@@ -22,7 +23,7 @@ export default function Signup() {
         year_started: '',
         bio: ''
     };
-    const [formState, setFormState] = useState(initialState);
+    const [formData, setFormData] = useState(initialState);
 
     const handleLoginBtnClick = () => {
         navigate('/login')
@@ -30,12 +31,32 @@ export default function Signup() {
 
     // helper functions for input
     const handleChange = (e) => {
-        setFormState({...formState, [e.target.name]: e.target.value});
+        setFormData({...formData, [e.target.name]: e.target.value});
     }
     // handle submit with fetch POST request
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formState)
+        fetch('/users', {
+            mode: 'no-cors',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(console.log(formData))
+        .then(res => {
+            if(res.ok) {
+                res.json().then(obj => {
+                    updateUser(obj)
+                    navigate('/home')
+                })
+            } else {
+                // add json errors
+                res.json().then(json => setErrors(json.errors))
+                alert(errors)
+            }
+        })
     }
 
     // add required to forms later
@@ -50,18 +71,18 @@ export default function Signup() {
             <h1>Signup</h1>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
-                    <input name="first_name" type="text" placeholder="first_name" onChange={handleChange}/>
-                    <input name="last_name" type="text" placeholder="last_name" onChange={handleChange}/>
-                    <input name="email" type="text" placeholder="email" onChange={handleChange}/>
+                    <input name="first_name" type="text" placeholder="first_name" onChange={handleChange} value={formData.first_name}/>
+                    <input name="last_name" type="text" placeholder="last_name" onChange={handleChange} value={formData.last_name}/>
+                    <input name="email" type="text" placeholder="email" onChange={handleChange} value={formData.email}/>
                     {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
                     value={value} onChange={setValue}
                     /> */}
-                    <input name="phone" type="text" placeholder="phone" onChange={handleChange} />
-                    <input name="age" type="number" placeholder="age" onChange={handleChange}/>
-                    <input name="password" type="password" placeholder="password" onChange={handleChange}/>
+                    <input name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone}/>
+                    <input name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age}/>
+                    <input name="password" type="text" placeholder="password" onChange={handleChange} value={formData.password}/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
-                    <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange}/>
-                    <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange}>
+                    <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
+                    <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Tennis Level</option>
                         <option value="1.0">1.5</option>
                         <option value="1.0">2.0</option>
@@ -71,13 +92,13 @@ export default function Signup() {
                         <option value="1.0">4.0</option>
                         <option value="1.0">4.5</option>
                     </select>
-                    <select name="play_preference" type="select" placeholder="play_preference" onChange={handleChange}>
+                    <select name="play_preference" type="select" placeholder="play_preference" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Play Preference</option>
                         <option value="Singles">Singles</option>
                         <option value="Doubles">Doubles</option>
                         <option value="Singles and Doubles">Singles and Doubles</option>
                     </select>
-                    <select name="court_preference" type="select" placeholder="court_preference" onChange={handleChange}>
+                    <select name="court_preference" type="select" placeholder="court_preference" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Court Preference</option>
                         <option value="hard">hard</option>
                         <option value="clay">clay</option>
@@ -87,8 +108,8 @@ export default function Signup() {
                         <option value="clay and grass">clay and grass</option>
                         <option value="all surfaces">all surfaces</option>
                     </select>
-                    <input name="year_started" type="number" placeholder="year you started" onChange={handleChange}/>
-                    <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange}/>
+                    <input name="year_started" type="number" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
+                    <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
                     <input type="submit" value="signup" />
                 </form>
             </div>

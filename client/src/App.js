@@ -13,41 +13,78 @@ import MyReservations from './components/MyReservations';
 import EditProfile from './components/EditProfile';
 
 function App() {
+  const [parkId, setParkId] = useState()
+  const [user, setUser] = useState(null)
+  const [errors, setErrors] = useState(null)
+
+  useEffect(() => {
+    fetch("/me").then((res) => {
+      if (res.ok) {
+        res.json().then((user) => setUser(user));
+      } else {
+        setUser(null)
+      }
+    });
+  }, []);
+
+  const updateUser = (user) => setUser(user)
+  console.log(user)
+
+  if(!user) return (
+    <>
+        <Routes>
+          <Route
+            path="/"
+            element={<LandingPage updateUser={updateUser}/>}
+          />
+          <Route
+            path="/login"
+            element={<Login updateUser={updateUser}/>}
+          />
+          <Route
+            path="/signup"
+            element={<Signup updateUser={updateUser}/>}
+          />
+        </Routes>
+    </>
+  )
+  //fix errors
+  if(errors) return <h1>{errors}</h1>
 
   return (
     <div className="App">
       <Routes>
         <Route
-          exact path="/"
-          element={<LandingPage/>}
+          path="/"
+          element={<LandingPage updateUser={updateUser}/>}
         />
         <Route
           path="/login"
-          element={<Login/>}
+          element={<Login updateUser={updateUser}/>}
         />
         <Route
           path="/signup"
-          element={<Signup/>}
+          element={<Signup updateUser={updateUser}/>}
         />
         <Route
           path="/home"
-          element={<Home/>}
+          element={<Home updateUser={updateUser} user={user}/>}
         />
         <Route
           path="/parks"
-          element={<BrowseParks/>}
+          element={<BrowseParks updateUser={updateUser} setParkId={setParkId}/>}
         />
         <Route
           path="/parks/:id"
-          element={<ParkPage/>}
+          element={<ParkPage updateUser={updateUser} parkId={parkId}/>}
         />
         <Route
           path="/profile/:id"
-          element={<ProfilePage/>}
+          element={<ProfilePage updateUser={updateUser}/>}
         />
         <Route
           path="/profile/:id/reservations"
-          element={<MyReservations/>}
+          element={<MyReservations updateUser={updateUser}/>}
         />
         <Route
           path="/profile/:id/edit"
