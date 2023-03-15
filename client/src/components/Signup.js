@@ -14,13 +14,13 @@ export default function Signup({updateUser}) {
         last_name: '',
         email: '',
         phone: '',
-        age: '',
+        age: 0,
         user_image: '',
         password: '',
-        tennis_level: '',
+        tennis_level: 0,
         play_preference: '',
         court_preference: '',
-        year_started: '',
+        year_started: 0,
         bio: ''
     };
     const [formData, setFormData] = useState(initialState);
@@ -37,7 +37,6 @@ export default function Signup({updateUser}) {
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/users', {
-            mode: 'no-cors',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,13 +83,13 @@ export default function Signup({updateUser}) {
                     <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
                     <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Tennis Level</option>
-                        <option value="1.0">1.5</option>
-                        <option value="1.0">2.0</option>
-                        <option value="1.0">2.5</option>
-                        <option value="1.0">3.0</option>
-                        <option value="1.0">3.5</option>
-                        <option value="1.0">4.0</option>
-                        <option value="1.0">4.5</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                        <option value="2.5">2.5</option>
+                        <option value="3.0">3.0</option>
+                        <option value="3.5">3.5</option>
+                        <option value="4.0">4.0</option>
+                        <option value="4.5">4.5</option>
                     </select>
                     <select name="play_preference" type="select" placeholder="play_preference" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Play Preference</option>
