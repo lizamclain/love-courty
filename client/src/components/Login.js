@@ -35,7 +35,7 @@ export default function Login() {
                 <form className="form" onSubmit={handleSubmit}>
                     <input name="email" type="text" placeholder="email" onChange={handleChange}/>
                     <input name="password" type="password" placeholder="password" onChange={handleChange}/>
-                    <input type="submit" value="signup" />
+                    <input type="submit" value="login" />
                     {/* <button>login</button> */}
                 </form>
             </div>
