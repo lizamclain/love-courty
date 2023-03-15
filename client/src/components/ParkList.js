@@ -7,7 +7,6 @@ export default function ParkList({parks}) {
         <ParkCard
             key={park.id}
             park={park}
-            parks={parks}
         />
     )
 

@@ -2,14 +2,17 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
 
-export default function Park({park, parks}) {
+export default function Park({park}) {
     const navigate = useNavigate();
 
+    const handleParkClick = () => {
+        navigate(`/parks/${park.id}`)
+    }
     return (
         <div>
             <Card>
                 <Card.Content>
-                    <Card.Header>{park.name}</Card.Header>
+                    <Card.Header>{park.name} ⭐️4.5</Card.Header>
                     <Card.Meta>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m
                     </Card.Meta>
                     <Image src={park.park_image} alt={park.name}/>
@@ -25,6 +28,9 @@ export default function Park({park, parks}) {
                             Directions
                         </a>
                     </Card.Content>
+                    <Button inverted color='green' onClick={handleParkClick}>
+                        Go to Park
+                    </Button>
                 </Card.Content>
             </Card>
         </div>

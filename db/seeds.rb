@@ -168,7 +168,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 7,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Centennial Sportsplex",
@@ -181,7 +181,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 10,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Two Rivers Park",
@@ -194,7 +194,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 8,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Shelby Park",
@@ -207,7 +207,7 @@ Park.create(
     number_of_courts: 4,
     price_per_hour: 9,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Madison Park",
@@ -220,7 +220,7 @@ Park.create(
     number_of_courts: 2,
     price_per_hour: 6,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Woodmont Park",
@@ -233,7 +233,7 @@ Park.create(
     number_of_courts: 1,
     price_per_hour: 4,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 Park.create(
     name: "Green Hills Park",
@@ -246,7 +246,7 @@ Park.create(
     number_of_courts: 3,
     price_per_hour: 7,
     open_time: 10,
-    close_time: 20
+    close_time: 18
 )
 puts 'done seeding parks 🌳'
 
