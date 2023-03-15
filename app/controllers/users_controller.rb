@@ -1,22 +1,16 @@
+require 'byebug'
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
+    # skip_before_action
+    skip_before_action :authorized_user, only: [:index, :create]
 
     def index
         render json: User.all, status: :ok
     end
 
-    # def show
-    #     user = find_user
-    #     render json: user, status: :ok
-    # end
-
     def show
-        user = User.find_by(id: session[:user_id])
-        if user
-            render json: user
-        else
-            render json: { error: "Not authorized" }, status: :unauthorized
-        end
+        user = current_user
+        render json: user, status: :ok
     end
 
     def create

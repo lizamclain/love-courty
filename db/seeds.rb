@@ -49,6 +49,19 @@ puts 'seeding 100 users 👤'
     user_image: Faker::Avatar.image
 )
 end
+User.create(
+    first_name: "Liza",
+    last_name: "McLain",
+    phone: 4042743802,
+    age: 30,
+    email: "lizamclain@gmail.com",
+    tennis_level: 3.5,
+    play_preference: "Singles and Doubles",
+    court_preference: "hard and clay",
+    year_started: 2001,
+    password: "pancakebindi",
+    user_image: Faker::Avatar.image
+)
 
 puts 'done seeding users 👤'
 

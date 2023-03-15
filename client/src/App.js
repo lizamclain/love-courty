@@ -25,6 +25,7 @@ function App() {
   }, []);
 
   const updateUser = (user) => setUser(user)
+  console.log(user)
 
   return (
     <div className="App">
