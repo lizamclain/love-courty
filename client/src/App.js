@@ -10,7 +10,7 @@ import BrowseParks from './components/BrowseParks';
 import ParkPage from './components/ParkPage';
 import ProfilePage from './components/ProfilePage';
 import MyReservations from './components/MyReservations';
-import ProfileSettings from './components/ProfileSettings';
+import EditProfile from './components/EditProfile';
 
 function App() {
 
@@ -50,8 +50,8 @@ function App() {
           element={<MyReservations/>}
         />
         <Route
-          path="/profile/:id/settings"
-          element={<ProfileSettings/>}
+          path="/profile/:id/edit"
+          element={<EditProfile/>}
         />
       </Routes>
     </div>

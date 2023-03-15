@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
 
-export default function Signup() {
+export default function EditProfile() {
     const navigate = useNavigate();
-    const [value, setValue] = useState()
 
-    // state for form
+    const handleBackClick = () => {
+        navigate('/profile/:id')
+    }
+
+    // state for form --> bring in currentUser state
     const initialState = {
         first_name: '',
         last_name: '',
         email: '',
-        phone: '',
         age: '',
+        phone: '',
         user_image: '',
         password: '',
         tennis_level: '',
@@ -24,30 +25,24 @@ export default function Signup() {
     };
     const [formState, setFormState] = useState(initialState);
 
-    const handleLoginBtnClick = () => {
-        navigate('/login')
-    }
-
     // helper functions for input
     const handleChange = (e) => {
         setFormState({...formState, [e.target.name]: e.target.value});
     }
     // handle submit with fetch POST request
-    const handleSubmit = (e) => {
+        const handleSubmit = (e) => {
         e.preventDefault()
         console.log(formState)
     }
 
-    // add required to forms later
-    // add validation errors
-    // add tool tip for tennis levels
-    // make bio box look prettier
+    const handleDeleteClick = () => {
+        console.log('deleted')
+    }
 
     return (
         <div>
-            <p>Already have an account?</p>
-            <button onClick={handleLoginBtnClick}>Login</button>
-            <h1>Signup</h1>
+            <h1>Edit Profile</h1>
+            <button onClick={handleBackClick}>back to profile</button>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
                     <input name="first_name" type="text" placeholder="first_name" onChange={handleChange}/>
@@ -89,8 +84,9 @@ export default function Signup() {
                     </select>
                     <input name="year_started" type="number" placeholder="year you started" onChange={handleChange}/>
                     <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange}/>
-                    <input type="submit" value="signup" />
+                    <input type="submit" value="save" />
                 </form>
+                <button onClick={handleDeleteClick}>Delete Account</button>
             </div>
         </div>
     )
