@@ -24,6 +24,10 @@ export default function NavBar() {
                 to="/profile/:id"
             >my profile
             </NavLink>
+            <NavLink
+                to='/'
+            >logout
+            </NavLink>
         </nav>
     )
 }
