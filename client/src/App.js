@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
 
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
@@ -28,7 +27,12 @@ function App() {
   }, []);
 
   const updateUser = (user) => setUser(user)
-  // console.log(user)
+  console.log(user)
+
+  // const [userReservations, setUserReservations] = useState(user.my_reservations)
+  // const handleNewReservation = (newRes) => {
+  //   setUserReservations([...userReservations, newRes])
+  // }
 
   if(!user) return (
     <>
@@ -76,7 +80,7 @@ function App() {
         />
         <Route
           path="/parks/:id"
-          element={<ParkPage updateUser={updateUser} user={user} parkId={parkId}/>}
+          element={<ParkPage updateUser={updateUser} user={user} parkId={parkId} />}
         />
         <Route
           exact path="/profile"

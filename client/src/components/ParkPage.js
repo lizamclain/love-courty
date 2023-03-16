@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react'
+import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 import { Container } from 'semantic-ui-react'
 
 export default function ParkPage({parkId, updateUser, user}) {
+    const navigate = useNavigate()
     const [park, setPark] = useState([])
+    const [userReservations, setUserReservations] = useState(user.my_reservations)
 
     useEffect(() => {
         fetch(`${parkId}`)
@@ -12,10 +15,44 @@ export default function ParkPage({parkId, updateUser, user}) {
         .then(data => setPark(data))
     }, [])
 
-    const renderTimes = park.available_times.map((time) => {
-        return <button>{time > 12 ? time - 12 : time}</button>
-    })
-    // renderTimes()
+    console.log(park.available_times)
+    console.log(park.id)
+    console.log(user.my_reservations)
+    console.log(userReservations)
+
+    // const renderTimes = park.available_times.map((time) => {
+    //     return <button>{time > 12 ? time - 12 : time}</button>
+    // })
+
+    const initialState = {
+        user_id: user.id,
+        park_id: parkId,
+        date: '',
+        time: '',
+        duration: ''
+    }
+
+    const [formData, setFormData] = useState(initialState)
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        fetch('/reservations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(formData)
+        })
+        .then(res => res.json)
+        .then(data => setUserReservations([...userReservations, data]))
+        .then(navigate('/profile/reservations'))
+        console.log(formData)
+        // state is one step behind. have to refresh. it's becase of how i call my reservations and reservations list i think. might need to pull everything up to App (fetch on my reservations and the stuff here)
+    }
 
     return (
         <Container>
@@ -29,13 +66,14 @@ export default function ParkPage({parkId, updateUser, user}) {
             <img src={park.park_image} alt={park.name}/>
             <br/>
             <h1>Reserve a Court</h1>
-            <form id="new-reservation">
-                <label for="date">Pick a date: </label>
-                <input id="date" name="date" type="date"></input>
-                <label for="time">Pick a Time: </label>
-                {renderTimes}
-                <label for="duration">How long would you like to have the court? </label>
-                <input id="duration" name="duration" type="number" min="1" max="3"></input>
+            <form id="new-reservation" onSubmit={handleSubmit}>
+                <label htmlFor="date">Pick a date: </label>
+                <input id="date" name="date" type="date" onChange={handleChange}></input>
+                <label htmlFor="time">Pick a Time: </label>
+                <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input>
+                {/* {renderTimes} */}
+                <label htmlFor="duration">How long would you like to have the court? </label>
+                <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
                 <button>Reserve</button>
             </form>
         </Container>
