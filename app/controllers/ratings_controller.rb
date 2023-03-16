@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :rating_not_found
+    skip_before_action :authorized_user
 
     def index
         render json: Rating.all, status: :ok
