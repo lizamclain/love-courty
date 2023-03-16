@@ -6,4 +6,18 @@ class ParkSerializer < ActiveModel::Serializer
       court.court_number
     end
   end
+
+  def lights
+    object.lights ? "Yes" : "No"
+  end
+
+  def open_time
+    time = object.open_time > 12 ? object.open_time - 12 : object.open_time
+  end
+
+  def close_time
+    time = object.close_time > 12 ? object.close_time - 12 : object.close_time
+    time
+  end
+
 end
