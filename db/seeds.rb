@@ -34,8 +34,8 @@ Court.destroy_all
 Rating.destroy_all
 puts 'seeding fresh data'
 
-puts 'seeding 100 users 👤'
-100.times do User.create(
+puts 'seeding 30 users 👤'
+30.times do User.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     phone: Faker::Number.number(digits: 10),
@@ -50,7 +50,7 @@ puts 'seeding 100 users 👤'
     bio: Faker::Movies::Ghostbusters.quote
 )
 end
-User.create(
+liza = User.create(
     first_name: "Liza",
     last_name: "McLain",
     phone: 4042743802,
@@ -439,7 +439,7 @@ Court.create(
 )
 puts 'done creating courts 🎾'
 
-puts 'seeding 50 reservations 📆'
+puts 'seeding 100 reservations 📆'
 50.times do Reservation.create(
     user_id: User.all.sample.id,
     park_id: Park.all.sample.id,
@@ -450,6 +450,18 @@ puts 'seeding 50 reservations 📆'
 )
 end
 puts 'done seeding reservations 📆'
+
+puts 'seeding lizas reservations 📆'
+5.times do Reservation.create(
+    user_id: liza.id,
+    park_id: Park.all.sample.id,
+    # court_id: Court.all.sample.id,
+    date: Faker::Date.between(from: '2023-03-13', to: '2023-03-17'),
+    time: Faker::Number.within(range: 10..19),
+    duration: Faker::Number.within(range: 1..3),
+)
+end
+puts 'done seeding lizas reservations 📆'
 
 puts 'creating 350 ratings ⭐️'
 350.times do Rating.create(

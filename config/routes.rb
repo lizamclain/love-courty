@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get "/me", to: "users#show"
   get '/top_rated', to: 'parks#top_rated'
+  get '/test', to: 'parks#test'
 end

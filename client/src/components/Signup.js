@@ -62,7 +62,7 @@ export default function Signup({updateUser}) {
     // add validation errors
     // add tool tip for tennis levels
     // make bio box look prettier
-    // add password confirmation
+    // add password confirmation + validation
 
     return (
         <div>
@@ -79,7 +79,7 @@ export default function Signup({updateUser}) {
                     /> */}
                     <input name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone}/>
                     <input name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age}/>
-                    <input name="password" type="text" placeholder="password" onChange={handleChange} value={formData.password}/>
+                    <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password}/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
                     <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
