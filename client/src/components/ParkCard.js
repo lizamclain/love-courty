@@ -15,11 +15,11 @@ export default function ParkCard({park, setParkId}) {
             <Card>
                 <Card.Content>
                     <Card.Header>{park.name} ⭐️{park.avg_rating}</Card.Header>
-                    <Card.Meta>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m
+                    <Card.Meta>{park.neighborhood} | {park.open_time} - {park.close_time}
                     </Card.Meta>
                     <Image src={park.park_image} alt={park.name}/>
                     <Card.Content>
-                        Court Type: {park.court_type} | Lights: {park.lights ? "Yes" : "No"} | {park.number_of_courts} courts
+                        Court Type: {park.court_type} | Lights: {park.lights} | {park.number_of_courts} courts
                     </Card.Content>
                     <Card.Content extra>
                         <Icon name="money bill alternate outline"/>${park.price_per_hour} per hour
