@@ -8,7 +8,7 @@ export default function Search( {searchText, handleSearchInput, selectedLights, 
         <div>
             <h1>Search</h1>
             <div className="searchbar">
-                <label for="search">🔎 Search Parks: </label>
+                <label htmlFor="search">🔎 Search Parks: </label>
                     <input
                         type="text"
                         id="search"
@@ -18,7 +18,7 @@ export default function Search( {searchText, handleSearchInput, selectedLights, 
                     />
             </div>
             <div className="filter">
-                <label for="lights">💡 Lights? </label>
+                <label htmlFor="lights">💡 Lights? </label>
                 <select onChange={selectedLights}>
                     <option value="All">All</option>
                     <option value="Yes">Yes</option>
@@ -26,7 +26,7 @@ export default function Search( {searchText, handleSearchInput, selectedLights, 
                 </select>
             </div>
             <div className="filter">
-                <label for="surface">👟 Court Surface: </label>
+                <label htmlFor="surface">👟 Court Surface: </label>
                 <select onChange={selectedSurface}>
                     <option value="All">All</option>
                     <option value="hard">hard</option>

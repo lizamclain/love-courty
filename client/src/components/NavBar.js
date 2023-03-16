@@ -14,7 +14,7 @@ export default function NavBar({updateUser}) {
         .then(res => {
             if(res.ok) {
                 updateUser(null)
-                navigate('/')
+                navigate('/login')
             }
         })
     }
