@@ -14,7 +14,7 @@ export default function ParkList({parks, setParkId}) {
 
     return (
         <div>
-            <Card.Group className="parks cards" itemsPerRow={3}>{parkCardsList}</Card.Group>
+            <Card.Group className="parks-cards" itemsPerRow={3}>{parkCardsList}</Card.Group>
         </div>
     )
 }
