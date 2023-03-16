@@ -15,3 +15,16 @@ code {
 ul {
   list-style-type: none;
 }
+
+.required {
+  font-weight: bold;
+}
+.required:after {
+  color: #e32;
+  content: ' *';
+  display:inline;
+}
+
+#required-text {
+  color: #e32;
+}

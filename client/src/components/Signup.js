@@ -53,7 +53,9 @@ export default function Signup({updateUser}) {
             } else {
                 // add json errors
                 res.json().then(json => setErrors(json.errors))
-                alert(errors)
+                .then(alert(errors))
+                .then(console.log(errors))
+                //errors are sometimes one step behind
             }
         })
     }
@@ -71,15 +73,21 @@ export default function Signup({updateUser}) {
             <h1>Signup</h1>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
-                    <input name="first_name" type="text" placeholder="first_name" onChange={handleChange} value={formData.first_name}/>
-                    <input name="last_name" type="text" placeholder="last_name" onChange={handleChange} value={formData.last_name}/>
-                    <input name="email" type="text" placeholder="email" onChange={handleChange} value={formData.email}/>
+                    <label class="required" for="first_name">First Name: </label>
+                    <input id="first_name" name="first_name" type="text" placeholder="first_name" onChange={handleChange} value={formData.first_name} required/>
+                    <label class="required" for="last_name">Last Name: </label>
+                    <input id="last_name" name="last_name" type="text" placeholder="last_name" onChange={handleChange} value={formData.last_name} required/>
+                    <label class="required" for="email">Email: </label>
+                    <input id="email" name="email" type="text" placeholder="email" onChange={handleChange} value={formData.email} required/>
                     {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
                     value={value} onChange={setValue}
                     /> */}
-                    <input name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone}/>
-                    <input name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age}/>
-                    <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password}/>
+                    <label class="required" for="phone">Phone: </label>
+                    <input id="phone" name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone} required/>
+                    <label class="required" for="age">Age: </label>
+                    <input id="age" name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age} required/>
+                    <label class="required" for="password">Password: </label>
+                    <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password} required/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
                     <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
@@ -111,6 +119,7 @@ export default function Signup({updateUser}) {
                     <input name="year_started" type="number" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
                     <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
                     <input type="submit" value="signup" />
+                    <p id="required-text">* required fields</p>
                 </form>
             </div>
         </div>
