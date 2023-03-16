@@ -1,5 +1,6 @@
 class ReservationsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :reservation_not_found
+    skip_before_action :authorized_user, only: [:index, :show]
 
     def index
         render json: Reservation.all, status: :ok

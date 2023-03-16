@@ -76,7 +76,7 @@ function App() {
         />
         <Route
           path="/parks/:id"
-          element={<ParkPage updateUser={updateUser} parkId={parkId}/>}
+          element={<ParkPage updateUser={updateUser} user={user} parkId={parkId}/>}
         />
         <Route
           exact path="/profile"

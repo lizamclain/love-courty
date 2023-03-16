@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import NavBar from './NavBar';
 import { Container } from 'semantic-ui-react'
 
-export default function ParkPage({parkId, updateUser}) {
+export default function ParkPage({parkId, updateUser, user}) {
     const [park, setPark] = useState([])
 
     useEffect(() => {
@@ -23,7 +23,16 @@ export default function ParkPage({parkId, updateUser}) {
             <h3>{park.number_of_courts} courts</h3>
             <img src={park.park_image} alt={park.name}/>
             <br/>
-            <h1>Open Reservations</h1>
+            <h1>Reserve a Court</h1>
+            <form>
+                <label for="date">Pick a date: </label>
+                <input id="date" name="date" type="date"></input>
+                <label for="time">Pick a Time: </label>
+                <input id="time" name="time" type="time"></input>
+                <label for="duration">How long would you like to have the court? </label>
+                <input id="duration" name="duration" type="number" min="1" max="3"></input>
+                <button>Reserve</button>
+            </form>
         </Container>
     )
 }

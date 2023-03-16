@@ -81,7 +81,7 @@ export default function EditProfile({ updateUser, user }) {
                     <label for="phone">Phone: </label>
                     <input id="phone" name="phone" type="text" placeholder={user.phone} onChange={handleChange} />
                     <label for="age">Age: </label>
-                    <input id="age" name="age" type="number" placeholder={user.age} onChange={handleChange}/>
+                    <input id="age" name="age" type="number" min="18" max="100" placeholder={user.age} onChange={handleChange}/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <label for="user_image">Profile Picture URL: </label>
                     <input id="user_image" name="user_image" type="text" placeholder={user.user_image} onChange={handleChange}/>
@@ -115,7 +115,7 @@ export default function EditProfile({ updateUser, user }) {
                         <option value="all surfaces">all surfaces</option>
                     </select>
                     <label for="year_started">Year Started: </label>
-                    <input id="year_started" name="year_started" type="number" placeholder={user.year_started} onChange={handleChange}/>
+                    <input id="year_started" name="year_started" type="number" min="1950" max="2023" placeholder={user.year_started} onChange={handleChange}/>
                     <label for="bio">Bio: </label>
                     <input id="bio" name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
                     <label for="password">Confirm Password: </label>

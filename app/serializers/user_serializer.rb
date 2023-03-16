@@ -6,7 +6,7 @@ class UserSerializer < ActiveModel::Serializer
       {
         park: res.park.name,
         date: res.date,
-        time: res.time,
+        time: res.time > 12 ? res.time - 12 : res.time,
         duration: res.duration,
         cost: res.park.price_per_hour * res.duration,
         directions: res.park.directions

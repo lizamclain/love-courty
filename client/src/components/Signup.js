@@ -85,7 +85,7 @@ export default function Signup({updateUser}) {
                     <label class="required" for="phone">Phone: </label>
                     <input id="phone" name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone} required/>
                     <label class="required" for="age">Age: </label>
-                    <input id="age" name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age} required/>
+                    <input id="age" name="age" type="number" min="18" max="100" placeholder="age" onChange={handleChange} value={formData.age} required/>
                     <label class="required" for="password">Password: </label>
                     <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password} required/>
                     <label class="required" for="confirm_password">Confirm Password: </label>
@@ -118,7 +118,7 @@ export default function Signup({updateUser}) {
                         <option value="clay and grass">clay and grass</option>
                         <option value="all surfaces">all surfaces</option>
                     </select>
-                    <input name="year_started" type="number" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
+                    <input name="year_started" type="number" min="1950" max="2023" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
                     <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
                     <input type="submit" value="signup" />
                     <p id="required-text">* required fields</p>
