@@ -8,11 +8,14 @@ export default function Home({updateUser, user}) {
     const navigate = useNavigate();
 
     console.log(user)
+
+    // try to to today's reservations
     return (
         user !== null ?
             <>
                 <NavBar updateUser={updateUser}/>
                 <h1>Home</h1>
+                <h2>Today's Reservations</h2>
                 <News/>
             </>
             :

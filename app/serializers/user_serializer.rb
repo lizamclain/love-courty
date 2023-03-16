@@ -8,7 +8,8 @@ class UserSerializer < ActiveModel::Serializer
         date: res.date,
         time: res.time,
         duration: res.duration,
-        cost: res.park.price_per_hour
+        cost: res.park.price_per_hour * res.duration,
+        directions: res.park.directions
       }
     end
   end

@@ -1,6 +1,6 @@
 class ParksController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :park_not_found
-    skip_before_action :authorized_user, only: [:top_rated, :test]
+    skip_before_action :authorized_user, only: [:index, :top_rated, :test]
 
 
     def index
