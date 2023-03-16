@@ -79,16 +79,17 @@ function App() {
           element={<ParkPage updateUser={updateUser} parkId={parkId}/>}
         />
         <Route
-          path="/profile/:id"
+          exact path="/profile"
+          // path={"/profile/${user.id}"}
           element={<ProfilePage updateUser={updateUser} user={user}/>}
         />
         <Route
-          path="/profile/:id/reservations"
+          path="/profile/reservations"
           element={<MyReservations updateUser={updateUser} user={user}/>}
         />
         <Route
-          path="/profile/:id/edit"
-          element={<EditProfile user={user}/>}
+          path="/profile/edit"
+          element={<EditProfile updateUser={updateUser} user={user}/>}
         />
       </Routes>
     </div>

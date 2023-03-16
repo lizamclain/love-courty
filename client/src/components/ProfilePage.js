@@ -7,7 +7,7 @@ export default function Profile({updateUser, user}) {
     const navigate = useNavigate();
 
     const handleEditBtnClick = () => {
-        navigate('/profile/:id/edit')
+        navigate('/profile/edit')
     }
 
     return (

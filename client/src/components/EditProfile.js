@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function EditProfile({user}) {
+export default function EditProfile({ updateUser, user }) {
     const navigate = useNavigate();
 
     const handleBackClick = () => {
-        navigate('/profile/:id')
+        navigate('/profile')
     }
 
     // state for form --> bring in currentUser state
@@ -23,23 +23,41 @@ export default function EditProfile({user}) {
         year_started: user.year_started,
         bio: user.bio
     };
-    const [formState, setFormState] = useState(initialState);
+    const [formData, setFormData] = useState(initialState);
 
     // helper functions for input
     const handleChange = (e) => {
-        setFormState({...formState, [e.target.name]: e.target.value});
+        setFormData({...formData, [e.target.name]: e.target.value});
     }
     // handle submit with fetch POST request
         const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formState)
-        // bring in PATCH fetch request /users/user.id
+        fetch(`/users/${user.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(res => res.json())
+        // .then(obj => setUser)
+        console.log(formData)
+        console.log(user.id)
     }
 
-    const handleDeleteClick = () => {
+    const handleDeleteClick = (e) => {
         console.log('deleted')
+        e.preventDefault()
+        fetch(`/users/${user.id}`, {
+            method: 'DELETE'
+        })
+        // .then(res => res.json())
+        .then(updateUser(null))
+        .then(alert("Your account has been deleted."))
+        .then(navigate('/signup'))
     }
 
+    // type in password before hitting save?
     // make bio box bigger
     // have a way to actually see / copy paste the bio? or click the field and then editing is allowed?
 
@@ -57,7 +75,6 @@ export default function EditProfile({user}) {
                     /> */}
                     <input name="phone" type="text" placeholder={user.phone} onChange={handleChange} />
                     <input name="age" type="number" placeholder={user.age} onChange={handleChange}/>
-                    <input name="password" type="password" placeholder={user.password} onChange={handleChange}/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <input name="user_image" type="text" placeholder={user.user_image} onChange={handleChange}/>
                     <label for="tennis_level_select">Tennis Level:</label>
@@ -91,6 +108,8 @@ export default function EditProfile({user}) {
                     </select>
                     <input name="year_started" type="number" placeholder={user.year_started} onChange={handleChange}/>
                     <input name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
+                    <label for="password">Confirm Password:</label>
+                    <input id="password" name="password" type="password" placeholder={user.password} onChange={handleChange}/>
                     <input type="submit" value="save" />
                 </form>
                 <button onClick={handleDeleteClick}>Delete Account</button>
