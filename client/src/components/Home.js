@@ -16,6 +16,7 @@ export default function Home({updateUser, user}) {
                 <NavBar updateUser={updateUser}/>
                 <h1>Home</h1>
                 <h2>Today's Reservations</h2>
+                <h3>^add reservations here</h3>
                 <News/>
             </>
             :
