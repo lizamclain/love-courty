@@ -7,7 +7,7 @@ import News from './News'
 export default function Home({updateUser, user}) {
     const navigate = useNavigate();
 
-    console.log(user)
+    // console.log(user)
 
     // try to to today's reservations
     return (

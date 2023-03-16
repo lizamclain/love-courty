@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   const updateUser = (user) => setUser(user)
-  console.log(user)
+  // console.log(user)
 
   if(!user) return (
     <>

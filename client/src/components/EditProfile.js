@@ -40,9 +40,11 @@ export default function EditProfile({ updateUser, user }) {
             body: JSON.stringify(formData)
         })
         .then(res => res.json())
-        // .then(obj => setUser)
-        console.log(formData)
-        console.log(user.id)
+        .then(obj => updateUser(obj))
+        .then(alert('Your profile has been updated.'))
+        .then(navigate('/profile'))
+        // console.log(formData)
+        // console.log(user.id)
     }
 
     const handleDeleteClick = (e) => {
@@ -109,7 +111,7 @@ export default function EditProfile({ updateUser, user }) {
                     <input name="year_started" type="number" placeholder={user.year_started} onChange={handleChange}/>
                     <input name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
                     <label for="password">Confirm Password:</label>
-                    <input id="password" name="password" type="password" placeholder={user.password} onChange={handleChange}/>
+                    <input id="password" name="password" type="password" placeholder={user.password} onChange={handleChange} required/>
                     <input type="submit" value="save" />
                 </form>
                 <button onClick={handleDeleteClick}>Delete Account</button>
