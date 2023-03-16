@@ -31,11 +31,11 @@ export default function NavBar({updateUser}) {
             >browse parks
             </NavLink>
             <NavLink
-                to="/profile/:id/reservations"
+                to="/profile/reservations"
             >my reservations
             </NavLink>
             <NavLink
-                to="/profile/:id"
+                to="/profile"
             >my profile
             </NavLink>
             <NavLink

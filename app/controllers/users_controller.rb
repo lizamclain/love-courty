@@ -36,7 +36,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     end
 
     def user_params
-        params.permit(:first_name, :last_name, :phone, :age, :email, :tennis_level, :play_preference, :court_preference, :year_started, :password, :user_image)
+        params.permit(:first_name, :last_name, :phone, :age, :email, :tennis_level, :play_preference, :court_preference, :year_started, :password, :user_image, :bio)
     end
 
     def user_not_found

@@ -46,7 +46,8 @@ puts 'seeding 100 users 👤'
     court_preference: court_preference.sample,
     year_started: Faker::Number.within(range: 1950..2023),
     password: Faker::Internet.password(min_length: 8),
-    user_image: Faker::Avatar.image
+    user_image: Faker::Avatar.image,
+    bio: Faker::Movies::Ghostbusters.quote
 )
 end
 User.create(

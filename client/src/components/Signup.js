@@ -62,6 +62,7 @@ export default function Signup({updateUser}) {
     // add validation errors
     // add tool tip for tennis levels
     // make bio box look prettier
+    // add password confirmation
 
     return (
         <div>

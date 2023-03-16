@@ -14,7 +14,7 @@ class User < ApplicationRecord
     validates :last_name, presence: { message: "must exist" }
     validates :phone, format: { with: /\A\+?\d{1,3}[-.\s]?\d{1,10}\z/, message: "must be a valid phone number" }, length: {is: 10}
     validates :age, inclusion: { in: 18..100, message: "must be between 18 and 100 years old" }
-    validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
+    validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "must be a valid email address" }
     validates :tennis_level, inclusion: {in: TENNIS_LEVEL, message: "must be: #{TENNIS_LEVEL.join(', ')}"}
     validates :play_preference, inclusion: {in: PLAY_PREFERENCE, message: "must be: #{PLAY_PREFERENCE.join(', ')}"}
     validates :court_preference, inclusion: {in: COURT_PREFERENCE, message: "must be: #{COURT_PREFERENCE.join(', ')}"}
