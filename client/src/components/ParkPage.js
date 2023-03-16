@@ -12,6 +12,11 @@ export default function ParkPage({parkId, updateUser, user}) {
         .then(data => setPark(data))
     }, [])
 
+    const renderTimes = park.available_times.map((time) => {
+        return <button>{time > 12 ? time - 12 : time}</button>
+    })
+    // renderTimes()
+
     return (
         <Container>
             <NavBar updateUser={updateUser}/>
@@ -24,11 +29,11 @@ export default function ParkPage({parkId, updateUser, user}) {
             <img src={park.park_image} alt={park.name}/>
             <br/>
             <h1>Reserve a Court</h1>
-            <form>
+            <form id="new-reservation">
                 <label for="date">Pick a date: </label>
                 <input id="date" name="date" type="date"></input>
                 <label for="time">Pick a Time: </label>
-                <input id="time" name="time" type="time"></input>
+                {renderTimes}
                 <label for="duration">How long would you like to have the court? </label>
                 <input id="duration" name="duration" type="number" min="1" max="3"></input>
                 <button>Reserve</button>
