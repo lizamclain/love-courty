@@ -32,8 +32,9 @@ export default function Login({ updateUser }) {
                 })
             } else {
                 res.json().then(json => setErrors(json.errors))
-                alert(errors)
+                .then(alert(errors))
                 // make errors more specific
+                // errors are one step behind
             }
         })
     }

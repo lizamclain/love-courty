@@ -88,6 +88,8 @@ export default function Signup({updateUser}) {
                     <input id="age" name="age" type="number" placeholder="age" onChange={handleChange} value={formData.age} required/>
                     <label class="required" for="password">Password: </label>
                     <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password} required/>
+                    <label class="required" for="confirm_password">Confirm Password: </label>
+                    <input id="confirm_password" name="confirm_password" type="password" placeholder="confirm password" onChange={handleChange} value={formData.password} required/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
                     <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
