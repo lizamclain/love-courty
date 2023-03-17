@@ -13,10 +13,8 @@ class ParksController < ApplicationController
     end
 
     def top_rated
-        top_rated = Park.first
-        # top_rated = Park.all.sort_by(&:avg_rating)
-        render json: top_rated
-        # render json: top_rated.reverse.first(5), status: :ok
+        top_rated = Park.all.sort_by(&:avg_rating)
+        render json: top_rated.reverse.first(5), status: :ok
     end
 
     def test
