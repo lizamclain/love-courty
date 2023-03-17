@@ -13,7 +13,6 @@ export default function MyReservations({updateUser, user}) {
     // useEffect(() => {
     //     setMyRes(user.my_reservations)
     // }, [])
-    // console.log(myRes)
 
     useEffect(() => {
         setResToday(user.reservations_today)

@@ -47,6 +47,8 @@ class UserSerializer < ActiveModel::Serializer
   def upcoming_reservations
     object.reservations.filter do |res|
       Date.parse(res.date) > Date.today
+    end.sort_by do |res|
+      [res.date, res.time]
     end.map do |res_past|
       {
         park: res_past.park.name,
