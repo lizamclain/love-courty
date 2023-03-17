@@ -8,7 +8,7 @@ import ReservationCard from './ReservationCard'
 
 import ParkCard from './ParkCard'
 
-export default function Home({updateUser, user}) {
+export default function Home({updateUser, user, setParkId}) {
     const navigate = useNavigate();
     const [resToday, setResToday] = useState([])
     const [topParks, setTopParks] = useState([])
@@ -34,6 +34,7 @@ export default function Home({updateUser, user}) {
         <ParkCard
             key={park.id}
             park={park}
+            setParkId={setParkId}
         />
     )
 
@@ -42,7 +43,7 @@ export default function Home({updateUser, user}) {
             <>
                 <NavBar updateUser={updateUser}/>
                 <h2>Today's Reservations</h2>
-                <Card.Group>{resTodayCardsList}</Card.Group>
+                {resTodayCardsList.length === 0 ? <h4><em>You have no reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
                 <Card.Group><News/></Card.Group>
                 <h2>Top Rated Parks</h2>
                 <Card.Group>{topParksCardsList}</Card.Group>

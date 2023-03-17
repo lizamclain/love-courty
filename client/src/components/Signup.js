@@ -20,7 +20,7 @@ export default function Signup({updateUser}) {
         tennis_level: 0,
         play_preference: '',
         court_preference: '',
-        year_started: 0,
+        year_started: 2023,
         bio: ''
     };
     const [formData, setFormData] = useState(initialState);
@@ -73,26 +73,30 @@ export default function Signup({updateUser}) {
             <h1>Signup</h1>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
-                    <label class="required" for="first_name">First Name: </label>
+                    <label class="required" htmlFor="first_name">First Name: </label>
                     <input id="first_name" name="first_name" type="text" placeholder="first_name" onChange={handleChange} value={formData.first_name} required/>
-                    <label class="required" for="last_name">Last Name: </label>
+                    <label class="required" htmlFor="last_name">Last Name: </label>
                     <input id="last_name" name="last_name" type="text" placeholder="last_name" onChange={handleChange} value={formData.last_name} required/>
-                    <label class="required" for="email">Email: </label>
+                    <label class="required" htmlFor="email">Email: </label>
                     <input id="email" name="email" type="text" placeholder="email" onChange={handleChange} value={formData.email} required/>
                     {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
                     value={value} onChange={setValue}
                     /> */}
-                    <label class="required" for="phone">Phone: </label>
+                    <label class="required" htmlFor="phone">Phone: </label>
                     <input id="phone" name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone} required/>
-                    <label class="required" for="age">Age: </label>
+                    <label class="required" htmlFor="age">Age: </label>
                     <input id="age" name="age" type="number" min="18" max="100" placeholder="age" onChange={handleChange} value={formData.age} required/>
-                    <label class="required" for="password">Password: </label>
+                    <label class="required" htmlFor="password">Password: </label>
                     <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password} required/>
-                    <label class="required" for="confirm_password">Confirm Password: </label>
+                    <label class="required" htmlFor="confirm_password">Confirm Password: </label>
                     <input id="confirm_password" name="confirm_password" type="password" placeholder="confirm password" onChange={handleChange} value={formData.password} required/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
+                    <p id="required-text">* required fields</p>
+                    <h3>Fill the rest out now or later</h3>
+                    <label htmlFor="user_image">Profile Picture URL: </label>
                     <input name="user_image" type="text" placeholder="profile picture url" onChange={handleChange} value={formData.user_image}/>
-                    <select name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
+                    <label htmlFor="tennis_level">Tennis Level: </label>
+                    <select id="tennis_level" name="tennis_level" type="select" placeholder="tennis_level" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Tennis Level</option>
                         <option value="1.5">1.5</option>
                         <option value="2.0">2.0</option>
@@ -102,13 +106,15 @@ export default function Signup({updateUser}) {
                         <option value="4.0">4.0</option>
                         <option value="4.5">4.5</option>
                     </select>
-                    <select name="play_preference" type="select" placeholder="play_preference" onChange={handleChange} >
+                    <label htmlFor="play_preference">Play Preference: </label>
+                    <select id="play_preference" name="play_preference" type="select" placeholder="play_preference" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Play Preference</option>
                         <option value="Singles">Singles</option>
                         <option value="Doubles">Doubles</option>
                         <option value="Singles and Doubles">Singles and Doubles</option>
                     </select>
-                    <select name="court_preference" type="select" placeholder="court_preference" onChange={handleChange} >
+                    <label htmlFor="court_preference">Court Preference: </label>
+                    <select id="court_preference" name="court_preference" type="select" placeholder="court_preference" onChange={handleChange} >
                         <option selected disabled hidden>Choose Your Court Preference</option>
                         <option value="hard">hard</option>
                         <option value="clay">clay</option>
@@ -118,10 +124,11 @@ export default function Signup({updateUser}) {
                         <option value="clay and grass">clay and grass</option>
                         <option value="all surfaces">all surfaces</option>
                     </select>
-                    <input name="year_started" type="number" min="1950" max="2023" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
-                    <input name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
+                    <label htmlFor="year_started">When did you start playing? </label>
+                    <input id="year_started" name="year_started" type="number" min="1950" max="2023" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
+                    <label htmlFor="bio">Bio: </label>
+                    <input id="bio" name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
                     <input type="submit" value="signup" />
-                    <p id="required-text">* required fields</p>
                 </form>
             </div>
             {errors ? <h3>{errors}</h3> : null}
