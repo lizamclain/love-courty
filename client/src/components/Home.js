@@ -6,9 +6,12 @@ import NavBar from './NavBar';
 import News from './News'
 import ReservationCard from './ReservationCard'
 
+import ParkCard from './ParkCard'
+
 export default function Home({updateUser, user}) {
     const navigate = useNavigate();
     const [resToday, setResToday] = useState([])
+    const [topParks, setTopParks] = useState([])
 
     useEffect(() => {
         setResToday(user.reservations_today)
@@ -21,6 +24,19 @@ export default function Home({updateUser, user}) {
         />
     )
 
+    useEffect(() => {
+        fetch('/top_rated')
+        .then(res => res.json())
+        .then(data => setTopParks(data))
+    }, [])
+
+    const topParksCardsList = topParks.map(park =>
+        <ParkCard
+            key={park.id}
+            park={park}
+        />
+    )
+
     return (
         user !== null ?
             <>
@@ -28,6 +44,8 @@ export default function Home({updateUser, user}) {
                 <h2>Today's Reservations</h2>
                 <Card.Group>{resTodayCardsList}</Card.Group>
                 <Card.Group><News/></Card.Group>
+                <h2>Top Rated Parks</h2>
+                <Card.Group>{topParksCardsList}</Card.Group>
             </>
             :
             <div className="not-loggedin">
