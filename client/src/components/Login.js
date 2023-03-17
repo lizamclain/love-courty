@@ -32,7 +32,7 @@ export default function Login({ updateUser }) {
                 })
             } else {
                 res.json().then(json => setErrors(json.errors))
-                .then(alert(errors))
+                // .then(alert(errors))
                 // make errors more specific
                 // errors are one step behind
             }
@@ -56,6 +56,7 @@ export default function Login({ updateUser }) {
                     {/* <button>login</button> */}
                 </form>
             </div>
+            {errors ? <h3>{errors}</h3> : null}
         </div>
     )
 }

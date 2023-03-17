@@ -53,8 +53,8 @@ export default function Signup({updateUser}) {
             } else {
                 // add json errors
                 res.json().then(json => setErrors(json.errors))
-                .then(alert(errors))
-                .then(console.log(errors))
+                // .then(alert(errors))
+                // .then(console.log(errors))
                 //errors are sometimes one step behind
             }
         })
@@ -124,6 +124,7 @@ export default function Signup({updateUser}) {
                     <p id="required-text">* required fields</p>
                 </form>
             </div>
+            {errors ? <h3>{errors}</h3> : null}
         </div>
     )
 }
