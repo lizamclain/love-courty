@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
+import { Card } from "semantic-ui-react";
 
 import NavBar from './NavBar';
 import News from './News'
 import ReservationCard from './ReservationCard'
 
+import ParkCard from './ParkCard'
+
 export default function Home({updateUser, user}) {
     const navigate = useNavigate();
     const [resToday, setResToday] = useState([])
+    const [topParks, setTopParks] = useState([])
 
     useEffect(() => {
         setResToday(user.reservations_today)
@@ -20,13 +24,28 @@ export default function Home({updateUser, user}) {
         />
     )
 
+    useEffect(() => {
+        fetch('/top_rated')
+        .then(res => res.json())
+        .then(data => setTopParks(data))
+    }, [])
+
+    const topParksCardsList = topParks.map(park =>
+        <ParkCard
+            key={park.id}
+            park={park}
+        />
+    )
+
     return (
         user !== null ?
             <>
                 <NavBar updateUser={updateUser}/>
                 <h2>Today's Reservations</h2>
-                {resTodayCardsList}
-                <News/>
+                <Card.Group>{resTodayCardsList}</Card.Group>
+                <Card.Group><News/></Card.Group>
+                <h2>Top Rated Parks</h2>
+                <Card.Group>{topParksCardsList}</Card.Group>
             </>
             :
             <div className="not-loggedin">
