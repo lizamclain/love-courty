@@ -1,12 +1,18 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
+
 import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
 
 export default function Reservation({res}) {
-
+    const navigate = useNavigate()
     const handleCancelClick = () => {
+        fetch(`/reservations/${res.id}`,{
+            method: 'DELETE',
+        })
+        .then(navigate('/profile/reservations'))
         console.log(`cancelled ${res.id}`)
     }
-    // something up with the res.id, probably need to make a setter function like i did with parkId
+    // state is behind. only show when the page is refreshed
 
     const reservationDate = new Date(res.date);
     const currentDate = new Date();

@@ -8,7 +8,7 @@ import ReservationCard from './ReservationCard'
 
 import ParkCard from './ParkCard'
 
-export default function Home({updateUser, user}) {
+export default function Home({updateUser, user, setParkId}) {
     const navigate = useNavigate();
     const [resToday, setResToday] = useState([])
     const [topParks, setTopParks] = useState([])
@@ -34,6 +34,7 @@ export default function Home({updateUser, user}) {
         <ParkCard
             key={park.id}
             park={park}
+            setParkId={setParkId}
         />
     )
 

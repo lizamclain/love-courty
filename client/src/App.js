@@ -72,7 +72,7 @@ function App() {
         />
         <Route
           path="/home"
-          element={<Home updateUser={updateUser} user={user}/>}
+          element={<Home updateUser={updateUser} user={user} setParkId={setParkId}/>}
         />
         <Route
           path="/parks"
