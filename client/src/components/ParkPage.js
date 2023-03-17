@@ -16,10 +16,10 @@ export default function ParkPage({parkId, updateUser, user}) {
         .then(data => setPark(data))
     }, [])
 
-    console.log(park.available_times)
-    console.log(park.id)
-    console.log(user.my_reservations)
-    console.log(userReservations)
+    // console.log(park.available_times)
+    // console.log(park.id)
+    // console.log(user.my_reservations)
+    // console.log(userReservations)
 
     const renderTimes = park.available_times.map((time) => {
         return <button>{time > 12 ? time - 12 : time}</button>
