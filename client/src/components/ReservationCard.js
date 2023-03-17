@@ -7,6 +7,11 @@ export default function Reservation({res}) {
         console.log(`cancelled ${res.id}`)
     }
     // something up with the res.id, probably need to make a setter function like i did with parkId
+
+    const reservationDate = new Date(res.date);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+
     return (
         <div>
             <Card>
@@ -23,9 +28,9 @@ export default function Reservation({res}) {
                             Directions
                         </a>
                     </Card.Content>
-                    <Button inverted color='red' onClick={handleCancelClick}>
+                    {reservationDate >= currentDate ? <Button inverted color='red' onClick={handleCancelClick}>
                         Cancel
-                    </Button>
+                    </Button> : null}
                 </Card.Content>
             </Card>
         </div>

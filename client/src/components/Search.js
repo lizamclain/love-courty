@@ -6,7 +6,7 @@ export default function Search( {searchText, handleSearchInput, selectedLights, 
 
     return (
         <div>
-            <h1>Search</h1>
+            <h2>Narrow your Search</h2>
             <div className="searchbar">
                 <label htmlFor="search">🔎 Search Parks: </label>
                     <input

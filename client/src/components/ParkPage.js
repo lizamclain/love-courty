@@ -5,7 +5,7 @@ import { Container } from 'semantic-ui-react'
 
 export default function ParkPage({parkId, updateUser, user}) {
     const navigate = useNavigate()
-    const [park, setPark] = useState([])
+    const [park, setPark] = useState({available_times: []})
     const [userReservations, setUserReservations] = useState(user.my_reservations)
     const [selectedRating, setSelectedRating] = useState(0)
 
@@ -21,9 +21,9 @@ export default function ParkPage({parkId, updateUser, user}) {
     console.log(user.my_reservations)
     console.log(userReservations)
 
-    // const renderTimes = park.available_times.map((time) => {
-    //     return <button>{time > 12 ? time - 12 : time}</button>
-    // })
+    const renderTimes = park.available_times.map((time) => {
+        return <button>{time > 12 ? time - 12 : time}</button>
+    })
 
     const initialState = {
         user_id: user.id,
@@ -111,7 +111,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                 <input id="date" name="date" type="date" onChange={handleChange}></input>
                 <label htmlFor="time">Pick a Time: </label>
                 <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input>
-                {/* {renderTimes} */}
+                {renderTimes}
                 <label htmlFor="duration">How long would you like to have the court? </label>
                 <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
                 <button>Reserve</button>
