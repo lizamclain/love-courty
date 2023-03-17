@@ -19,7 +19,7 @@ export default function Reservation({res}) {
                     <Card.Content>
                         <Card.Header>{res.park}</Card.Header>
                         <Card.Content><Icon name="calendar alternate outline"/>Date: {res.date}</Card.Content>
-                        <Card.Content><Icon name="clock outline"/>Time: {res.time}:00</Card.Content>
+                        <Card.Content><Icon name="clock outline"/>Time: {res.time}</Card.Content>
                         <Card.Content><Icon name="hourglass half"/>Hours Reserved: {res.duration}</Card.Content>
                         <Card.Content>
                             <Icon name="money bill alternate outline"/>Total Price: ${res.cost}</Card.Content>

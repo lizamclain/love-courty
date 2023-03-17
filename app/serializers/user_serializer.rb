@@ -4,6 +4,7 @@ class UserSerializer < ActiveModel::Serializer
   def my_reservations
     object.reservations.map do |res|
       {
+        id: res.id,
         park: res.park.name,
         date: Date.parse(res.date).strftime("%a, %B %d, %Y"),
         time: res.time > 12 ? res.time - 12 : res.time,
@@ -21,9 +22,10 @@ class UserSerializer < ActiveModel::Serializer
       [res.date, res.time]
     end.map do |res_today|
       {
+        id: res_today.id,
         park: res_today.park.name,
-        date: Date.parse(res_today.date).strftime("%a, %B %d, %Y"),
-        time: res_today.time > 12 ? res_today.time - 12 : res_today.time,
+        date: format_date(res_today.date),
+        time: format_time(res_today.time),
         duration: res_today.duration,
         cost: res_today.park.price_per_hour * res_today.duration,
         directions: res_today.park.directions
@@ -38,9 +40,10 @@ class UserSerializer < ActiveModel::Serializer
       [res.date, res.time]
     end.map do |res_past|
       {
+        id: res_past.id,
         park: res_past.park.name,
-        date: Date.parse(res_past.date).strftime("%a, %B %d, %Y"),
-        time: res_past.time > 12 ? res_past.time - 12 : res_past.time,
+        date: format_date(res_past.date),
+        time: format_time(res_past.time),
         duration: res_past.duration,
         cost: res_past.park.price_per_hour * res_past.duration,
         directions: res_past.park.directions
@@ -53,15 +56,31 @@ class UserSerializer < ActiveModel::Serializer
       Date.parse(res.date) > Date.today
     end.sort_by do |res|
       [res.date, res.time]
-    end.map do |res_past|
+    end.map do |res_future|
       {
-        park: res_past.park.name,
-        date: Date.parse(res_past.date).strftime("%a, %B %d, %Y"),
-        time: res_past.time > 12 ? res_past.time - 12 : res_past.time,
-        duration: res_past.duration,
-        cost: res_past.park.price_per_hour * res_past.duration,
-        directions: res_past.park.directions
+        id: res_future.id,
+        park: res_future.park.name,
+        date: format_date(res_future.date),
+        time: format_time(res_future.time),
+        duration: res_future.duration,
+        cost: res_future.park.price_per_hour * res_future.duration,
+        directions: res_future.park.directions
       }
     end
   end
+
+  private
+
+  def format_date(date)
+    Date.parse(date).strftime("%a, %B %d, %Y")
+  end
+
+  def format_time(time)
+    if time == 12
+      "#{time}:00 PM"
+    elsif time > 12
+      "#{time - 12}:00 PM"
+    else
+      "#{time}:00 AM"
+    end  end
 end

@@ -5,19 +5,16 @@ import { Card } from "semantic-ui-react";
 import ReservationCard from './ReservationCard'
 
 export default function MyReservations({updateUser, user}) {
-    // const [myRes, setMyRes] = useState([])
     const [resFuture, setResFuture] = useState([])
     const [resPast, setResPast] = useState([])
     const [resToday, setResToday] = useState([])
 
-    // don't need this anymore - it was the "all reservations fetch"
-    // useEffect(() => {
-    //     setMyRes(user.my_reservations)
-    // }, [])
-
     useEffect(() => {
         setResToday(user.reservations_today)
-    }, [])
+        setResFuture(user.upcoming_reservations)
+        setResPast(user.past_reservations)
+    }, [user])
+
 
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard
@@ -26,20 +23,12 @@ export default function MyReservations({updateUser, user}) {
         />
     )
 
-    useEffect(() => {
-        setResFuture(user.upcoming_reservations)
-    }, [])
-
     const resUpcomingCardsList = resFuture.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
         />
     )
-
-    useEffect(() => {
-        setResPast(user.past_reservations)
-    }, [])
 
     const resPastCardsList = resPast.map(res =>
         <ReservationCard

@@ -29,6 +29,11 @@ ul {
   color: #e32;
 }
 
+.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
 .rating {
   display: flex;
   position: relative;
