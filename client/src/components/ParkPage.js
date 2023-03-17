@@ -7,6 +7,7 @@ export default function ParkPage({parkId, updateUser, user}) {
     const navigate = useNavigate()
     const [park, setPark] = useState([])
     const [userReservations, setUserReservations] = useState(user.my_reservations)
+    const [selectedRating, setSelectedRating] = useState(0)
 
     useEffect(() => {
         fetch(`${parkId}`)
@@ -54,10 +55,49 @@ export default function ParkPage({parkId, updateUser, user}) {
         // state is one step behind. have to refresh. it's becase of how i call my reservations and reservations list i think. might need to pull everything up to App (fetch on my reservations and the stuff here)
     }
 
+    const handleRating = (e) => {
+        setSelectedRating(e.target.value)
+        console.log(selectedRating)
+    }
+
     return (
         <Container>
             <NavBar updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
+            Rate this Park:
+            <form class="rating" onSubmit={handleRating}>
+                <label>
+                    <input type="radio" name="stars" value="1" />
+                    <span class="icon">★</span>
+                </label>
+                <label>
+                    <input type="radio" name="stars" value="2" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+                <label>
+                    <input type="radio" name="stars" value="3" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+                <label>
+                    <input type="radio" name="stars" value="4" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+                <label>
+                    <input type="radio" name="stars" value="5" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+            </form>
+
             <a href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
             <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>
             <h3>Court Type: {park.court_type}</h3>
