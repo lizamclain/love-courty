@@ -7,23 +7,19 @@ import ReservationCard from './ReservationCard'
 
 export default function Home({updateUser, user}) {
     const navigate = useNavigate();
-    const [res, setRes] = useState([])
+    const [resToday, setResToday] = useState([])
 
     useEffect(() => {
-        setRes(user.reservations_today)
+        setResToday(user.reservations_today)
     }, [])
-    console.log(res)
 
-    const resTodayCardsList = res.map(res =>
+    const resTodayCardsList = resToday.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
         />
     )
 
-    // console.log(user)
-
-    // try to to today's reservations
     return (
         user !== null ?
             <>
