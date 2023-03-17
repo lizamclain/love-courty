@@ -52,7 +52,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
             >
-                {time > 12 ? time - 12 : time}
+                {time >= 12 ? time === 12 ? '12:00 PM' : `${time - 12}:00 PM` : `${time}:00 AM`}
             </Button>
         )
     })
@@ -135,7 +135,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                 <label htmlFor="time">Pick a Time: </label>
                 {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
                 {renderTimes}
-                <label htmlFor="duration">How long would you like to have the court? </label>
+                <label htmlFor="duration">How many hours would you like to reserve? </label>
                 <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
                 <Button inverted color='green'>Reserve</Button>
             </form>

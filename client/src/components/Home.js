@@ -42,7 +42,7 @@ export default function Home({updateUser, user}) {
             <>
                 <NavBar updateUser={updateUser}/>
                 <h2>Today's Reservations</h2>
-                <Card.Group>{resTodayCardsList}</Card.Group>
+                {resTodayCardsList.length === 0 ? <h4><em>You have no reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
                 <Card.Group><News/></Card.Group>
                 <h2>Top Rated Parks</h2>
                 <Card.Group>{topParksCardsList}</Card.Group>

@@ -82,5 +82,6 @@ class UserSerializer < ActiveModel::Serializer
       "#{time - 12}:00 PM"
     else
       "#{time}:00 AM"
-    end  end
+    end
+  end
 end

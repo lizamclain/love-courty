@@ -41,11 +41,11 @@ export default function MyReservations({updateUser, user}) {
         <div>
             <NavBar updateUser={updateUser}></NavBar>
             <h1>Today's Reservations</h1>
-            <Card.Group>{resTodayCardsList}</Card.Group>
+            {resTodayCardsList.length === 0 ? <h4><em>You have no  reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
             <h1>Upcoming Reservations</h1>
-            <Card.Group>{resUpcomingCardsList}</Card.Group>
+            {resUpcomingCardsList.length !== 0 ? <Card.Group>{resUpcomingCardsList}</Card.Group> : <h4><em>You have no upcoming reservations.</em></h4>}
             <h1>Past Reservations</h1>
-            <Card.Group>{resPastCardsList}</Card.Group>
+            {resPastCardsList.length !== 0 ? <Card.Group>{resPastCardsList}</Card.Group> : <h4><em>You have no old reservations.</em></h4>}
         </div>
     )
 }
