@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from './NavBar';
+import { Card } from "semantic-ui-react";
 
 import ReservationCard from './ReservationCard'
 
@@ -51,11 +52,11 @@ export default function MyReservations({updateUser, user}) {
         <div>
             <NavBar updateUser={updateUser}></NavBar>
             <h1>Today's Reservations</h1>
-            {resTodayCardsList}
+            <Card.Group>{resTodayCardsList}</Card.Group>
             <h1>Upcoming Reservations</h1>
-            {resUpcomingCardsList}
+            <Card.Group>{resUpcomingCardsList}</Card.Group>
             <h1>Past Reservations</h1>
-            {resPastCardsList}
+            <Card.Group>{resPastCardsList}</Card.Group>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
+import { Card } from "semantic-ui-react";
 
 import NavBar from './NavBar';
 import News from './News'
@@ -25,8 +26,8 @@ export default function Home({updateUser, user}) {
             <>
                 <NavBar updateUser={updateUser}/>
                 <h2>Today's Reservations</h2>
-                {resTodayCardsList}
-                <News/>
+                <Card.Group>{resTodayCardsList}</Card.Group>
+                <Card.Group><News/></Card.Group>
             </>
             :
             <div className="not-loggedin">
