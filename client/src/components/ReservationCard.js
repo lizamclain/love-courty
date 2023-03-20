@@ -1,22 +1,17 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
 
-import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
+import { Card , Button , Icon } from "semantic-ui-react";
 
-export default function Reservation({res}) {
-    const navigate = useNavigate()
-    const handleCancelClick = () => {
-        fetch(`/reservations/${res.id}`,{
-            method: 'DELETE',
-        })
-        .then(navigate('/profile/reservations'))
-        console.log(`cancelled ${res.id}`)
-    }
-    // state is behind. only show when the page is refreshed
-
+export default function ReservationCard({res, handleCancelClick}) {
     const reservationDate = new Date(res.date);
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
+
+    // useEffect(() => {
+    //     fetch(`/users/${user.id}`)
+    //     .then(res => res.json())
+    //     .then(data => setUser(data))
+    // }, [])
 
     return (
         <div>
@@ -35,7 +30,7 @@ export default function Reservation({res}) {
                                 Directions
                             </a>
                         </Card.Content>
-                        {reservationDate >= currentDate ? <Button inverted color='red' onClick={handleCancelClick}>
+                        {reservationDate >= currentDate ? <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
                             Cancel
                         </Button> : null}
                     </Card.Content>

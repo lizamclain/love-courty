@@ -3,23 +3,22 @@ import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 import { Container } from 'semantic-ui-react'
 import { Button } from "semantic-ui-react";
+import ReactStars from "react-rating-stars-component";
 
 export default function ParkPage({parkId, updateUser, user}) {
     const navigate = useNavigate()
     const [park, setPark] = useState({available_times: []})
     const [userReservations, setUserReservations] = useState(user.my_reservations)
+    const [ratingValue, setRatingValue] = useState(0)
     const [selectedRating, setSelectedRating] = useState(0)
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
         fetch(`${parkId}`)
-        // fetch(`1`)
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
 
-    // console.log(park.available_times)
-    // console.log(park.id)
     // console.log(user.my_reservations)
     // console.log(userReservations)
 
@@ -78,17 +77,49 @@ export default function ParkPage({parkId, updateUser, user}) {
         // state is one step behind. have to refresh. it's because of how i call my reservations and reservations list i think. might need to pull everything up to App (fetch on my reservations and the stuff here)
     }
 
-    const handleRating = (e) => {
-        setSelectedRating(e.target.value)
-        console.log(selectedRating)
+    const initialRating = {
+        user_id: user.id,
+        park_id: parkId,
+        rating: 0
     }
+
+    const [ratingData, setRatingData] = useState(initialRating)
+
+    const handleRating = (rating) => {
+        setSelectedRating(rating)
+    }
+
+    useEffect(() => {
+        // console.log(selectedRating);
+        handleNewRating()
+    }, [selectedRating]);
+
+    const handleNewRating= () => {
+        fetch('/ratings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(selectedRating)
+        })
+        .then(res => res.json())
+        .then(setRatingData(ratingData))
+    }
+
+    // console.log(ratingData)
 
     return (
         <Container>
             <NavBar updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
             Rate this Park:
-            <form class="rating" onSubmit={handleRating}>
+                <ReactStars
+                    count={5}
+                    onChange={handleRating}
+                    size={24}
+                    activeColor="#ffd700"
+                />
+            {/* <form class="rating" onSubmit={handleRating}>
                 <label>
                     <input type="radio" name="stars" value="1" />
                     <span class="icon">★</span>
@@ -119,7 +150,10 @@ export default function ParkPage({parkId, updateUser, user}) {
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                 </label>
-            </form>
+                <div>
+                    <button type="submit">Rate</button>
+                </div>
+            {/* </form> */}
 
             <a href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
             <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>

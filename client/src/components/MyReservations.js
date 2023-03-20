@@ -1,13 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 import { Card } from "semantic-ui-react";
 
 import ReservationCard from './ReservationCard'
 
-export default function MyReservations({updateUser, user}) {
+export default function MyReservations({updateUser, setUser, user}) {
+    const navigate = useNavigate()
     const [resFuture, setResFuture] = useState([])
     const [resPast, setResPast] = useState([])
     const [resToday, setResToday] = useState([])
+
+    useEffect(() => {
+        fetch(`/users/${user.id}`)
+        .then(res => res.json())
+        .then(data => setUser(data))
+    }, [])
+
+    const handleCancelClick = (id) => {
+        fetch(`/reservations/${id}`,{
+            method: 'DELETE',
+        })
+        .then(resFuture.filter(res => res.id !== id))
+        .then(resToday.filter(res => res.id !== id))
+        .then(alert('You cancelled your reservation.'))
+        .then(navigate('/profile/reservations'))
+        console.log(`cancelled ${id}`)
+    }
+    // state is behind. only show when the page is refreshed
 
     useEffect(() => {
         setResToday(user.reservations_today)
@@ -15,11 +35,11 @@ export default function MyReservations({updateUser, user}) {
         setResPast(user.past_reservations)
     }, [user])
 
-
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
+            handleCancelClick={handleCancelClick}
         />
     )
 
@@ -27,6 +47,7 @@ export default function MyReservations({updateUser, user}) {
         <ReservationCard
             key={res.id}
             res={res}
+            handleCancelClick={handleCancelClick}
         />
     )
 
