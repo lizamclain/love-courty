@@ -3,26 +3,22 @@ import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 import { Container } from 'semantic-ui-react'
 import { Button } from "semantic-ui-react";
+import ReactStars from "react-rating-stars-component";
 
 export default function ParkPage({parkId, updateUser, user}) {
     const navigate = useNavigate()
-    const [park, setPark] = useState({available_times: []})
+    const [park, setPark] = useState({available_times: []}, {ratings: []})
     const [userReservations, setUserReservations] = useState(user.my_reservations)
-    const [selectedRating, setSelectedRating] = useState(0)
     const [errors, setErrors] = useState([])
+    // const [rated, setRated] = useState(false)
 
     useEffect(() => {
         fetch(`${parkId}`)
-        // fetch(`1`)
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
 
-    // console.log(park.available_times)
-    // console.log(park.id)
-    // console.log(user.my_reservations)
-    // console.log(userReservations)
-
+    // initial state for new reservation form
     const initialState = {
         user_id: user.id,
         park_id: parkId,
@@ -33,6 +29,7 @@ export default function ParkPage({parkId, updateUser, user}) {
 
     const [formData, setFormData] = useState(initialState)
 
+    // helper functions for new reservation form changes
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -40,9 +37,9 @@ export default function ParkPage({parkId, updateUser, user}) {
         setFormData({ ...formData, time: value });
     }
 
+    // function to render available park times
     const renderTimes = park.available_times.map((time) => {
         const isSelected = time === formData.time
-
         return (
             <Button
                 type="button"
@@ -57,6 +54,7 @@ export default function ParkPage({parkId, updateUser, user}) {
         )
     })
 
+    // POST request for new reservation
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/reservations', {
@@ -74,52 +72,113 @@ export default function ParkPage({parkId, updateUser, user}) {
             }
         }
         )
-        console.log(formData)
-        // state is one step behind. have to refresh. it's because of how i call my reservations and reservations list i think. might need to pull everything up to App (fetch on my reservations and the stuff here)
     }
 
-    const handleRating = (e) => {
-        setSelectedRating(e.target.value)
-        console.log(selectedRating)
+    // initial state for new rating
+    const initialRating = {
+        user_id: user.id,
+        park_id: parkId,
+        rating: 0
     }
+
+    const [ratingData, setRatingData] = useState(initialRating)
+
+    const handleRating = (e) => {
+        setRatingData({ ...ratingData, [e.target.name]: parseInt(e.target.value) })
+        console.log(ratingData.rating)
+        console.log(ratingData)
+        // setSelectedRating(rating)
+    }
+
+    const handleNewRating= (e) => {
+        e.preventDefault()
+        fetch('/ratings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(ratingData)
+        })
+        .then(res => {
+            if(res.ok) {
+                res.json().then(setRatingData(ratingData))
+                .then(alert(`You've rated ${park.name} a ${ratingData.rating}.`))
+                // .then(setRated(true))
+            } else {
+                res.json().then(json => alert(json.errors))
+            }
+        })
+    }
+
+    console.log(park.ratings)
+    // console.log(park.ratings.find(rating => rating.user_id === user.id))
 
     return (
         <Container>
             <NavBar updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
-            Rate this Park:
-            <form class="rating" onSubmit={handleRating}>
+            {(1 + 1 !== 2) ? <h3>You've already rated this park</h3> :
+            // <h3>Rate this Park:</h3>
+            <form className="radio" onSubmit={handleNewRating}>
                 <label>
-                    <input type="radio" name="stars" value="1" />
-                    <span class="icon">★</span>
+                <input type="radio" name="rating" value="1" checked={ratingData.rating === 1} onChange={handleRating}/>1
                 </label>
                 <label>
-                    <input type="radio" name="stars" value="2" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
+                <input type="radio" name="rating" value="2" checked={ratingData.rating === 2} onChange={handleRating}/>2
                 </label>
                 <label>
-                    <input type="radio" name="stars" value="3" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
+                <input type="radio" name="rating" value="3" checked={ratingData.rating === 3} onChange={handleRating}/>3
                 </label>
                 <label>
-                    <input type="radio" name="stars" value="4" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
+                <input type="radio" name="rating" value="4" checked={ratingData.rating === 4} onChange={handleRating}/>4
                 </label>
                 <label>
-                    <input type="radio" name="stars" value="5" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
+                <input type="radio" name="rating" value="5" checked={ratingData.rating === 5} onChange={handleRating}/>5
                 </label>
+                <button type="submit">Rate</button>
             </form>
+            }
+                {/* // <ReactStars
+                //     count={5}
+                //     onChange={handleRating}
+                //     size={24}
+                //     activeColor="#ffd700"
+                // />
+            // <form class="rating" onSubmit={handleRating}>
+            //     <label>
+            //         <input type="radio" name="stars" value="1" />
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="2" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="3" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="4" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="5" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <div>
+            //         <button type="submit">Rate</button>
+            //     </div>
+            // </form>/ */}
 
             <a href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
             <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>

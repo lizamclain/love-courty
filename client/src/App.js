@@ -16,6 +16,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [errors, setErrors] = useState(null)
 
+
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
@@ -28,11 +29,6 @@ function App() {
 
   const updateUser = (user) => setUser(user)
   console.log(user)
-
-  // const [userReservations, setUserReservations] = useState(user.my_reservations)
-  // const handleNewReservation = (newRes) => {
-  //   setUserReservations([...userReservations, newRes])
-  // }
 
   if(!user) return (
     <>
@@ -89,7 +85,9 @@ function App() {
         />
         <Route
           path="/profile/reservations"
-          element={<MyReservations updateUser={updateUser} user={user}/>}
+          element={<MyReservations updateUser={updateUser} setUser={setUser} user={user}
+          // resToday={resToday} resFuture={resFuture} resPast={resPast}
+          />}
         />
         <Route
           path="/profile/edit"
