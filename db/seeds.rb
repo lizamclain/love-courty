@@ -26,7 +26,7 @@ court_preference = [
     "all surfaces"
 ]
 
-park_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+user_ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
 puts 'deleting users/reservations/parks/courts/ratings ❌'
 User.destroy_all
@@ -466,11 +466,11 @@ end
 puts 'done seeding lizas reservations 📆'
 
 puts 'creating ratings ⭐️'
-User.all.each do |user|
+user_ids.each do |user|
     Park.all.each do |park|
-        unless Rating.exists?(user_id: user.id, park_id: park.id)
+        unless Rating.exists?(user_id: user, park_id: park.id)
         Rating.create(
-            user_id: user.id,
+            user_id: user,
             park_id: park.id,
             rating: Faker::Number.within(range: 4..5)
         )

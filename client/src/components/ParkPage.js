@@ -7,11 +7,10 @@ import ReactStars from "react-rating-stars-component";
 
 export default function ParkPage({parkId, updateUser, user}) {
     const navigate = useNavigate()
-    const [park, setPark] = useState({available_times: []})
+    const [park, setPark] = useState({available_times: []}, {ratings: []})
     const [userReservations, setUserReservations] = useState(user.my_reservations)
-    const [ratingValue, setRatingValue] = useState(0)
-    const [selectedRating, setSelectedRating] = useState(0)
     const [errors, setErrors] = useState([])
+    // const [rated, setRated] = useState(false)
 
     useEffect(() => {
         fetch(`${parkId}`)
@@ -86,8 +85,6 @@ export default function ParkPage({parkId, updateUser, user}) {
 
     const handleRating = (e) => {
         setRatingData({ ...ratingData, [e.target.name]: parseInt(e.target.value) })
-        // setSelectedRating(e.target.value)
-        e.target.checked = true
         console.log(ratingData.rating)
         console.log(ratingData)
         // setSelectedRating(rating)
@@ -110,79 +107,83 @@ export default function ParkPage({parkId, updateUser, user}) {
         .then(res => {
             if(res.ok) {
                 res.json().then(setRatingData(ratingData))
+                .then(alert(`You've rated ${park.name} a ${ratingData.rating}.`))
+                // .then(setRated(true))
             } else {
                 res.json().then(json => alert(json.errors))
             }
         })
-        // .then(console.log(ratingData))
     }
 
-    // console.log(ratingData)
+    console.log(park.ratings)
+    // console.log(park.ratings.find(rating => rating.user_id === user.id))
 
     return (
         <Container>
             <NavBar updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
-            Rate this Park:
+            {(1 + 1 !== 2) ? <h3>You've already rated this park</h3> :
+            // <h3>Rate this Park:</h3>
             <form className="radio" onSubmit={handleNewRating}>
                 <label>
-                <input type="radio" name="rating" value="1" checked={false} onChange={handleRating}/>1
+                <input type="radio" name="rating" value="1" checked={ratingData.rating === 1} onChange={handleRating}/>1
                 </label>
                 <label>
-                <input type="radio" name="rating" value="2" checked={false} onChange={handleRating}/>2
+                <input type="radio" name="rating" value="2" checked={ratingData.rating === 2} onChange={handleRating}/>2
                 </label>
                 <label>
-                <input type="radio" name="rating" value="3" checked={false} onChange={handleRating}/>3
+                <input type="radio" name="rating" value="3" checked={ratingData.rating === 3} onChange={handleRating}/>3
                 </label>
                 <label>
-                <input type="radio" name="rating" value="4" checked={false} onChange={handleRating}/>4
+                <input type="radio" name="rating" value="4" checked={ratingData.rating === 4} onChange={handleRating}/>4
                 </label>
                 <label>
-                <input type="radio" name="rating" value="5" checked={false} onChange={handleRating}/>5
+                <input type="radio" name="rating" value="5" checked={ratingData.rating === 5} onChange={handleRating}/>5
                 </label>
                 <button type="submit">Rate</button>
             </form>
-                {/* <ReactStars
-                    count={5}
-                    onChange={handleRating}
-                    size={24}
-                    activeColor="#ffd700"
-                /> */}
-            {/* <form class="rating" onSubmit={handleRating}>
-                <label>
-                    <input type="radio" name="stars" value="1" />
-                    <span class="icon">★</span>
-                </label>
-                <label>
-                    <input type="radio" name="stars" value="2" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                </label>
-                <label>
-                    <input type="radio" name="stars" value="3" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                </label>
-                <label>
-                    <input type="radio" name="stars" value="4" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                </label>
-                <label>
-                    <input type="radio" name="stars" value="5" />
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                    <span class="icon">★</span>
-                </label>
-                <div>
-                    <button type="submit">Rate</button>
-                </div>
-            {/* </form> */}
+            }
+                {/* // <ReactStars
+                //     count={5}
+                //     onChange={handleRating}
+                //     size={24}
+                //     activeColor="#ffd700"
+                // />
+            // <form class="rating" onSubmit={handleRating}>
+            //     <label>
+            //         <input type="radio" name="stars" value="1" />
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="2" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="3" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="4" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <label>
+            //         <input type="radio" name="stars" value="5" />
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //         <span class="icon">★</span>
+            //     </label>
+            //     <div>
+            //         <button type="submit">Rate</button>
+            //     </div>
+            // </form>/ */}
 
             <a href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
             <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>
