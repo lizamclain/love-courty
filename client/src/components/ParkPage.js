@@ -90,11 +90,6 @@ export default function ParkPage({parkId, updateUser, user}) {
         // setSelectedRating(rating)
     }
 
-    // useEffect(() => {
-    //     console.log(selectedRating);
-    //     handleNewRating()
-    // }, [selectedRating]);
-
     const handleNewRating= (e) => {
         e.preventDefault()
         fetch('/ratings', {
