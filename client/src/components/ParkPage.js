@@ -19,9 +19,7 @@ export default function ParkPage({parkId, updateUser, user}) {
         .then(data => setPark(data))
     }, [])
 
-    // console.log(user.my_reservations)
-    // console.log(userReservations)
-
+    // initial state for new reservation form
     const initialState = {
         user_id: user.id,
         park_id: parkId,
@@ -32,6 +30,7 @@ export default function ParkPage({parkId, updateUser, user}) {
 
     const [formData, setFormData] = useState(initialState)
 
+    // helper functions for new reservation form changes
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
@@ -39,9 +38,9 @@ export default function ParkPage({parkId, updateUser, user}) {
         setFormData({ ...formData, time: value });
     }
 
+    // function to render available park times
     const renderTimes = park.available_times.map((time) => {
         const isSelected = time === formData.time
-
         return (
             <Button
                 type="button"
@@ -56,6 +55,7 @@ export default function ParkPage({parkId, updateUser, user}) {
         )
     })
 
+    // POST request for new reservation
     const handleSubmit = (e) => {
         e.preventDefault()
         fetch('/reservations', {
@@ -73,10 +73,9 @@ export default function ParkPage({parkId, updateUser, user}) {
             }
         }
         )
-        console.log(formData)
-        // state is one step behind. have to refresh. it's because of how i call my reservations and reservations list i think. might need to pull everything up to App (fetch on my reservations and the stuff here)
     }
 
+    // initial state for new rating
     const initialRating = {
         user_id: user.id,
         park_id: parkId,
@@ -85,25 +84,37 @@ export default function ParkPage({parkId, updateUser, user}) {
 
     const [ratingData, setRatingData] = useState(initialRating)
 
-    const handleRating = (rating) => {
-        setSelectedRating(rating)
+    const handleRating = (e) => {
+        setRatingData({ ...ratingData, [e.target.name]: parseInt(e.target.value) })
+        // setSelectedRating(e.target.value)
+        e.target.checked = true
+        console.log(ratingData.rating)
+        console.log(ratingData)
+        // setSelectedRating(rating)
     }
 
-    useEffect(() => {
-        // console.log(selectedRating);
-        handleNewRating()
-    }, [selectedRating]);
+    // useEffect(() => {
+    //     console.log(selectedRating);
+    //     handleNewRating()
+    // }, [selectedRating]);
 
-    const handleNewRating= () => {
+    const handleNewRating= (e) => {
+        e.preventDefault()
         fetch('/ratings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(selectedRating)
+            body:JSON.stringify(ratingData)
         })
-        .then(res => res.json())
-        .then(setRatingData(ratingData))
+        .then(res => {
+            if(res.ok) {
+                res.json().then(setRatingData(ratingData))
+            } else {
+                res.json().then(json => alert(json.errors))
+            }
+        })
+        // .then(console.log(ratingData))
     }
 
     // console.log(ratingData)
@@ -113,12 +124,30 @@ export default function ParkPage({parkId, updateUser, user}) {
             <NavBar updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
             Rate this Park:
-                <ReactStars
+            <form className="radio" onSubmit={handleNewRating}>
+                <label>
+                <input type="radio" name="rating" value="1" checked={false} onChange={handleRating}/>1
+                </label>
+                <label>
+                <input type="radio" name="rating" value="2" checked={false} onChange={handleRating}/>2
+                </label>
+                <label>
+                <input type="radio" name="rating" value="3" checked={false} onChange={handleRating}/>3
+                </label>
+                <label>
+                <input type="radio" name="rating" value="4" checked={false} onChange={handleRating}/>4
+                </label>
+                <label>
+                <input type="radio" name="rating" value="5" checked={false} onChange={handleRating}/>5
+                </label>
+                <button type="submit">Rate</button>
+            </form>
+                {/* <ReactStars
                     count={5}
                     onChange={handleRating}
                     size={24}
                     activeColor="#ffd700"
-                />
+                /> */}
             {/* <form class="rating" onSubmit={handleRating}>
                 <label>
                     <input type="radio" name="stars" value="1" />

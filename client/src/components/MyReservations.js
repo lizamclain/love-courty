@@ -17,6 +17,12 @@ export default function MyReservations({updateUser, setUser, user}) {
         .then(data => setUser(data))
     }, [])
 
+    useEffect(() => {
+        setResToday(user.reservations_today)
+        setResFuture(user.upcoming_reservations)
+        setResPast(user.past_reservations)
+    }, [user])
+
     const handleCancelClick = (id) => {
         fetch(`/reservations/${id}`,{
             method: 'DELETE',
@@ -28,12 +34,6 @@ export default function MyReservations({updateUser, setUser, user}) {
         console.log(`cancelled ${id}`)
     }
     // state is behind. only show when the page is refreshed
-
-    useEffect(() => {
-        setResToday(user.reservations_today)
-        setResFuture(user.upcoming_reservations)
-        setResPast(user.past_reservations)
-    }, [user])
 
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard

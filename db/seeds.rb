@@ -446,7 +446,7 @@ puts 'seeding 100 reservations 📆'
     user_id: User.all.sample.id,
     park_id: Park.all.sample.id,
     # court_id: Court.all.sample.id,
-    date: Faker::Date.between(from: '2023-03-15', to: '2023-03-20'),
+    date: Faker::Date.between(from: '2023-03-17', to: '2023-03-22'),
     time: Faker::Number.within(range: 10..19),
     duration: Faker::Number.within(range: 1..3),
 )
@@ -454,11 +454,11 @@ end
 puts 'done seeding reservations 📆'
 
 puts 'seeding lizas reservations 📆'
-5.times do Reservation.create(
+10.times do Reservation.create(
     user_id: liza.id,
     park_id: Park.all.sample.id,
     # court_id: Court.all.sample.id,
-    date: Faker::Date.between(from: '2023-03-15', to: '2023-03-20'),
+    date: Faker::Date.between(from: '2023-03-17', to: '2023-03-22'),
     time: Faker::Number.within(range: 10..19),
     duration: Faker::Number.within(range: 1..3),
 )
