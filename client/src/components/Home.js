@@ -28,11 +28,16 @@ export default function Home({updateUser, user, setParkId}) {
         })
     }
 
+    const handleEditClick = (id) => {
+        console.log(`edit ${id}`)
+    }
+
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
             handleCancelClick={handleCancelClick}
+            handleEditClick={handleEditClick}
         />
     )
 
