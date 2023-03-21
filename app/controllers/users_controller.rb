@@ -2,7 +2,7 @@ require 'byebug'
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     # skip_before_action
-    skip_before_action :authorized_user, only: [:index, :create]
+    skip_before_action :authorized_user, only: [:index, :create, :edit_reservation]
 
     def index
         render json: User.all, status: :ok
@@ -25,6 +25,14 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
         render json: user, status: :accepted
     end
 
+    def edit_reservation
+        user = find_user
+        reservation = user.my_reservations.find(params[:id])
+        park = Park.find(params[:park_id])
+        reservation.update!(reservation_params.merge(park: park))
+        render json: user, status: :accepted
+    end
+
     def destroy
         user = find_user
         user.destroy
@@ -38,6 +46,10 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
 
     def user_params
         params.permit(:first_name, :last_name, :phone, :age, :email, :tennis_level, :play_preference, :court_preference, :year_started, :password, :user_image, :bio)
+    end
+
+    def reservation_params
+        params.permit(:user_id, :park_id, :date, :time, :duration, :cost, :directions)
     end
 
     def user_not_found

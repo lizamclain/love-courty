@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   get '/top_rated', to: 'parks#top_rated'
   get '/test', to: 'parks#test'
+  patch '/users/:id/edit_reservation', to: 'users#edit_reservation'
 end

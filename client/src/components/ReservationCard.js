@@ -1,17 +1,84 @@
-import React from 'react'
-
+import React, {useState, useEffect} from 'react'
 import { Card , Button , Icon } from "semantic-ui-react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
-export default function ReservationCard({res, handleCancelClick}) {
+export default function ReservationCard({res, handleCancelClick, handleEdit, user}) {
     const reservationDate = new Date(res.date);
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
+    const [park, setPark] = useState({available_times: []}, {ratings: []})
+    const [resFuture, setResFuture] = useState([])
+    const [resToday, setResToday] = useState([])
+    const [errors, setErrors] = useState([])
 
-    // useEffect(() => {
-    //     fetch(`/users/${user.id}`)
-    //     .then(res => res.json())
-    //     .then(data => setUser(data))
-    // }, [])
+
+    useEffect(() => {
+        fetch(`/parks/${res.park_id}`)
+        .then(res => res.json())
+        .then(data => setPark(data))
+    }, [])
+
+
+    // initial state for new reservation form
+    const initialState = {
+        user_id: user.id,
+        park_id: res.park_id,
+        park: res.park,
+        date: res.date,
+        time: res.time,
+        duration: res.duration,
+        cost: res.cost
+    }
+
+    const [formData, setFormData] = useState(initialState)
+
+    // helper functions for new reservation form changes
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+    const handleClick = (value) => {
+        setFormData({ ...formData, time: value });
+    }
+
+    // function to render available park times
+    const renderTimes = park.available_times.map((time) => {
+        const isSelected = time === formData.time
+        return (
+            <Button
+                type="button"
+                name="time"
+                value={time}
+                inverted color='blue'
+                onClick={() => handleClick(time)}
+                className={isSelected ? "selected" : ""}
+            >
+                {time >= 12 ? time === 12 ? '12:00 PM' : `${time - 12}:00 PM` : `${time}:00 AM`}
+            </Button>
+        )
+    })
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('submitted');
+        fetch(`/reservations/${res.id}`, {
+        // fetch(`/users/${user.id}/edit_reservation`, {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then((r) => {
+            if (r.ok) {
+                return r.json()
+                .then(handleEdit)
+            } else {
+                r.json().then((json) => setErrors(json.errors));
+            }
+        });
+        console.log(formData);
+    }
 
     return (
         <div>
@@ -33,6 +100,39 @@ export default function ReservationCard({res, handleCancelClick}) {
                         {reservationDate >= currentDate ? <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
                             Cancel
                         </Button> : null}
+                    <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple'
+                    // onClick={() => handleEdit(res.id)}
+                    >
+                            Edit
+                        </Button> : null} modal nested>
+                        {
+                            close => (
+                            <div className='modal'>
+                                <div className='content'>
+                                Edit Reservation
+                                <form id="new-reservation" onSubmit={handleSubmit}>
+                                    <label htmlFor="date">Edit date: </label>
+                                    <input id="date" name="date" type="date" onChange={handleChange}></input>
+                                    <label htmlFor="time">Edit Time: </label>
+                                    {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
+                                    {renderTimes}
+                                    <label htmlFor="duration">How many hours would you like to reserve? </label>
+                                    <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
+                                    <Button type="submit" inverted color='purple'>Save
+                                    </Button>
+                                </form>
+                                {errors ? <h3>{errors}</h3> : null}
+                                </div>
+                            <div>
+                                <Button inverted color='blue' onClick=
+                                    {() => close()}>
+                                        Exit
+                                </Button>
+                            </div>
+                        </div>
+                            )
+                        }
+                    </Popup>
                     </Card.Content>
                 </Card>
             </Card.Group>

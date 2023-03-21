@@ -5,6 +5,7 @@ class UserSerializer < ActiveModel::Serializer
     object.reservations.map do |res|
       {
         id: res.id,
+        park_id: res.park.id,
         park: res.park.name,
         date: Date.parse(res.date).strftime("%a, %B %d, %Y"),
         time: res.time > 12 ? res.time - 12 : res.time,
@@ -23,6 +24,7 @@ class UserSerializer < ActiveModel::Serializer
     end.map do |res_today|
       {
         id: res_today.id,
+        park_id: res_today.park.id,
         park: res_today.park.name,
         date: format_date(res_today.date),
         time: format_time(res_today.time),
@@ -41,6 +43,7 @@ class UserSerializer < ActiveModel::Serializer
     end.map do |res_past|
       {
         id: res_past.id,
+        park_id: res_past.park.id,
         park: res_past.park.name,
         date: format_date(res_past.date),
         time: format_time(res_past.time),
@@ -59,6 +62,7 @@ class UserSerializer < ActiveModel::Serializer
     end.map do |res_future|
       {
         id: res_future.id,
+        park_id: res_future.park.id,
         park: res_future.park.name,
         date: format_date(res_future.date),
         time: format_time(res_future.time),

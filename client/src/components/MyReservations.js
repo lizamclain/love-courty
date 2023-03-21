@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import NavBar from './NavBar';
 import { Card } from "semantic-ui-react";
 
+
 import ReservationCard from './ReservationCard'
 
 export default function MyReservations({updateUser, setUser, user}) {
     const [resFuture, setResFuture] = useState([])
     const [resPast, setResPast] = useState([])
     const [resToday, setResToday] = useState([])
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         fetch(`/users/${user.id}`)
@@ -21,6 +23,8 @@ export default function MyReservations({updateUser, setUser, user}) {
         setResPast(user.past_reservations)
     }, [user])
 
+    console.log(resToday)
+
     const handleCancelClick = (id) => {
         fetch(`/reservations/${id}`,{
             method: 'DELETE',
@@ -33,11 +37,23 @@ export default function MyReservations({updateUser, setUser, user}) {
         })
     }
 
+    const handleEdit = (updatedRes) => {
+        console.log(`edit`)
+            const updatedTodayReservations = resToday.map((reservation) =>
+                reservation.id === updatedRes.id ? updatedRes : reservation
+            );
+            setResToday(updatedTodayReservations);
+            console.log(updatedTodayReservations)
+            alert('Your reservation has been updated.');
+    }
+
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
             handleCancelClick={handleCancelClick}
+            handleEdit={handleEdit}
+            user={user}
         />
     )
 
@@ -46,6 +62,8 @@ export default function MyReservations({updateUser, setUser, user}) {
             key={res.id}
             res={res}
             handleCancelClick={handleCancelClick}
+            handleEdit={handleEdit}
+            user={user}
         />
     )
 
@@ -53,6 +71,7 @@ export default function MyReservations({updateUser, setUser, user}) {
         <ReservationCard
             key={res.id}
             res={res}
+            user={user}
         />
     )
 
