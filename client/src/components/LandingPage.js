@@ -13,8 +13,8 @@ export default function LandingPage() {
     }
     return (
         <div>
-            <h1>Welcome to Love-Courty!</h1>
-            <h3><em>Your go-to app to reserve a court in your area </em>🎾</h3>
+            <h1>Welcome to Love-Courty! 🎾</h1>
+            <h3><em>Your go-to app to reserve a court in your area</em></h3>
             <button onClick={handleLoginBtnClick}>Login</button>
             <button onClick={handleSignupBtnClick}>Signup</button>
         </div>
