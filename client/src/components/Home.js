@@ -17,10 +17,22 @@ export default function Home({updateUser, user, setParkId}) {
         setResToday(user.reservations_today)
     }, [])
 
+    const handleCancelClick = (id) => {
+        fetch(`/reservations/${id}`,{
+            method: 'DELETE',
+        })
+        .then(() => {
+            setResToday(resToday.filter(res => res.id !== id))
+            alert('You cancelled your reservation.')
+            console.log(`cancelled ${id}`)
+        })
+    }
+
     const resTodayCardsList = resToday.map(res =>
         <ReservationCard
             key={res.id}
             res={res}
+            handleCancelClick={handleCancelClick}
         />
     )
 
