@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
     has_many :reservations
+    has_many :my_reservations, class_name: 'Reservation'
     has_many :parks, through: :reservations
     has_many :courts, through: :parks
     has_many :ratings, dependent: :destroy

@@ -3,12 +3,14 @@ import { Card , Button , Icon } from "semantic-ui-react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
-export default function ReservationCard({res, handleCancelClick, handleEditClick, handleSubmit, user, errors, setFormData, formData}) {
+export default function ReservationCard({res, handleCancelClick, handleEdit, user}) {
     const reservationDate = new Date(res.date);
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     const [park, setPark] = useState({available_times: []}, {ratings: []})
-
+    const [resFuture, setResFuture] = useState([])
+    const [resToday, setResToday] = useState([])
+    const [errors, setErrors] = useState([])
 
 
     useEffect(() => {
@@ -16,6 +18,20 @@ export default function ReservationCard({res, handleCancelClick, handleEditClick
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
+
+
+    // initial state for new reservation form
+    const initialState = {
+        user_id: user.id,
+        park_id: res.park_id,
+        park: res.park,
+        date: res.date,
+        time: res.time,
+        duration: res.duration,
+        cost: res.cost
+    }
+
+    const [formData, setFormData] = useState(initialState)
 
     // helper functions for new reservation form changes
     const handleChange = (e) => {
@@ -42,29 +58,27 @@ export default function ReservationCard({res, handleCancelClick, handleEditClick
         )
     })
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     console.log('submitted')
-    //     fetch(`/reservations/${res.id}`, {
-    //         method: 'PATCH',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(formData)
-    //     })
-    //     .then(r => {
-    //         if (r.ok) {
-    //             return r.json().then(data => setResToday([...resToday, data])).then(alert('Your reservation has been updated.'))
-    //         } else {
-    //             r.json().then(json => setErrors(json.errors))
-    //         }
-    //     }
-    //     )
-    //     console.log(formData)
-    //     console.log(user.id)
-    // }
-
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('submitted');
+        fetch(`/reservations/${res.id}`, {
+        // fetch(`/users/${user.id}/edit_reservation`, {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then((r) => {
+            if (r.ok) {
+                return r.json()
+                .then(handleEdit)
+            } else {
+                r.json().then((json) => setErrors(json.errors));
+            }
+        });
+        console.log(formData);
+    }
 
     return (
         <div>
@@ -86,8 +100,9 @@ export default function ReservationCard({res, handleCancelClick, handleEditClick
                         {reservationDate >= currentDate ? <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
                             Cancel
                         </Button> : null}
-                    </Card.Content>
-                    <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple' onClick={() => handleEditClick(res.id)}>
+                    <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple'
+                    // onClick={() => handleEdit(res.id)}
+                    >
                             Edit
                         </Button> : null} modal nested>
                         {
@@ -118,6 +133,7 @@ export default function ReservationCard({res, handleCancelClick, handleEditClick
                             )
                         }
                     </Popup>
+                    </Card.Content>
                 </Card>
             </Card.Group>
         </div>
