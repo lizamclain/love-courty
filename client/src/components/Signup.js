@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import { Button } from "semantic-ui-react";
 
 export default function Signup({updateUser}) {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function Signup({updateUser}) {
         age: 0,
         user_image: '',
         password: '',
+        confirm_password: '',
         tennis_level: 0,
         play_preference: '',
         court_preference: '',
@@ -36,29 +38,37 @@ export default function Signup({updateUser}) {
     // handle submit with fetch POST request
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(console.log(formData))
-        .then(res => {
-            if(res.ok) {
-                res.json().then(obj => {
-                    updateUser(obj)
-                    navigate('/home')
-                })
-            } else {
-                // add json errors
-                res.json().then(json => setErrors(json.errors))
-                // .then(alert(errors))
-                // .then(console.log(errors))
-                //errors are sometimes one step behind
-            }
-        })
+        if(formData.password === formData.confirm_password) {
+            fetch('/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(console.log(formData))
+            .then(res => {
+                if(res.ok) {
+                    res.json().then(obj => {
+                        updateUser(obj)
+                        navigate('/home')
+                    })
+                } else {
+                    // add json errors
+                    res.json().then(json => setErrors(json.errors))
+                    // .then(alert(errors))
+                    // .then(console.log(errors))
+                    //errors are sometimes one step behind
+                }
+            })
+        } else {
+            setErrors('Passwords do not match.')
+        }
     }
+
+    //if(formData.password !== formData.confirm_password) {
+    //    setErrors('Passwords do not match.')
+    //}
 
     // add required to forms later
     // add validation errors
@@ -69,7 +79,7 @@ export default function Signup({updateUser}) {
     return (
         <div>
             <p>Already have an account?</p>
-            <button onClick={handleLoginBtnClick}>Login</button>
+            <Button inverted color='blue' onClick={handleLoginBtnClick}>Login</Button>
             <h1>Signup</h1>
             <div id="signup-form">
                 <form className="form" onSubmit={handleSubmit}>
@@ -89,7 +99,7 @@ export default function Signup({updateUser}) {
                     <label class="required" htmlFor="password">Password: </label>
                     <input id="password" name="password" type="password" placeholder="password" onChange={handleChange} value={formData.password} required/>
                     <label class="required" htmlFor="confirm_password">Confirm Password: </label>
-                    <input id="confirm_password" name="confirm_password" type="password" placeholder="confirm password" onChange={handleChange} value={formData.password} required/>
+                    <input id="confirm_password" name="confirm_password" type="password" placeholder="confirm password" onChange={handleChange} value={formData.confirm_password} required/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
                     <p id="required-text">* required fields</p>
                     <h3>Fill the rest out now or later</h3>
@@ -128,7 +138,7 @@ export default function Signup({updateUser}) {
                     <input id="year_started" name="year_started" type="number" min="1950" max="2023" placeholder="year you started" onChange={handleChange} value={formData.year_started}/>
                     <label htmlFor="bio">Bio: </label>
                     <input id="bio" name="bio" type="text" placeholder="tell us about yourself" onChange={handleChange} value={formData.bio}/>
-                    <input type="submit" value="signup" />
+                    <Button inverted color='green' type="submit" value="signup">sign up</Button>
                 </form>
             </div>
             {errors ? <h3>{errors}</h3> : null}
