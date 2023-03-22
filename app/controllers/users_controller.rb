@@ -1,4 +1,3 @@
-require 'byebug'
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     # skip_before_action
@@ -26,7 +25,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     end
 
     def edit_reservation
-        user = find_user
+        user = current_user
         reservation = user.my_reservations.find(params[:id])
         park = Park.find(params[:park_id])
         reservation.update!(reservation_params.merge(park: park))
@@ -49,7 +48,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     end
 
     def reservation_params
-        params.permit(:user_id, :park_id, :date, :time, :duration, :cost, :directions)
+        params.permit(:user_id, :park_id, :date, :time, :duration)
     end
 
     def user_not_found

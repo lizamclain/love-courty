@@ -31,6 +31,8 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
         cost: res.cost
     }
 
+    // console.log(initialState)
+
     const [formData, setFormData] = useState(initialState)
 
     // helper functions for new reservation form changes
@@ -62,7 +64,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
         e.preventDefault();
         console.log('submitted');
         fetch(`/reservations/${res.id}`, {
-        // fetch(`/users/${user.id}/edit_reservation`, {
+        // fetch(`/users/${user.id}/edit_reservation/${res.id}`, {
             method: 'PATCH',
             headers: {
             'Content-Type': 'application/json',
