@@ -140,6 +140,8 @@ Edit Profile
 * User can book a lesson with a pro and gain skills through the lesson
 * User can have skills
 * POST / PATCH / DELETE requests for Reservations use appropriate logic to determine if a court at a park is available for the desired date/time/duration and books/does not book the appropriate court in the reservation
+* Password confirmation upon signup and edit profile
+<br />
 ERD with StretchERD with Stretch Goals
 <img
     src="client/assets/ERD_with_stretch.png"

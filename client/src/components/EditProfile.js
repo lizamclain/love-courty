@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs';
 
 export default function EditProfile({ updateUser, user }) {
     const navigate = useNavigate();
@@ -24,27 +25,44 @@ export default function EditProfile({ updateUser, user }) {
         bio: user.bio
     };
     const [formData, setFormData] = useState(initialState);
+    const [passwordMatch, setPasswordMatch] = useState(false);
 
     // helper functions for input
-    const handleChange = (e) => {
+    // const handleChange = (e) => {
+    //     setFormData({...formData, [e.target.name]: e.target.value});
+    //     if (e.target.name === 'password') {
+    //         setPasswordMatch(e.target.value === user.password)
+    //     }
+    // }
+
+    const handleChange = async (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
+        if (e.target.name === 'password') {
+            const result = await bcrypt.compare(e.target.value, user.password_digest)
+            setPasswordMatch(result);
+            };
     }
-    // handle submit with fetch POST request
+
+    // handle edit with fetch PATCH request
         const handleSubmit = (e) => {
         e.preventDefault()
-        fetch(`/users/${user.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(res => res.json())
-        .then(obj => updateUser(obj))
-        .then(alert('Your profile has been updated.'))
-        .then(navigate('/profile'))
-        // console.log(formData)
-        // console.log(user.id)
+        if(passwordMatch) {
+            fetch(`/users/${user.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(res => res.json())
+            .then(obj => updateUser(obj))
+            .then(() => {
+                alert('Your profile has been updated.')
+                navigate('/profile')
+            })
+        } else {
+            alert('Please type in your current password to continue.')
+        }
     }
 
     const handleDeleteClick = (e) => {
@@ -120,6 +138,7 @@ export default function EditProfile({ updateUser, user }) {
                     <input id="bio" name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
                     <label htmlFor="password">Confirm Password: </label>
                     <input id="password" name="password" type="password" placeholder={user.password} onChange={handleChange} required/>
+                    {!passwordMatch && (<p style={{ color: "red" }}>Enter current password to save changes.</p>)}
                     <input type="submit" value="save" />
                 </form>
                 <button onClick={handleDeleteClick}>Delete Account</button>
