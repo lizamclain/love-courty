@@ -99,9 +99,24 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                 Directions
                             </a>
                         </Card.Content>
-                        {reservationDate >= currentDate ? <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
-                            Cancel
-                        </Button> : null}
+                    <Popup trigger = {reservationDate >= currentDate ? <Button inverted color='red'>Cancel</Button> : null} modal nested>
+                        {
+                            close => (
+                                <div className="modal">
+                                    <div className="content">
+                                        Are you sure you want to cancel this reservation?
+                                        <Button inverted color='blue' onClick=
+                                            {() => close()}>
+                                            Nevermind, don't cancel
+                                        </Button>
+                                        <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
+                                            Yes, Cancel
+                                        </Button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </Popup>
                     <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple'
                     // onClick={() => handleEdit(res.id)}
                     >

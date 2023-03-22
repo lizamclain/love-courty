@@ -1,6 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import {Button} from "semantic-ui-react";
 import bcrypt from 'bcryptjs';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 export default function EditProfile({ updateUser, user }) {
     const navigate = useNavigate();
@@ -26,14 +29,6 @@ export default function EditProfile({ updateUser, user }) {
     };
     const [formData, setFormData] = useState(initialState);
     const [passwordMatch, setPasswordMatch] = useState(false);
-
-    // helper functions for input
-    // const handleChange = (e) => {
-    //     setFormData({...formData, [e.target.name]: e.target.value});
-    //     if (e.target.name === 'password') {
-    //         setPasswordMatch(e.target.value === user.password)
-    //     }
-    // }
 
     const handleChange = async (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -67,17 +62,19 @@ export default function EditProfile({ updateUser, user }) {
 
     const handleDeleteClick = (e) => {
         console.log('deleted')
-        e.preventDefault()
-        fetch(`/users/${user.id}`, {
-            method: 'DELETE'
-        })
-        // .then(res => res.json())
-        .then(updateUser(null))
-        .then(alert("Your account has been deleted."))
-        .then(navigate('/signup'))
+        if(passwordMatch) {
+            e.preventDefault()
+            fetch(`/users/${user.id}`, {
+                method: 'DELETE'
+            })
+            .then(updateUser(null))
+            .then(alert("Your account has been deleted."))
+            .then(navigate('/signup'))
+        } else {
+            alert('Please type in your current password to continue.')
+        }
     }
 
-    // type in password before hitting save?
     // make bio box bigger
     // have a way to actually see / copy paste the bio? or click the field and then editing is allowed?
 
@@ -141,7 +138,19 @@ export default function EditProfile({ updateUser, user }) {
                     {!passwordMatch && (<p style={{ color: "red" }}>Enter current password to save changes.</p>)}
                     <input type="submit" value="save" />
                 </form>
-                <button onClick={handleDeleteClick}>Delete Account</button>
+                <Popup trigger={<Button inverted color='red'>Delete Account</Button>} modal nested>
+                    {
+                        close => (
+                            <div className="modal">
+                                <div className="content">
+                                    Are you sure you want to delete your account?
+                                    <Button inverted color='red' onClick={handleDeleteClick}>Yes, delete.</Button>
+                                    <Button inverted color='blue' onClick={() => close()}>Nevermind, don't delete</Button>
+                                </div>
+                            </div>
+                        )
+                    }
+                </Popup>
             </div>
         </div>
     )

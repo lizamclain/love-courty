@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     # skip_before_action
-    skip_before_action :authorized_user, only: [:index, :create, :edit_reservation]
+    skip_before_action :authorized_user, only: [:index, :create] #, :edit_reservation]
 
     def index
         render json: User.all, status: :ok
@@ -24,13 +24,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
         render json: user, status: :accepted
     end
 
-    def edit_reservation
-        user = current_user
-        reservation = user.my_reservations.find(params[:id])
-        park = Park.find(params[:park_id])
-        reservation.update!(reservation_params.merge(park: park))
-        render json: user, status: :accepted
-    end
+    # def edit_reservation
+    #     user = current_user
+    #     reservation = user.my_reservations.find(params[:id])
+    #     park = Park.find(params[:park_id])
+    #     reservation.update!(reservation_params.merge(park: park))
+    #     render json: user, status: :accepted
+    # end
 
     def destroy
         user = find_user
