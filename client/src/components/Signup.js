@@ -26,7 +26,7 @@ export default function Signup({updateUser}) {
         bio: ''
     };
     const [formData, setFormData] = useState(initialState);
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [passwordsMatch, setPasswordsMatch] = useState(false);
 
     const handleLoginBtnClick = () => {
         navigate('/login')
@@ -62,6 +62,8 @@ export default function Signup({updateUser}) {
                     res.json().then(json => setErrors(json.errors))
                 }
             })
+        } else {
+            setErrors('Passwords do not match.')
         }
     }
 
