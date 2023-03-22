@@ -141,6 +141,8 @@ Edit Profile
 * User can have skills
 * POST / PATCH / DELETE requests for Reservations use appropriate logic to determine if a court at a park is available for the desired date/time/duration and books/does not book the appropriate court in the reservation
 * Password confirmation upon signup and edit profile
+* User can change password
+* App can send an email
 <br />
 ERD with StretchERD with Stretch Goals
 <img
