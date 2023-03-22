@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_204719) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_22_142538) do
   create_table "courts", force: :cascade do |t|
     t.integer "park_id"
     t.integer "court_number"
@@ -55,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_204719) do
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "phone"
+    t.integer "phone"
     t.integer "age"
     t.string "email"
     t.string "tennis_level"

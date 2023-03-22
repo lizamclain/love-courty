@@ -26,6 +26,7 @@ export default function Signup({updateUser}) {
         bio: ''
     };
     const [formData, setFormData] = useState(initialState);
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
     const handleLoginBtnClick = () => {
         navigate('/login')
@@ -34,11 +35,15 @@ export default function Signup({updateUser}) {
     // helper functions for input
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
+        if (e.target.name === 'confirm_password') {
+            setPasswordsMatch(e.target.value === formData.password)
+        }
     }
+
     // handle submit with fetch POST request
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(formData.password === formData.confirm_password) {
+        if(passwordsMatch) {
             fetch('/users', {
                 method: 'POST',
                 headers: {
@@ -54,27 +59,15 @@ export default function Signup({updateUser}) {
                         navigate('/home')
                     })
                 } else {
-                    // add json errors
                     res.json().then(json => setErrors(json.errors))
-                    // .then(alert(errors))
-                    // .then(console.log(errors))
-                    //errors are sometimes one step behind
                 }
             })
-        } else {
-            setErrors('Passwords do not match.')
         }
     }
 
-    //if(formData.password !== formData.confirm_password) {
-    //    setErrors('Passwords do not match.')
-    //}
-
-    // add required to forms later
     // add validation errors
     // add tool tip for tennis levels
     // make bio box look prettier
-    // add password confirmation + validation
 
     return (
         <div>
@@ -88,12 +81,12 @@ export default function Signup({updateUser}) {
                     <label class="required" htmlFor="last_name">Last Name: </label>
                     <input id="last_name" name="last_name" type="text" placeholder="last_name" onChange={handleChange} value={formData.last_name} required/>
                     <label class="required" htmlFor="email">Email: </label>
-                    <input id="email" name="email" type="text" placeholder="email" onChange={handleChange} value={formData.email} required/>
-                    {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
-                    value={value} onChange={setValue}
-                    /> */}
+                    <input id="email" name="email" type="tel" placeholder="email" onChange={handleChange} value={formData.email} required/>
                     <label class="required" htmlFor="phone">Phone: </label>
-                    <input id="phone" name="phone" type="text" placeholder="phone" onChange={handleChange} value={formData.phone} required/>
+                    {/* <PhoneInput id="phone" name="phone" placeholder="phone number" defaultCountry="US"
+                    value={formData.phone} onChange={setValue}
+                    /> */}
+                    <input id="phone" name="phone" type="integer" placeholder="phone" onChange={handleChange} value={formData.phone} required/>
                     <label class="required" htmlFor="age">Age: </label>
                     <input id="age" name="age" type="number" min="18" max="100" placeholder="age" onChange={handleChange} value={formData.age} required/>
                     <label class="required" htmlFor="password">Password: </label>
@@ -101,6 +94,7 @@ export default function Signup({updateUser}) {
                     <label class="required" htmlFor="confirm_password">Confirm Password: </label>
                     <input id="confirm_password" name="confirm_password" type="password" placeholder="confirm password" onChange={handleChange} value={formData.confirm_password} required/>
                     {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
+                    {!passwordsMatch && (<p style={{ color: "red" }}>Passwords do not match.</p>)}
                     <p id="required-text">* required fields</p>
                     <h3>Fill the rest out now or later</h3>
                     <label htmlFor="user_image">Profile Picture URL: </label>
