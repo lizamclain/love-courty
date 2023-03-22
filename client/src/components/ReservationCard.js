@@ -20,9 +20,9 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
     }, [])
 
 
-    // initial state for new reservation form
+    // initial state for edit reservation form
     const initialState = {
-        user_id: user.id,
+        user_id: res.user_id,
         park_id: res.park_id,
         park: res.park,
         date: res.date,
