@@ -13,7 +13,7 @@ export default function Profile({updateUser, user}) {
     return (
         <div>
             <NavBar updateUser={updateUser}></NavBar>
-            <h1>{user.first_name}'s Profile</h1>
+            <h2>{user.first_name}'s Profile</h2>
             <img src={user.user_image} alt="profile picture"/>
             <h3>{user.email}</h3>
             <h3>{user.phone}</h3>

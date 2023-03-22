@@ -45,7 +45,7 @@ export default function BrowseParks({ setParkId, updateUser }) {
         <div>
             <NavBar updateUser={updateUser}></NavBar>
             <Search searchText={searchText} handleSearchInput={handleSearchInput} selectedLights={selectedLights} selectedSurface={selectedSurface} slctLight={slctLight} slctSurface={slctSurface}/>
-            <h1>Browse all Parks</h1>
+            <h2>Browse all Parks</h2>
             <ParkList parks={filteredParks} setParkId={setParkId}/>
         </div>
     )

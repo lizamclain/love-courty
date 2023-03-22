@@ -82,11 +82,11 @@ export default function MyReservations({updateUser, setUser, user}) {
         <div>
             <NavBar updateUser={updateUser}></NavBar>
             <Popup open={popup}>You successfully cancelled your reservation.</Popup>
-            <h1>Today's Reservations</h1>
+            <h2>Today's Reservations</h2>
             {resTodayCardsList.length === 0 ? <h4><em>You have no  reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
-            <h1>Upcoming Reservations</h1>
+            <h2>Upcoming Reservations</h2>
             {resUpcomingCardsList.length !== 0 ? <Card.Group>{resUpcomingCardsList}</Card.Group> : <h4><em>You have no upcoming reservations.</em></h4>}
-            <h1>Past Reservations</h1>
+            <h2>Past Reservations</h2>
             {resPastCardsList.length !== 0 ? <Card.Group>{resPastCardsList}</Card.Group> : <h4><em>You have no old reservations.</em></h4>}
         </div>
     )
