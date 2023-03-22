@@ -30,14 +30,6 @@ export default function EditProfile({ updateUser, user }) {
     const [formData, setFormData] = useState(initialState);
     const [passwordMatch, setPasswordMatch] = useState(false);
 
-    // helper functions for input
-    // const handleChange = (e) => {
-    //     setFormData({...formData, [e.target.name]: e.target.value});
-    //     if (e.target.name === 'password') {
-    //         setPasswordMatch(e.target.value === user.password)
-    //     }
-    // }
-
     const handleChange = async (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
         if (e.target.name === 'password') {
@@ -75,7 +67,6 @@ export default function EditProfile({ updateUser, user }) {
             fetch(`/users/${user.id}`, {
                 method: 'DELETE'
             })
-            // .then(res => res.json())
             .then(updateUser(null))
             .then(alert("Your account has been deleted."))
             .then(navigate('/signup'))
@@ -164,21 +155,3 @@ export default function EditProfile({ updateUser, user }) {
         </div>
     )
 }
-{/* <Popup trigger = {reservationDate >= currentDate ? <Button inverted color='red'>Cancel</Button> : null} modal nested>
-{
-    close => (
-        <div className="modal">
-            <div className="content">
-                Are you sure you want to cancel this reservation?
-                <Button inverted color='blue' onClick=
-                    {() => close()}>
-                    Nevermind, don't cancel
-                </Button>
-                <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
-                    Yes, Cancel
-                </Button>
-            </div>
-        </div>
-    )
-}
-</Popup> */}
