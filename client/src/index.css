@@ -46,6 +46,10 @@ label {
   color: var(--fifth-color);
 }
 
+#login-label {
+  color: var(--secondary-color);
+}
+
 button {
   font-family: 'Assistant', sans-serif;
 }
@@ -54,6 +58,7 @@ button {
   background-color: var(--bg-color);
   color: var(--primary-color);
   border-color: var(--font-color);
+  width: auto;
 }
 
 #regular-btn:hover {
