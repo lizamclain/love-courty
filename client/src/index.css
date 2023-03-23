@@ -43,7 +43,7 @@ h4 {
 }
 
 label {
-  color: var(--fifth-color);
+  color: var(--secondary-color);
 }
 
 #login-label {
@@ -63,6 +63,19 @@ button {
 
 #regular-btn:hover {
   background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#sign-save-btn {
+  background-color: var(--bg-color);
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  width: auto;
+}
+
+#sign-save-btn:hover {
+  background-color: var(--secondary-color);
   color: var(--bg-color);
   border-color: var(--bg-color);
 }

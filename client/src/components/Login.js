@@ -53,13 +53,14 @@ export default function Login({ updateUser }) {
                     <Form.Label id="login-label">Email</Form.Label>
                     <Form.Control name="email" type="text" placeholder="enter email" onChange={handleChange}/>
                 </Form.Group>
+                <br />
                 <Form.Group class="form-outline w-50">
                     <Form.Label id="login-label">Password</Form.Label>
                     <Form.Control name="password" type="password" placeholder="enter password" onChange={handleChange}/>
                 </Form.Group>
                 <br />
                 <Form.Group className="mb-3">
-                    <Button id='regular-btn' type="submit">login</Button>
+                    <Button id='sign-save-btn' type="submit">login</Button>
                 </Form.Group>
             </Form>
             {errors ? <h3>{errors}</h3> : null}

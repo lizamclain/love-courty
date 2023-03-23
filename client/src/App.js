@@ -16,7 +16,6 @@ function App() {
   const [user, setUser] = useState(null)
   const [errors, setErrors] = useState(null)
 
-
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
