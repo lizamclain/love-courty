@@ -145,6 +145,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                             <Button id='sign-save-btn' type="submit" onClick={() => handleCancelClick(res.id)}>Save</Button>
                         </Modal.Footer>
                     </Modal>
+                    {errors ? <h3>{errors}</h3> : null}
                     </Card.Body>
                 </Card>
                 </Col>
