@@ -80,6 +80,32 @@ button {
   border-color: var(--bg-color);
 }
 
+#cancel-btn {
+  background-color: var(--bg-color);
+  color: var(--fifth-color);
+  border-color: var(--fifth-color);
+  width: auto;
+}
+
+#cancel-btn:hover {
+  background-color: var(--fifth-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#edit-btn {
+  background-color: var(--bg-color);
+  color: var(--fourth-color);
+  border-color: var(--fourth-color);
+  width: auto;
+}
+
+#edit-btn:hover {
+  background-color: var(--fourth-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

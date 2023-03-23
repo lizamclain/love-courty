@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Card , Button , Icon } from "semantic-ui-react";
+// import { Card , Button , Icon } from "semantic-ui-react";
+import { Card, Button, Row, Col, Modal }from 'react-bootstrap';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
@@ -11,6 +12,9 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
     const [resFuture, setResFuture] = useState([])
     const [resToday, setResToday] = useState([])
     const [errors, setErrors] = useState([])
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     useEffect(() => {
@@ -51,7 +55,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                 type="button"
                 name="time"
                 value={time}
-                inverted color='blue'
+                id='regular-btn'
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
             >
@@ -84,50 +88,49 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
 
     return (
         <div>
-            <Card.Group>
-                <Card>
-                    <Card.Content>
-                        <Card.Header>{res.park}</Card.Header>
-                        <Card.Content><Icon name="calendar alternate outline"/>Date: {res.date}</Card.Content>
-                        <Card.Content><Icon name="clock outline"/>Time: {res.time}</Card.Content>
-                        <Card.Content><Icon name="hourglass half"/>Hours Reserved: {res.duration}</Card.Content>
-                        <Card.Content>
-                            <Icon name="money bill alternate outline"/>Total Price: ${res.cost}</Card.Content>
-                        <Card.Content extra>
+            <Row xs={1} md={3} className="g-4">
+                <Col>
+                <Card border="dark" style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{res.park}</Card.Title>
+                        <Card.Text>
+                            {/* <Icon name="calendar alternate outline"/> */}
+                            Date: {res.date}</Card.Text>
+                        <Card.Text>
+                            {/* <Icon name="clock outline"/> */}
+                            Time: {res.time}</Card.Text>
+                        <Card.Text>
+                            {/* <Icon name="hourglass half"/> */}
+                            Hours Reserved: {res.duration}</Card.Text>
+                        <Card.Text>
+                            {/* <Icon name="money bill alternate outline"/> */}
+                            Total Price: ${res.cost}</Card.Text>
+                        <Card.Text extra>
                             <a href={res.directions} target="_blank">
-                                <Icon name="map outline"/>
+                                {/* <Icon name="map outline"/> */}
                                 Directions
                             </a>
-                        </Card.Content>
-                    <Popup trigger = {reservationDate >= currentDate ? <Button inverted color='red'>Cancel</Button> : null} modal nested>
-                        {
-                            close => (
-                                <div className="modal">
-                                    <div className="content">
-                                        Are you sure you want to cancel this reservation?
-                                        <Button inverted color='blue' onClick=
-                                            {() => close()}>
-                                            Nevermind, don't cancel
-                                        </Button>
-                                        <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
-                                            Yes, Cancel
-                                        </Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    </Popup>
-                    <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple'
+                    </Card.Text>
+                    {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleShow}>Cancel</Button> : null}
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Cancel Reservation</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Are you sure you want to cancel this reservation?</Modal.Body>
+                        <Modal.Footer>
+                            <Button id='sign-save-btn' onClick={handleClose}>                  Nevermind, don't cancel</Button>
+                            <Button id='cancel-btn' onClick={() => handleCancelClick(res.id)}>Yes, Cancel</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleShow}
                     // onClick={() => handleEdit(res.id)}
-                    >
-                            Edit
-                        </Button> : null} modal nested>
-                        {
-                            close => (
-                            <div className='modal'>
-                                <div className='content'>
-                                Edit Reservation
-                                <form id="new-reservation" onSubmit={handleSubmit}>
+                    >Edit</Button> : null}
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Reservation</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>Are you sure you want to cancel this reservation?
+                        <form id="new-reservation" onSubmit={handleSubmit}>
                                     <label htmlFor="date">Edit date: </label>
                                     <input id="date" name="date" type="date" onChange={handleChange}></input>
                                     <label htmlFor="time">Edit Time: </label>
@@ -135,24 +138,17 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                     {renderTimes}
                                     <label htmlFor="duration">How many hours would you like to reserve? </label>
                                     <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
-                                    <Button type="submit" inverted color='purple'>Save
-                                    </Button>
                                 </form>
-                                {errors ? <h3>{errors}</h3> : null}
-                                </div>
-                            <div>
-                                <Button inverted color='blue' onClick=
-                                    {() => close()}>
-                                        Exit
-                                </Button>
-                            </div>
-                        </div>
-                            )
-                        }
-                    </Popup>
-                    </Card.Content>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button id='regular-btn' onClick={handleClose}>Exit</Button>
+                            <Button id='sign-save-btn' type="submit" onClick={() => handleCancelClick(res.id)}>Save</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    </Card.Body>
                 </Card>
-            </Card.Group>
+                </Col>
+            </Row>
         </div>
     )
 }
