@@ -46,6 +46,21 @@ label {
   color: var(--secondary-color);
 }
 
+#menu {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+#nav {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+#nav:hover {
+  background-color: white;
+  color: var(--secondary-color);
+}
+
 #login-label {
   color: var(--secondary-color);
 }

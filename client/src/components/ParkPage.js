@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-import NavBar from './NavBar';
+import Menu from './Menu';
 import { Container } from 'semantic-ui-react'
 import { Button } from "semantic-ui-react";
 import ReactStars from "react-rating-stars-component";
@@ -115,7 +115,7 @@ export default function ParkPage({parkId, updateUser, user}) {
 
     return (
         <Container>
-            <NavBar updateUser={updateUser}/>
+            <Menu updateUser={updateUser}/>
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
             {(1 + 1 !== 2) ? <h3>You've already rated this park</h3> :
             // <h3>Rate this Park:</h3>

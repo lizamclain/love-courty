@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavBar from './NavBar';
+import Menu from './Menu';
 
 import ParkList from './ParkList'
 import Search from './Search'
@@ -43,7 +43,7 @@ export default function BrowseParks({ setParkId, updateUser }) {
 
     return (
         <div class="mx-4">
-            <NavBar updateUser={updateUser}></NavBar>
+            <Menu updateUser={updateUser}></Menu>
             <Search searchText={searchText} handleSearchInput={handleSearchInput} selectedLights={selectedLights} selectedSurface={selectedSurface} slctLight={slctLight} slctSurface={slctSurface}/>
             <br />
             <h2 className="heading-search"> Browse all Parks</h2>

@@ -79,7 +79,7 @@ export default function EditProfile({ updateUser, user }) {
     // have a way to actually see / copy paste the bio? or click the field and then editing is allowed?
 
     return (
-        <div>
+        <div class="mx-3">
             <h1>Edit Profile</h1>
             <button onClick={handleBackClick}>back to profile</button>
             <div id="signup-form">

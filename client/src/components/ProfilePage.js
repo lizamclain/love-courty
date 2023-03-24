@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import NavBar from './NavBar';
+import Menu from './Menu';
 
 export default function Profile({updateUser, user}) {
     const navigate = useNavigate();
@@ -11,8 +11,8 @@ export default function Profile({updateUser, user}) {
     }
 
     return (
-        <div>
-            <NavBar updateUser={updateUser}></NavBar>
+        <div class="mx-3">
+            <Menu updateUser={updateUser}></Menu>
             <h2>{user.first_name}'s Profile</h2>
             <img src={user.user_image} alt="profile picture"/>
             <h3>{user.email}</h3>

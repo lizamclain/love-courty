@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavBar from './NavBar';
+import Menu from './Menu';
 import { Card } from "semantic-ui-react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -80,8 +80,8 @@ export default function MyReservations({updateUser, setUser, user}) {
     )
 
     return (
-        <div>
-            <NavBar updateUser={updateUser}></NavBar>
+        <div class="mx-3">
+            <Menu updateUser={updateUser}></Menu>
             <Popup open={cancelPopup}>You successfully cancelled your reservation.</Popup>
             <Popup open={editPopup}>You successfully edited your reservation.</Popup>
             <h2>Today's Reservations</h2>
