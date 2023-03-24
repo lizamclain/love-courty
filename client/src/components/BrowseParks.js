@@ -45,7 +45,8 @@ export default function BrowseParks({ setParkId, updateUser }) {
         <div class="mx-4">
             <NavBar updateUser={updateUser}></NavBar>
             <Search searchText={searchText} handleSearchInput={handleSearchInput} selectedLights={selectedLights} selectedSurface={selectedSurface} slctLight={slctLight} slctSurface={slctSurface}/>
-            <h2>Browse all Parks</h2>
+            <br />
+            <h2 className="heading-search"> Browse all Parks</h2>
             <ParkList parks={filteredParks} setParkId={setParkId}/>
         </div>
     )

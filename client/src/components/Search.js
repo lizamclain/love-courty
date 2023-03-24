@@ -8,7 +8,7 @@ export default function Search( {searchText, handleSearchInput, selectedLights, 
 
     return (
         <div className="heading-search" class="mx-1">
-            <h2>Narrow your Search</h2>
+            <h2 className="heading-search">Narrow your Search</h2>
             <Container>
                 <Row>
                     <Col id="search">

@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import { Card } from "semantic-ui-react";
-import { Card }from 'react-bootstrap';
-
+import React from "react";
 
 import ParkCard from './ParkCard'
 

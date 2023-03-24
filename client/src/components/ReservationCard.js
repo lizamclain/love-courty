@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import { Card, Button, Row, Col, Modal }from 'react-bootstrap';
+import { BsMap, BsHourglassSplit } from 'react-icons/bs';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { BiTime } from 'react-icons/bi';
 
 export default function ReservationCard({res, handleCancelClick, handleEdit, user}) {
     const reservationDate = new Date(res.date);
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     const [park, setPark] = useState({available_times: []}, {ratings: []})
-    const [resFuture, setResFuture] = useState([])
-    const [resToday, setResToday] = useState([])
     const [errors, setErrors] = useState([])
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -89,24 +91,24 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
         <div>
             <Row xs={1} md={3} className="g-4">
                 <Col>
-                <Card border="dark" style={{ width: '18rem' }}>
+                <Card id="card-border" style={{ width: '18rem' }}>
                     <Card.Body>
                         <Card.Title>{res.park}</Card.Title>
                         <Card.Text>
-                            {/* <Icon name="calendar alternate outline"/> */}
+                            <AiOutlineCalendar></AiOutlineCalendar>
                             Date: {res.date}</Card.Text>
                         <Card.Text>
-                            {/* <Icon name="clock outline"/> */}
+                            <BiTime></BiTime>
                             Time: {res.time}</Card.Text>
                         <Card.Text>
-                            {/* <Icon name="hourglass half"/> */}
+                            <BsHourglassSplit></BsHourglassSplit>
                             Hours Reserved: {res.duration}</Card.Text>
                         <Card.Text>
-                            {/* <Icon name="money bill alternate outline"/> */}
+                            <FaRegMoneyBillAlt></FaRegMoneyBillAlt>
                             Total Price: ${res.cost}</Card.Text>
                         <Card.Text extra>
+                                <BsMap></BsMap>
                             <a href={res.directions} target="_blank">
-                                {/* <Icon name="map outline"/> */}
                                 Directions
                             </a>
                     </Card.Text>

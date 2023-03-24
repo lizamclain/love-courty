@@ -119,7 +119,11 @@ button {
   flex-direction: row;
 }
 
-/* #search {
+#card-border {
+  border-color: var(--primary-color)
+}
+
+#search {
   display: flex;
   flex-direction: column;
 }
@@ -133,7 +137,7 @@ button {
   width: 100vw;
 }
 
-#top-right-filter {
+/* #top-right-filter {
   position: absolute;
   top: 125px;
   right: 85px;
