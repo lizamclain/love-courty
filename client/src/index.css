@@ -106,6 +106,36 @@ button {
   border-color: var(--bg-color);
 }
 
+/* #search {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 20px;
+  align-content: center;
+  width: 100vw;
+}
+
+#top-right-filter {
+  position: absolute;
+  top: 125px;
+  right: 85px;
+  display: flex;
+  flex-direction: column;
+}
+
+#top-left-filter {
+  position: absolute;
+  top: 125px;
+  left: 85px;
+  display: flex;
+  flex-direction: column;
+} */
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

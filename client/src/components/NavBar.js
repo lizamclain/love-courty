@@ -20,7 +20,7 @@ export default function NavBar({updateUser}) {
     }
 
     return (
-        <nav>
+        <nav class="mx-1">
             <h1>Love-Courty 🎾</h1>
             <NavLink
                 to="/home"
