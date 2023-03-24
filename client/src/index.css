@@ -67,6 +67,12 @@ button {
   border-color: var(--bg-color);
 }
 
+.selected {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
 #sign-save-btn {
   background-color: var(--bg-color);
   color: var(--secondary-color);
@@ -104,6 +110,13 @@ button {
   background-color: var(--fourth-color);
   color: var(--bg-color);
   border-color: var(--bg-color);
+}
+
+.cards {
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 /* #search {
@@ -156,11 +169,6 @@ ul {
 
 #required-text {
   color: #e32;
-}
-
-.selected {
-  background-color: #007bff;
-  color: #fff;
 }
 
 .rating {

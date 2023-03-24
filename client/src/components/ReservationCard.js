@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react'
-// import { Card , Button , Icon } from "semantic-ui-react";
 import { Card, Button, Row, Col, Modal }from 'react-bootstrap';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 
 export default function ReservationCard({res, handleCancelClick, handleEdit, user}) {
     const reservationDate = new Date(res.date);
@@ -12,17 +9,18 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
     const [resFuture, setResFuture] = useState([])
     const [resToday, setResToday] = useState([])
     const [errors, setErrors] = useState([])
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const handleCancelModalClose = () => setShowCancelModal(false);
+    const handleCancelModalShow = () => setShowCancelModal(true);
+    const handleEditModalClose = () => setShowEditModal(false);
+    const handleEditModalShow = () => setShowEditModal(true);
 
     useEffect(() => {
         fetch(`/parks/${res.park_id}`)
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
-
 
     // initial state for edit reservation form
     const initialState = {
@@ -84,6 +82,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
             }
         });
         console.log(formData);
+        handleEditModalClose();
     }
 
     return (
@@ -111,38 +110,39 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                 Directions
                             </a>
                     </Card.Text>
-                    {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleShow}>Cancel</Button> : null}
-                    <Modal show={show} onHide={handleClose}>
+                    {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleCancelModalShow}>Cancel</Button> : null}
+                    <Modal show={showCancelModal} onHide={handleCancelModalClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Cancel Reservation</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>Are you sure you want to cancel this reservation?</Modal.Body>
                         <Modal.Footer>
-                            <Button id='sign-save-btn' onClick={handleClose}>                  Nevermind, don't cancel</Button>
+                            <Button id='sign-save-btn' onClick={handleCancelModalClose}>Nevermind, don't cancel</Button>
                             <Button id='cancel-btn' onClick={() => handleCancelClick(res.id)}>Yes, Cancel</Button>
                         </Modal.Footer>
                     </Modal>
-                    {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleShow}
-                    // onClick={() => handleEdit(res.id)}
+                    {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleEditModalShow}
                     >Edit</Button> : null}
-                    <Modal show={show} onHide={handleClose}>
+                    <Modal show={showEditModal} onHide={handleEditModalClose}>
                         <Modal.Header closeButton>
                             <Modal.Title>Edit Reservation</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>Are you sure you want to cancel this reservation?
+                        <Modal.Body>
                         <form id="new-reservation" onSubmit={handleSubmit}>
                                     <label htmlFor="date">Edit date: </label>
                                     <input id="date" name="date" type="date" onChange={handleChange}></input>
+                                    <br />
                                     <label htmlFor="time">Edit Time: </label>
                                     {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
                                     {renderTimes}
+                                    <br />
                                     <label htmlFor="duration">How many hours would you like to reserve? </label>
                                     <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
                                 </form>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button id='regular-btn' onClick={handleClose}>Exit</Button>
-                            <Button id='sign-save-btn' type="submit" onClick={() => handleCancelClick(res.id)}>Save</Button>
+                            <Button id='regular-btn' onClick={handleEditModalClose}>Exit</Button>
+                            <Button id='sign-save-btn' type="submit" onClick={handleSubmit}>Save</Button>
                         </Modal.Footer>
                     </Modal>
                     {errors ? <h3>{errors}</h3> : null}

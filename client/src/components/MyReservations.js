@@ -11,7 +11,8 @@ export default function MyReservations({updateUser, setUser, user}) {
     const [resPast, setResPast] = useState([])
     const [resToday, setResToday] = useState([])
     const [errors, setErrors] = useState([])
-    const [popup, setPopup] = useState(false)
+    const [cancelPopup, setCancelPopup] = useState(false)
+    const [editPopup, setEditPopup] = useState(false)
 
     useEffect(() => {
         fetch(`/users/${user.id}`)
@@ -35,7 +36,7 @@ export default function MyReservations({updateUser, setUser, user}) {
             setResFuture(resFuture.filter(res => res.id !== id))
             setResToday(resToday.filter(res => res.id !== id))
             // alert('You cancelled your reservation.')
-            setPopup(true)
+            setCancelPopup(true)
             console.log(`cancelled ${id}`)
         })
     }
@@ -47,7 +48,7 @@ export default function MyReservations({updateUser, setUser, user}) {
             );
             setResToday(updatedTodayReservations);
             console.log(updatedTodayReservations)
-            alert('Your reservation has been updated.');
+            setEditPopup(true);
     }
 
     const resTodayCardsList = resToday.map(res =>
@@ -81,7 +82,8 @@ export default function MyReservations({updateUser, setUser, user}) {
     return (
         <div>
             <NavBar updateUser={updateUser}></NavBar>
-            <Popup open={popup}>You successfully cancelled your reservation.</Popup>
+            <Popup open={cancelPopup}>You successfully cancelled your reservation.</Popup>
+            <Popup open={editPopup}>You successfully edited your reservation.</Popup>
             <h2>Today's Reservations</h2>
             {resTodayCardsList.length === 0 ? <h4><em>You have no  reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
             <h2>Upcoming Reservations</h2>

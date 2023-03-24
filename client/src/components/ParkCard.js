@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
+import { Card, Button, Row, Col, Modal }from 'react-bootstrap';
 
 export default function ParkCard({park, setParkId}) {
     const navigate = useNavigate();
@@ -12,28 +12,24 @@ export default function ParkCard({park, setParkId}) {
     }
     return (
         <div>
-            <Card>
-                <Card.Content>
-                    <Card.Header>{park.name} ⭐️{park.avg_rating}</Card.Header>
-                    <Card.Meta>{park.neighborhood} | {park.open_time} - {park.close_time}
-                    </Card.Meta>
-                    <Image src={park.park_image} alt={park.name}/>
-                    <Card.Content>
+            <Card style={{ width: '18rem' }}>
+                    <Card.Title>{park.name} ⭐️{park.avg_rating}</Card.Title>
+                    <Card.Text>{park.neighborhood} | {park.open_time} - {park.close_time}
+                    </Card.Text>
+                    <Card.Img src={park.park_image} alt={park.name}/>
+                    <Card.Text>
                         Court Type: {park.court_type} | Lights: {park.lights} | {park.number_of_courts} courts
-                    </Card.Content>
-                    <Card.Content extra>
-                        <Icon name="money bill alternate outline"/>${park.price_per_hour} per hour
-                    </Card.Content>
-                    <Card.Content extra>
+                        {/* <Icon name="money bill alternate outline"/> */}
+                        ${park.price_per_hour} per hour
+
                         <a href={park.directions} target="_blank">
-                            <Icon name="map outline"/>
+                            {/* <Icon name="map outline"/> */}
                             Directions
                         </a>
-                    </Card.Content>
+                    </Card.Text>
                     <Button inverted color='green' onClick={handleParkClick}>
                         Go to Park
                     </Button>
-                </Card.Content>
             </Card>
         </div>
     )
