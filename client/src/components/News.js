@@ -8,7 +8,8 @@ export default function News() {
     return (
         <div>
             <h2>What's New in Tennis</h2>
-                <Card style={{ width: '18rem' }}>
+            <div className="cards">
+                <Card id="card-border" style={{ width: '18rem' }}>
                     <Card.Img src="https://images.tennis.com/image/private/t_16-9_1024/f_auto/tenniscom-prd/nrkubumvfm2kxgvno1ft.jpg"/>
                         <Card.Body>
                             <Card.Title>Tennis</Card.Title>
@@ -17,7 +18,7 @@ export default function News() {
                             <Button id='edit-btn'><a href="https://www.tennis.com/news/articles/maria-sakkari-defeats-kvitova-to-reach-second-straight-indian-wells-semifinal" target="_blank">Read Full Article</a></Button>
                         </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
+                <Card id="card-border" style={{ width: '18rem' }}>
                     <Card.Img src="https://media.cnn.com/api/v1/images/stellar/prod/230315101520-potapova-swiatek-split.jpg?c=16x9&q=h_270,w_480,c_fill"/>
                         <Card.Body>
                             <Card.Title>CNN</Card.Title>
@@ -26,7 +27,7 @@ export default function News() {
                             <Button id='edit-btn'><a href="https://www.cnn.com/2023/03/15/tennis/potapova-swiatek-intl-spt/index.html" target="_blank">Read Full Article</a></Button>
                         </Card.Body>
                 </Card>
-                <Card style={{ width: '18rem' }}>
+                <Card id="card-border" style={{ width: '18rem' }}>
                     <Card.Img src="https://pyxis.nymag.com/v1/imgs/e53/8df/a2fecd8321fc01b54add77d3cdb85fcf21-BONY-tennis-courts-final.rhorizontal.w700.jpg"/>
                     <Card.Body>
                             <Card.Title>Curbed</Card.Title>
@@ -35,7 +36,8 @@ export default function News() {
                             <Button id='edit-btn'><a href="https://www.curbed.com/article/best-tennis-courts-nyc.html" target="_blank">Read Full Article</a></Button>
                     </Card.Body>
                 </Card>
-
+            </div>
+            <br />
             <h2>Checkout Netflix's new tennis documentary, <em>Break Point</em></h2>
                 <iframe
                     width="797"

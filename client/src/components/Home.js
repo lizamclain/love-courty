@@ -61,10 +61,13 @@ export default function Home({updateUser, user, setParkId}) {
                 <div class="mx-3">
                     <NavBar updateUser={updateUser}/>
                     <h2>Today's Reservations</h2>
-                    {resTodayCardsList.length === 0 ? <h4><em>You have no reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
-                    <Card.Group><News/></Card.Group>
+                    {resTodayCardsList.length === 0 ? <h4><em>You have no reservations today.</em></h4> : {resTodayCardsList}}
+                    <br />
+                    <News/>
                     <h2>Top Rated Parks</h2>
-                    <Card.Group>{topParksCardsList}</Card.Group>
+                    <div className='cards'>
+                        {topParksCardsList}
+                    </div>
                 </div>
             </>
             :
