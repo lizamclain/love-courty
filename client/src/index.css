@@ -46,10 +46,6 @@ label {
   color: var(--secondary-color);
 }
 
-#edit-form {
-  font-weight: bold;
-}
-
 #menu {
   background-color: white;
   color: var(--primary-color);
@@ -156,6 +152,14 @@ button {
 
 #card-border {
   border-color: var(--primary-color)
+}
+
+#edit-form {
+  font-weight: bold;
+}
+
+#modal-title {
+  color: var(--primary-color)
 }
 
 #search {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Card, Button, Row, Col, Modal }from 'react-bootstrap';
+import { Card, Button, Row, Col, Modal, Form }from 'react-bootstrap';
 import { BsMap, BsHourglassSplit } from 'react-icons/bs';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { AiOutlineCalendar } from 'react-icons/ai';
@@ -115,9 +115,9 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                     {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleCancelModalShow}>Cancel</Button> : null}
                     <Modal show={showCancelModal} onHide={handleCancelModalClose}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Cancel Reservation</Modal.Title>
+                            <Modal.Title id='modal-title'>Cancel Reservation</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>Are you sure you want to cancel this reservation?</Modal.Body>
+                        <Modal.Body id='modal-title'>Are you sure you want to cancel this reservation?</Modal.Body>
                         <Modal.Footer>
                             <Button id='sign-save-btn' onClick={handleCancelModalClose}>Nevermind, don't cancel</Button>
                             <Button id='cancel-btn' onClick={() => handleCancelClick(res.id)}>Yes, Cancel</Button>
@@ -127,20 +127,24 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                     >Edit</Button> : null}
                     <Modal show={showEditModal} onHide={handleEditModalClose}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Edit Reservation</Modal.Title>
+                            <Modal.Title id='modal-title'>Edit Reservation</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                        <form id="new-reservation" onSubmit={handleSubmit}>
-                                    <label htmlFor="date">Edit date: </label>
-                                    <input id="date" name="date" type="date" onChange={handleChange}></input>
+                        <Form id="edit-form" onSubmit={handleSubmit}>
+                                <Form.Group>
+                                    <Form.Label htmlFor="date">Edit date: </Form.Label>
+                                    <Form.Control id="date" name="date" type="date" style={{ width: '30%' }} onChange={handleChange}></Form.Control>
                                     <br />
-                                    <label htmlFor="time">Edit Time: </label>
-                                    {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label htmlFor="time">Edit Time: </Form.Label>
+                                    <br />
                                     {renderTimes}
+                                </Form.Group>
                                     <br />
-                                    <label htmlFor="duration">How many hours would you like to reserve? </label>
-                                    <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
-                                </form>
+                                    <Form.Label htmlFor="duration">How many hours would you like to reserve? </Form.Label>
+                                    <Form.Control id="duration" name="duration" type="number" style={{ width: '15%' }} min="1" max="3" onChange={handleChange}></Form.Control>
+                                </Form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button id='regular-btn' onClick={handleEditModalClose}>Exit</Button>

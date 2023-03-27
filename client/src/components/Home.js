@@ -59,6 +59,7 @@ export default function Home({updateUser, user, setParkId}) {
         user !== null ?
             <div class="mx-3">
                 <Menu updateUser={updateUser}/>
+                <h1>Welcome, {user.first_name}!</h1>
                 <h2>Today's Reservations</h2>
                         {resTodayCardsList.length === 0 ?
                         <h4><em>You have no reservations today.</em></h4> :
