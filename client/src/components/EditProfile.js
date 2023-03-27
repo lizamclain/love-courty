@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import {Button} from "semantic-ui-react";
+import { Button, Form, Row, Col } from 'react-bootstrap'
 import bcrypt from 'bcryptjs';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -11,6 +11,8 @@ export default function EditProfile({ updateUser, user }) {
     const handleBackClick = () => {
         navigate('/profile')
     }
+
+    const formattedNumber = user.phone.toString().slice(0,3) + '-' + user.phone.toString().slice(3,6) + '-' + user.phone.toString().slice(6);
 
     // state for form --> bring in currentUser state
     const initialState = {
@@ -81,71 +83,107 @@ export default function EditProfile({ updateUser, user }) {
     return (
         <div class="mx-3">
             <h1>Edit Profile</h1>
-            <button onClick={handleBackClick}>back to profile</button>
-            <div id="signup-form">
-                <form className="form" onSubmit={handleSubmit}>
-                    <label htmlFor="first_name">First Name: </label>
-                    <input id="first-name" name="first_name" type="text" placeholder={user.first_name} onChange={handleChange}/>
-                    <label htmlFor="last_name">Last Name: </label>
-                    <input id="last_name" name="last_name" type="text" placeholder={user.last_name} onChange={handleChange}/>
-                    <label htmlFor="email">Email: </label>
-                    <input id="email" name="email" type="text" placeholder={user.email} onChange={handleChange}/>
-                    {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
-                    value={value} onChange={setValue}
-                    /> */}
-                    <label htmlFor="phone">Phone: </label>
-                    <input id="phone" name="phone" type="text" placeholder={user.phone} onChange={handleChange} />
-                    <label htmlFor="age">Age: </label>
-                    <input id="age" name="age" type="number" min="18" max="100" placeholder={user.age} onChange={handleChange}/>
-                    {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
-                    <label htmlFor="user_image">Profile Picture URL: </label>
-                    <input id="user_image" name="user_image" type="text" placeholder={user.user_image} onChange={handleChange}/>
-                    <label htmlFor="tennis_level_select">Tennis Level: </label>
-                    <select id="tennis_level-select" name="tennis_level" type="select" placeholder={user.tennis_level} onChange={handleChange}>
-                        <option selected disabled hidden>{user.tennis_level}</option>
-                        <option value="1.5">1.5</option>
-                        <option value="2.0">2.0</option>
-                        <option value="2.5">2.5</option>
-                        <option value="3.0">3.0</option>
-                        <option value="3.5">3.5</option>
-                        <option value="4.0">4.0</option>
-                        <option value="4.5">4.5</option>
-                    </select>
-                    <label htmlFor="play_preference_select">Play Preference: </label>
-                    <select id="play_preference_select" name="court_preference" type="select" placeholder={user.play_preference} onChange={handleChange}>
-                        <option selected disabled hidden>{user.play_preference}</option>
-                        <option value="Singles">Singles</option>
-                        <option value="Doubles">Doubles</option>
-                        <option value="Singles and Doubles">Singles and Doubles</option>
-                    </select>
-                    <label htmlFor="court_preference_select">Court Preference: </label>
-                    <select id="court_preference_select" name="court_preference" type="select" placeholder={user.court_preference} onChange={handleChange}>
-                        <option selected disabled hidden>{user.court_preference}</option>
-                        <option value="hard">hard</option>
-                        <option value="clay">clay</option>
-                        <option value="grass">grass</option>
-                        <option value="hard and clay">hard and clay</option>
-                        <option value="hard and grass">hard and grass</option>
-                        <option value="clay and grass">clay and grass</option>
-                        <option value="all surfaces">all surfaces</option>
-                    </select>
-                    <label htmlFor="year_started">Year Started: </label>
-                    <input id="year_started" name="year_started" type="number" min="1950" max="2023" placeholder={user.year_started} onChange={handleChange}/>
-                    <label htmlFor="bio">Bio: </label>
-                    <input id="bio" name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
-                    <label htmlFor="password">Confirm Password: </label>
-                    <input id="password" name="password" type="password" placeholder={user.password} onChange={handleChange} required/>
-                    {!passwordMatch && (<p style={{ color: "red" }}>Enter current password to save changes.</p>)}
-                    <input type="submit" value="save" />
-                </form>
-                <Popup trigger={<Button inverted color='red'>Delete Account</Button>} modal nested>
+            <Button id="regular-btn" onClick={handleBackClick}>back to profile</Button>
+            <br />
+            <br />
+            <div id="edit-form">
+                <Form className="form" onSubmit={handleSubmit}>
+                    <Row className="mb-3">
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="first_name">First Name: </Form.Label>
+                            <Form.Control id="first-name" name="first_name" type="text" placeholder={user.first_name} onChange={handleChange}/>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="last_name">Last Name: </Form.Label>
+                            <Form.Control id="last_name" name="last_name" type="text" placeholder={user.last_name} onChange={handleChange}/>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="email">Email: </Form.Label>
+                            <Form.Control id="email" name="email" type="text" placeholder={user.email} onChange={handleChange}/>
+                            {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
+                            value={value} onChange={setValue}
+                            /> */}
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="phone">Phone: </Form.Label>
+                            <Form.Control id="phone" name="phone" type="text" placeholder={formattedNumber} onChange={handleChange} />
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="age">Age: </Form.Label>
+                            <Form.Control id="age" name="age" type="number" min="18" max="100" placeholder={user.age} onChange={handleChange}/>
+                        </Form.Group>
+                    </Row>
+                        {/* <p>Profile Picture</p><input name="profile_picture" type="file" placeholder="profile picture"/> */}
+                    <Row className="mb-3">
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="user_image">Profile Picture URL: </Form.Label>
+                            <Form.Control id="user_image" name="user_image" type="text" placeholder={user.user_image} onChange={handleChange}/>
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="tennis_level_select">Tennis Level: </Form.Label>
+                            <Form.Select id="tennis_level-select" name="tennis_level" type="select" placeholder={user.tennis_level} onChange={handleChange}>
+                                <option selected disabled hidden>{user.tennis_level}</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2.0">2.0</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3.0">3.0</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4.0">4.0</option>
+                                <option value="4.5">4.5</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group as={Col}>
+                            <Form.Label htmlFor="play_preference_select">Play Preference: </Form.Label>
+                            <Form.Select id="play_preference_select" name="court_preference" type="select" placeholder={user.play_preference} onChange={handleChange}>
+                                    <option selected disabled hidden>{user.play_preference}</option>
+                                    <option value="Singles">Singles</option>
+                                    <option value="Doubles">Doubles</option>
+                                    <option value="Singles and Doubles">Singles and Doubles</option>
+                            </Form.Select>
+                        </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label htmlFor="court_preference_select">Court Preference: </Form.Label>
+                                <Form.Select id="court_preference_select" name="court_preference" type="select" placeholder={user.court_preference} onChange={handleChange}>
+                                    <option selected disabled hidden>{user.court_preference}</option>
+                                    <option value="hard">hard</option>
+                                    <option value="clay">clay</option>
+                                    <option value="grass">grass</option>
+                                    <option value="hard and clay">hard and clay</option>
+                                    <option value="hard and grass">hard and grass</option>
+                                    <option value="clay and grass">clay and grass</option>
+                                    <option value="all surfaces">all surfaces</option>
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                                <Form.Label htmlFor="year_started">Year Started: </Form.Label>
+                                <Form.Control id="year_started" name="year_started" type="number" min="1950" max="2023" placeholder={user.year_started} onChange={handleChange}/>
+                            </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group>
+                            <Form.Label htmlFor="bio">Bio: </Form.Label>
+                            <Form.Control id="bio" name="bio" type="text" placeholder={user.bio} onChange={handleChange}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label htmlFor="password">Confirm Password: </Form.Label>
+                            <Form.Control id="password" name="password" type="password" placeholder={user.password} onChange={handleChange} required/>
+                        {!passwordMatch && (<p style={{ color: "red" }}>Enter current password to save changes.</p>)}
+                        </Form.Group>
+                    </Row>
+                        <Button id='sign-save-btn' type="submit" onClick={handleSubmit}>Save</Button>
+                </Form>
+                <Popup trigger={<Button id="cancel-btn">Delete Account</Button>} modal nested>
                     {
                         close => (
                             <div className="modal">
                                 <div className="content">
                                     Are you sure you want to delete your account?
-                                    <Button inverted color='red' onClick={handleDeleteClick}>Yes, delete.</Button>
-                                    <Button inverted color='blue' onClick={() => close()}>Nevermind, don't delete</Button>
+                                    <Button id="regular-btn" onClick={handleDeleteClick}>Yes, delete.</Button>
+                                    <Button id="cancel-btn" onClick={() => close()}>Nevermind, don't delete</Button>
                                 </div>
                             </div>
                         )

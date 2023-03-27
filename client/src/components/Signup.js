@@ -41,31 +41,60 @@ export default function Signup({updateUser}) {
     }
 
     // handle submit with fetch POST request
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     if(passwordsMatch) {
+    //         fetch('/users', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(formData)
+    //         })
+    //         .then(console.log(formData))
+    //         .then(res => {
+    //             if(res.ok) {
+    //                 res.json().then(obj => {
+    //                     updateUser(obj)
+    //                     navigate('/home')
+    //                 })
+    //             } else {
+    //                 res.json().then(json => setErrors(json.errors))
+    //             }
+    //         })
+    //     } else {
+    //         setErrors('Passwords do not match.')
+    //     }
+    // }
     const handleSubmit = (e) => {
-        e.preventDefault()
-        if(passwordsMatch) {
-            fetch('/users', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(console.log(formData))
+        e.preventDefault();
+        if (passwordsMatch) {
+          const formattedPhone = formData.phone.replace(/-/g, ''); // Remove dashes from phone number
+          const phoneAsNumber = parseInt(formattedPhone, 10); // Convert to integer
+          const formDataWithPhone = { ...formData, phone: phoneAsNumber }; // Update formData with phone number as integer
+      
+          fetch('/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formDataWithPhone)
+          })
             .then(res => {
-                if(res.ok) {
-                    res.json().then(obj => {
-                        updateUser(obj)
-                        navigate('/home')
-                    })
-                } else {
-                    res.json().then(json => setErrors(json.errors))
-                }
-            })
+              if (res.ok) {
+                res.json().then(obj => {
+                  updateUser(obj);
+                  navigate('/home');
+                });
+              } else {
+                res.json().then(json => setErrors(json.errors));
+              }
+            });
         } else {
-            setErrors('Passwords do not match.')
+          setErrors('Passwords do not match.');
         }
-    }
+      };
+      
 
     // add validation errors
     // add tool tip for tennis levels
@@ -97,10 +126,10 @@ export default function Signup({updateUser}) {
                     <Row className="mb-3">
                         <Form.Group as={Col} class="form-outline w-50">
                             <Form.Label class="required" htmlFor="phone">Phone: </Form.Label>
-                            {/* <PhoneForm.Control id="phone" name="phone" placeholder="phone number" defaultCountry="US"
-                            value={formData.phone} onChange={setValue}
-                            /> */}
-                            <Form.Control id="phone" name="phone" type="integer" placeholder="Enter your phone number" onChange={handleChange} value={formData.phone} required/>
+                            <PhoneInput id="phone" name="phone" placeholder="phone number" defaultCountry="US"
+                            value={formData.phone} onChange={phone => setFormData({...formData, phone})}
+                            />
+                            {/* <Form.Control id="phone" name="phone" type="integer" placeholder="Enter your phone number" onChange={handleChange} value={formData.phone} required/> */}
                         </Form.Group>
                         <Form.Group as={Col} class="form-outline w-25">
                             <Form.Label class="required" htmlFor="age">Age: </Form.Label>
