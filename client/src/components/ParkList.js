@@ -12,7 +12,7 @@ export default function ParkList({parks, setParkId}) {
     )
 
     return (
-        <div className="cards">
+        <div className="cards" id="park-list-div">
             {parkCardsList}
         </div>
     )

@@ -108,7 +108,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                             Total Price: ${res.cost}</Card.Text>
                         <Card.Text extra>
                                 <BsMap></BsMap>
-                            <a href={res.directions} target="_blank">
+                            <a id='card-link' href={res.directions} target="_blank">
                                 Directions
                             </a>
                     </Card.Text>

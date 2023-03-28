@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import Menu from './Menu';
 import { Container } from 'semantic-ui-react'
-import { Button } from "semantic-ui-react";
+import { Button, Form, Image } from 'react-bootstrap'
 import ReactStars from "react-rating-stars-component";
 
 export default function ParkPage({parkId, updateUser, user}) {
@@ -45,7 +45,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                 type="button"
                 name="time"
                 value={time}
-                inverted color='blue'
+                id='regular-btn'
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
             >
@@ -119,25 +119,26 @@ export default function ParkPage({parkId, updateUser, user}) {
             <h1>{park.name} ⭐️{park.avg_rating}</h1>
             {(1 + 1 !== 2) ? <h3>You've already rated this park</h3> :
             // <h3>Rate this Park:</h3>
-            <form className="radio" onSubmit={handleNewRating}>
-                <label>
+            <Form className="radio" id='rating-form' onSubmit={handleNewRating}>
+                <Form.Label>
                 <input type="radio" name="rating" value="1" checked={ratingData.rating === 1} onChange={handleRating}/>1
-                </label>
-                <label>
+                </Form.Label>
+                <Form.Label>
                 <input type="radio" name="rating" value="2" checked={ratingData.rating === 2} onChange={handleRating}/>2
-                </label>
-                <label>
+                </Form.Label>
+                <Form.Label>
                 <input type="radio" name="rating" value="3" checked={ratingData.rating === 3} onChange={handleRating}/>3
-                </label>
-                <label>
+                </Form.Label>
+                <Form.Label>
                 <input type="radio" name="rating" value="4" checked={ratingData.rating === 4} onChange={handleRating}/>4
-                </label>
-                <label>
+                </Form.Label>
+                <Form.Label>
                 <input type="radio" name="rating" value="5" checked={ratingData.rating === 5} onChange={handleRating}/>5
-                </label>
-                <button type="submit">Rate</button>
-            </form>
+                </Form.Label>
+                <Button id='sign-save-btn' type="submit" size='sm'>Rate</Button>
+            </Form>
             }
+            <br />
                 {/* // <ReactStars
                 //     count={5}
                 //     onChange={handleRating}
@@ -179,25 +180,38 @@ export default function ParkPage({parkId, updateUser, user}) {
             //         <button type="submit">Rate</button>
             //     </div>
             // </form>/ */}
-
-            <a href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
-            <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>
-            <h3>Court Type: {park.court_type}</h3>
-            <h3>Lights: {park.lights ? "Yes" : "No"}</h3>
-            <h3>{park.number_of_courts} courts</h3>
-            <img src={park.park_image} alt={park.name}/>
+            <div className="park-container">
+                <div className="park-details-container">
+                    <a id='park-page-link' href={park.directions} target="_blank"><h2 >{park.address}</h2></a>
+                    <h3>{park.neighborhood} | {park.open_time > 12 ? park.open_time - 12 : park.open_time} a.m. - {park.close_time > 12 ? park.close_time - 12 : park.close_time} p.m | ${park.price_per_hour} per hour</h3>
+                    <h4><b>Court Type:</b> {park.court_type}</h4>
+                    <h4><b>Lights:</b> {park.lights ? "Yes" : "No"}</h4>
+                    <h4><b>Number of Courts:</b> {park.number_of_courts}</h4>
+                    <br/>
+                    <Image src={park.park_image} alt={park.name} class='img-fluid'/>
+                </div>
+            </div>
             <br/>
             <h1>Reserve a Court</h1>
-            <form id="new-reservation" onSubmit={handleSubmit}>
-                <label htmlFor="date">Pick a date: </label>
-                <input id="date" name="date" type="date" onChange={handleChange}></input>
-                <label htmlFor="time">Pick a Time: </label>
-                {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
-                {renderTimes}
-                <label htmlFor="duration">How many hours would you like to reserve? </label>
-                <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
-                <Button inverted color='green'>Reserve</Button>
-            </form>
+                    <Form id="edit-form" onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Label htmlFor="date">Pick a date: </Form.Label>
+                            <Form.Control id="date" name="date" type="date" style={{ width: '30%' }} onChange={handleChange}></Form.Control>
+                        </Form.Group>
+                        <br />
+                        <Form.Group>
+                            <Form.Label htmlFor="time">Pick a Time: </Form.Label>
+                            <br />
+                            {renderTimes}
+                        </Form.Group>
+                        <br />
+                        <Form.Group>
+                            <Form.Label htmlFor="duration">How many hours would you like to reserve? </Form.Label>
+                            <Form.Control id="duration" name="duration" type="number" min="1" max="3" style={{ width: '10%' }} onChange={handleChange}></Form.Control>
+                        </Form.Group>
+                        <br />
+                        <Button id='sign-save-btn'>Reserve</Button>
+                    </Form>
             {errors ? <h3>{errors}</h3> : null}
         </Container>
     )

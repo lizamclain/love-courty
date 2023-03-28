@@ -127,11 +127,41 @@ button {
   border-color: var(--bg-color);
 }
 
+#link-btn {
+  background-color: var(--bg-color);
+  color: var(--fourth-color);
+  text-decoration-color: var(--fourth-color);
+  border-color: var(--fourth-color);
+  width: auto;
+}
+
+#link-btn:hover {
+  background-color: var(--fourth-color);
+  color: var(--bg-color);
+  text-decoration-color: var(--fourth-color);
+  border-color: var(--bg-color);
+}
+
+#park-page-link {
+  text-decoration-color: var(--secondary-color);
+}
+
+#park-list-div {
+  margin: auto;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 35px;
+  margin-top: 2%;
+}
+
 .cards {
   display: flex;
   width: 100vw;
   flex-wrap: wrap;
   flex-direction: row;
+  gap: 20px;
 }
 
 .card-title {
@@ -144,6 +174,11 @@ button {
 
 .card-text {
   color: var(--primary-color)
+}
+
+#card-link {
+  text-decoration-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 #card-list {
@@ -174,6 +209,25 @@ button {
   padding-bottom: 20px;
   align-content: center;
   width: 100vw;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.park-container {
+  display: flex;
+}
+
+.park-details-container {
+  flex: 1 1 50%;
+  padding-right: 20px;
+}
+
+.park-image-container {
+  flex: 1 1 50%;
+  text-align: right;
 }
 
 /* #top-right-filter {

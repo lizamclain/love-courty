@@ -19,7 +19,7 @@ export default function ParkCard({park, setParkId}) {
                     <Card.Title>{park.name} ⭐️{park.avg_rating}</Card.Title>
                     <Card.Subtitle>{park.neighborhood} | {park.open_time} - {park.close_time}
                     </Card.Subtitle>
-                    <Card.Img src={park.park_image} alt={park.name}/>
+                    <Card.Img src={park.park_image} alt={park.name} variant='top'/>
                     <Card.Text>
                         <GiRunningShoe></GiRunningShoe>
                         Court Type: {park.court_type} | {park.number_of_courts} courts

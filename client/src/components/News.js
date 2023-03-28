@@ -15,7 +15,7 @@ export default function News() {
                             <Card.Title>Tennis</Card.Title>
                             <Card.Footer>1 hour ago</Card.Footer>
                             <Card.Text>Maria Sakkari battles back to beat Petra Kvitova and reach second straight Indian Wells semifinal</Card.Text>
-                            <Button id='edit-btn'><a href="https://www.tennis.com/news/articles/maria-sakkari-defeats-kvitova-to-reach-second-straight-indian-wells-semifinal" target="_blank">Read Full Article</a></Button>
+                            <Button id='link-btn'><a href="https://www.tennis.com/news/articles/maria-sakkari-defeats-kvitova-to-reach-second-straight-indian-wells-semifinal" target="_blank">Read Full Article</a></Button>
                         </Card.Body>
                 </Card>
                 <Card id="card-border" style={{ width: '18rem' }}>
@@ -24,7 +24,7 @@ export default function News() {
                             <Card.Title>CNN</Card.Title>
                             <Card.Footer>3 hours ago</Card.Footer>
                             <Card.Text>Iga Swiatek: World No.1 calls for more support for Ukrainian tennis players</Card.Text>
-                            <Button id='edit-btn'><a href="https://www.cnn.com/2023/03/15/tennis/potapova-swiatek-intl-spt/index.html" target="_blank">Read Full Article</a></Button>
+                            <Button id='link-btn'><a href="https://www.cnn.com/2023/03/15/tennis/potapova-swiatek-intl-spt/index.html" target="_blank">Read Full Article</a></Button>
                         </Card.Body>
                 </Card>
                 <Card id="card-border" style={{ width: '18rem' }}>
@@ -33,7 +33,7 @@ export default function News() {
                             <Card.Title>Curbed</Card.Title>
                             <Card.Footer>1 day ago</Card.Footer>
                             <Card.Text>The Best Tennis Courts in New York</Card.Text>
-                            <Button id='edit-btn'><a href="https://www.curbed.com/article/best-tennis-courts-nyc.html" target="_blank">Read Full Article</a></Button>
+                            <Button id='link-btn'><a href="https://www.curbed.com/article/best-tennis-courts-nyc.html" target="_blank">Read Full Article</a></Button>
                     </Card.Body>
                 </Card>
             </div>
