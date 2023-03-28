@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Row, Col } from 'react-bootstrap'
+import { Button, Form, Row, Col, Modal, Alert } from 'react-bootstrap'
 import bcrypt from 'bcryptjs';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 
 export default function EditProfile({ updateUser, user }) {
     const navigate = useNavigate();
@@ -41,26 +39,33 @@ export default function EditProfile({ updateUser, user }) {
     }
 
     // handle edit with fetch PATCH request
-        const handleSubmit = (e) => {
-        e.preventDefault()
-        if(passwordMatch) {
-            fetch(`/users/${user.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(res => res.json())
-            .then(obj => updateUser(obj))
-            .then(() => {
-                alert('Your profile has been updated.')
-                navigate('/profile')
-            })
+    const [showEditAlert, setShowEditAlert] = useState(false);
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (passwordMatch) {
+        fetch(`/users/${user.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then((res) => res.json())
+        .then((obj) => {
+            updateUser(obj);
+            setShowEditAlert(true);
+        })
+            .catch((error) => console.error(error));
         } else {
-            alert('Please type in your current password to continue.')
+            alert('Please type in your current password to continue.');
         }
-    }
+    };
+
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const handleCancelModalClose = () => setShowCancelModal(false);
+    const handleCancelModalShow = () => setShowCancelModal(true);
 
     const handleDeleteClick = (e) => {
         console.log('deleted')
@@ -70,7 +75,7 @@ export default function EditProfile({ updateUser, user }) {
                 method: 'DELETE'
             })
             .then(updateUser(null))
-            .then(alert("Your account has been deleted."))
+            .then(setShowDeleteAlert(true))
             .then(navigate('/signup'))
         } else {
             alert('Please type in your current password to continue.')
@@ -88,6 +93,16 @@ export default function EditProfile({ updateUser, user }) {
             <br />
             <div id="edit-form">
                 <Form className="form" onSubmit={handleSubmit}>
+                {showEditAlert && (
+                    <Alert variant="success" onClose={() => setShowEditAlert(false)} dismissible>
+                        <Alert.Heading>Your profile has been updated.</Alert.Heading>
+                    </Alert>
+                )}
+                {showDeleteAlert && (
+                    <Alert variant="success" onClose={() => setShowDeleteAlert(false)} dismissible>
+                        <Alert.Heading>Your profile has been deleted.</Alert.Heading>
+                    </Alert>
+                )}
                     <Row className="mb-3">
                         <Form.Group as={Col}>
                             <Form.Label htmlFor="first_name">First Name: </Form.Label>
@@ -102,9 +117,6 @@ export default function EditProfile({ updateUser, user }) {
                         <Form.Group as={Col}>
                             <Form.Label htmlFor="email">Email: </Form.Label>
                             <Form.Control id="email" name="email" type="text" placeholder={user.email} onChange={handleChange}/>
-                            {/* <PhoneInput name="phone" placeholder="phone number" defaultCountry="US"
-                            value={value} onChange={setValue}
-                            /> */}
                         </Form.Group>
                         <Form.Group as={Col}>
                             <Form.Label htmlFor="phone">Phone: </Form.Label>
@@ -176,19 +188,17 @@ export default function EditProfile({ updateUser, user }) {
                     </Row>
                         <Button id='sign-save-btn' type="submit" onClick={handleSubmit}>Save</Button>
                 </Form>
-                <Popup trigger={<Button id="cancel-btn">Delete Account</Button>} modal nested>
-                    {
-                        close => (
-                            <div className="modal">
-                                <div className="content">
-                                    Are you sure you want to delete your account?
-                                    <Button id="regular-btn" onClick={handleDeleteClick}>Yes, delete.</Button>
-                                    <Button id="cancel-btn" onClick={() => close()}>Nevermind, don't delete</Button>
-                                </div>
-                            </div>
-                        )
-                    }
-                </Popup>
+                <Button id="cancel-btn" onClick={handleCancelModalShow}>Delete Account</Button>
+                <Modal show={showCancelModal} onHide={handleCancelModalClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title id='modal-title'>Delete Account</Modal.Title>
+                    </Modal.Header>
+                        <Modal.Body id='modal-title'>Are you sure you want to delete your account?</Modal.Body>
+                    <Modal.Footer>
+                        <Button id='sign-save-btn' onClick={handleCancelModalClose}>Nevermind, don't delete</Button>
+                        <Button id='cancel-btn' onClick={handleDeleteClick}>Yes, delete.</Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </div>
     )

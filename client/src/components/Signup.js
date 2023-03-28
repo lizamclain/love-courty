@@ -6,7 +6,6 @@ import { Button, Form, Row, Col } from 'react-bootstrap'
 
 export default function Signup({updateUser}) {
     const navigate = useNavigate();
-    const [value, setValue] = useState()
     const [errors, setErrors] = useState([])
 
     // state for form
@@ -41,60 +40,33 @@ export default function Signup({updateUser}) {
     }
 
     // handle submit with fetch POST request
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     if(passwordsMatch) {
-    //         fetch('/users', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(formData)
-    //         })
-    //         .then(console.log(formData))
-    //         .then(res => {
-    //             if(res.ok) {
-    //                 res.json().then(obj => {
-    //                     updateUser(obj)
-    //                     navigate('/home')
-    //                 })
-    //             } else {
-    //                 res.json().then(json => setErrors(json.errors))
-    //             }
-    //         })
-    //     } else {
-    //         setErrors('Passwords do not match.')
-    //     }
-    // }
     const handleSubmit = (e) => {
         e.preventDefault();
         if (passwordsMatch) {
           const formattedPhone = formData.phone.replace(/-/g, ''); // Remove dashes from phone number
           const phoneAsNumber = parseInt(formattedPhone, 10); // Convert to integer
           const formDataWithPhone = { ...formData, phone: phoneAsNumber }; // Update formData with phone number as integer
-      
-          fetch('/users', {
+        fetch('/users', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(formDataWithPhone)
-          })
-            .then(res => {
-              if (res.ok) {
+        })
+        .then(res => {
+            if (res.ok) {
                 res.json().then(obj => {
-                  updateUser(obj);
-                  navigate('/home');
-                });
-              } else {
-                res.json().then(json => setErrors(json.errors));
-              }
+                    updateUser(obj);
+                    navigate('/home');
             });
+            } else {
+                res.json().then(json => setErrors(json.errors));
+            }
+        });
         } else {
-          setErrors('Passwords do not match.');
+            setErrors('Passwords do not match.');
         }
-      };
-      
+    };
 
     // add validation errors
     // add tool tip for tennis levels
