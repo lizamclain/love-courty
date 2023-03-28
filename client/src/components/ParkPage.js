@@ -210,7 +210,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                             <Form.Control id="duration" name="duration" type="number" min="1" max="3" style={{ width: '10%' }} onChange={handleChange}></Form.Control>
                         </Form.Group>
                         <br />
-                        <Button id='sign-save-btn'>Reserve</Button>
+                        <Button id='sign-save-btn' type='submit'>Reserve</Button>
                     </Form>
             {errors ? <h3>{errors}</h3> : null}
         </Container>
