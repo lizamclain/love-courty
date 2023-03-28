@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Card, Button, Row, Col, Modal, Form }from 'react-bootstrap';
+import { Card, Button, ButtonGroup, Row, Col, Modal, Form }from 'react-bootstrap';
 import { BsMap, BsHourglassSplit } from 'react-icons/bs';
 import { FaRegMoneyBillAlt } from 'react-icons/fa';
 import { AiOutlineCalendar } from 'react-icons/ai';
@@ -112,7 +112,11 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                 Directions
                             </a>
                     </Card.Text>
-                    {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleCancelModalShow}>Cancel</Button> : null}
+                    <ButtonGroup>
+                        {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleCancelModalShow}className="mr-2">Cancel</Button> : null}
+                        {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleEditModalShow}
+                        className="ml-2">Edit</Button> : null}
+                    </ButtonGroup>
                     <Modal show={showCancelModal} onHide={handleCancelModalClose}>
                         <Modal.Header closeButton>
                             <Modal.Title id='modal-title'>Cancel Reservation</Modal.Title>
@@ -123,8 +127,6 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                             <Button id='cancel-btn' onClick={() => handleCancelClick(res.id)}>Yes, Cancel</Button>
                         </Modal.Footer>
                     </Modal>
-                    {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleEditModalShow}
-                    >Edit</Button> : null}
                     <Modal show={showEditModal} onHide={handleEditModalClose}>
                         <Modal.Header closeButton>
                             <Modal.Title id='modal-title'>Edit Reservation</Modal.Title>
