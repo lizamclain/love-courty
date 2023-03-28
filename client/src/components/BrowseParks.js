@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Menu from './Menu';
-
 import ParkList from './ParkList'
 import Search from './Search'
 
