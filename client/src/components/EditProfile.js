@@ -40,7 +40,7 @@ export default function EditProfile({ updateUser, user }) {
 
     // handle edit with fetch PATCH request
     const [showEditAlert, setShowEditAlert] = useState(false);
-    const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+    const [showPasswordAlert, setShowPasswordAlert] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -59,7 +59,7 @@ export default function EditProfile({ updateUser, user }) {
         })
             .catch((error) => console.error(error));
         } else {
-            alert('Please type in your current password to continue.');
+            setShowPasswordAlert(true)
         }
     };
 
@@ -68,17 +68,16 @@ export default function EditProfile({ updateUser, user }) {
     const handleCancelModalShow = () => setShowCancelModal(true);
 
     const handleDeleteClick = (e) => {
-        console.log('deleted')
         if(passwordMatch) {
             e.preventDefault()
             fetch(`/users/${user.id}`, {
                 method: 'DELETE'
             })
             .then(updateUser(null))
-            .then(setShowDeleteAlert(true))
+            .then(alert('Your account has been deleted.'))
             .then(navigate('/signup'))
         } else {
-            alert('Please type in your current password to continue.')
+            setShowPasswordAlert(true)
         }
     }
 
@@ -98,9 +97,9 @@ export default function EditProfile({ updateUser, user }) {
                         <Alert.Heading>Your profile has been updated.</Alert.Heading>
                     </Alert>
                 )}
-                {showDeleteAlert && (
-                    <Alert variant="success" onClose={() => setShowDeleteAlert(false)} dismissible>
-                        <Alert.Heading>Your profile has been deleted.</Alert.Heading>
+                {showPasswordAlert && (
+                    <Alert variant="danger" onClose={() => setShowPasswordAlert(false)} dismissible>
+                        <Alert.Heading>Please type in your current password to continue..</Alert.Heading>
                     </Alert>
                 )}
                     <Row className="mb-3">
