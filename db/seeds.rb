@@ -71,7 +71,7 @@ puts 'done seeding users 👤'
 puts 'seeding 15 parks 🌳'
 Park.create(
     name: "Ted Rhodes Park",
-    park_image: "https://www.nashville.com/wp-content/uploads/2017/06/8.jpg",
+    park_image: "https://images.alltrails.com/eyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvNDI4Nzc2NTAvZWJmMzQ5NDU5ZDhhYTVlN2M2YTJhNzQ2OTlkY2IzNmYuanBnIiwiZWRpdHMiOnsidG9Gb3JtYXQiOiJqcGVnIiwicmVzaXplIjp7IndpZHRoIjo1MDAsImhlaWdodCI6NTAwLCJmaXQiOiJpbnNpZGUifSwicm90YXRlIjpudWxsLCJqcGVnIjp7InRyZWxsaXNRdWFudGlzYXRpb24iOnRydWUsIm92ZXJzaG9vdERlcmluZ2luZyI6dHJ1ZSwib3B0aW1pc2VTY2FucyI6dHJ1ZSwicXVhbnRpc2F0aW9uVGFibGUiOjN9fX0=",
     address: "1901 Ed Temple Blvd., Nashville, TN 37228",
     directions: "https://www.google.com/maps/dir//Ted+Rhodes+Park,+1901+Ed+Temple+Blvd,+Nashville,+TN+37228/@36.1901112,-86.8291332,15z/data=!4m9!4m8!1m0!1m5!1m1!1s0x88646732db3e9b41:0x738093040d3d6dec!2m2!1d-86.8257994!2d36.1845391!3e0",
     neighborhood: "North Nashville",
@@ -84,7 +84,7 @@ Park.create(
 )
 Park.create(
     name: "Sevier Park",
-    park_image: "https://lh3.googleusercontent.com/p/AF1QipOvRtsjh1Mpg06ZZc98kJ-4p6C1vn1w3l_yL6-B=s680-w680-h510",
+    park_image: "https://fastly.4sqi.net/img/general/600x600/HwVqYudhJSTBBJMupnqhjY37HIWAdb0IdFaVGxMIFfE.jpg",
     address: "1000 Clayton Ave, Nashville, TN 37204",
     directions: "https://www.google.com/maps/dir//Sevier+Park+Tennis+Courts,+Clayton+Avenue,+Nashville,+TN/@36.1193694,-86.859047,12z/data=!4m9!4m8!1m0!1m5!1m1!1s0x8864643103110c3d:0x75a7cf20f3dab6b9!2m2!1d-86.789179!2d36.119251!3e0",
     neighborhood: "12 South",
@@ -188,7 +188,7 @@ Park.create(
 )
 Park.create(
     name: "Centennial Sportsplex",
-    park_image: "https://i2.wp.com/www.tennisitinerary.com/wp-content/uploads/2016/10/IMG_1395.jpg?fit=3264%2C2448&ssl=1",
+    park_image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Tennis_courts_at_Centennial_Sportsplex.jpg/640px-Tennis_courts_at_Centennial_Sportsplex.jpg",
     address: "222 25th Ave N, Nashville, TN 37203",
     directions: "https://www.google.com/maps/dir//Centennial+Sportsplex+Fitness+%26+Tennis+Center,+25th+Avenue+North,+Nashville,+TN/@36.1510435,-86.8790136,12z/data=!3m2!4b1!5s0x886466b962b6f457:0x5a0109d33cb4b060!4m9!4m8!1m0!1m5!1m1!1s0x886466b9ec5ff2b7:0xc27c3e2d3a192993!2m2!1d-86.8091456!2d36.1509252!3e0",
     neighborhood: "West End",
@@ -446,7 +446,7 @@ puts 'seeding 100 reservations 📆'
     user_id: User.all.sample.id,
     park_id: Park.all.sample.id,
     # court_id: Court.all.sample.id,
-    date: Faker::Date.between(from: '2023-03-21', to: '2023-03-25'),
+    date: Faker::Date.between(from: '2023-03-26', to: '2023-03-30'),
     time: Faker::Number.within(range: 10..19),
     duration: Faker::Number.within(range: 1..3),
 )
@@ -458,7 +458,7 @@ puts 'seeding lizas reservations 📆'
     user_id: liza.id,
     park_id: Park.all.sample.id,
     # court_id: Court.all.sample.id,
-    date: Faker::Date.between(from: '2023-03-21', to: '2023-03-25'),
+    date: Faker::Date.between(from: '2023-03-26', to: '2023-03-30'),
     time: Faker::Number.within(range: 10..19),
     duration: Faker::Number.within(range: 1..3),
 )

@@ -1,24 +1,28 @@
 import React, {useState, useEffect} from 'react'
-import { Card , Button , Icon } from "semantic-ui-react";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
+import { Card, Button, ButtonGroup, Row, Col, Modal, Form }from 'react-bootstrap';
+import { BsMap, BsHourglassSplit } from 'react-icons/bs';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { BiTime } from 'react-icons/bi';
 
 export default function ReservationCard({res, handleCancelClick, handleEdit, user}) {
     const reservationDate = new Date(res.date);
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     const [park, setPark] = useState({available_times: []}, {ratings: []})
-    const [resFuture, setResFuture] = useState([])
-    const [resToday, setResToday] = useState([])
     const [errors, setErrors] = useState([])
-
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const handleCancelModalClose = () => setShowCancelModal(false);
+    const handleCancelModalShow = () => setShowCancelModal(true);
+    const handleEditModalClose = () => setShowEditModal(false);
+    const handleEditModalShow = () => setShowEditModal(true);
 
     useEffect(() => {
         fetch(`/parks/${res.park_id}`)
         .then(res => res.json())
         .then(data => setPark(data))
     }, [])
-
 
     // initial state for edit reservation form
     const initialState = {
@@ -51,7 +55,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                 type="button"
                 name="time"
                 value={time}
-                inverted color='blue'
+                id='regular-btn'
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
             >
@@ -80,79 +84,80 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
             }
         });
         console.log(formData);
+        handleEditModalClose();
     }
 
     return (
         <div>
-            <Card.Group>
-                <Card>
-                    <Card.Content>
-                        <Card.Header>{res.park}</Card.Header>
-                        <Card.Content><Icon name="calendar alternate outline"/>Date: {res.date}</Card.Content>
-                        <Card.Content><Icon name="clock outline"/>Time: {res.time}</Card.Content>
-                        <Card.Content><Icon name="hourglass half"/>Hours Reserved: {res.duration}</Card.Content>
-                        <Card.Content>
-                            <Icon name="money bill alternate outline"/>Total Price: ${res.cost}</Card.Content>
-                        <Card.Content extra>
-                            <a href={res.directions} target="_blank">
-                                <Icon name="map outline"/>
+            <Row xs={1} md={3} className="g-4">
+                <Col>
+                <Card id="card-border" style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{res.park}</Card.Title>
+                        <Card.Text>
+                            <AiOutlineCalendar></AiOutlineCalendar>
+                            Date: {res.date}</Card.Text>
+                        <Card.Text>
+                            <BiTime></BiTime>
+                            Time: {res.time}</Card.Text>
+                        <Card.Text>
+                            <BsHourglassSplit></BsHourglassSplit>
+                            Hours Reserved: {res.duration}</Card.Text>
+                        <Card.Text>
+                            <FaRegMoneyBillAlt></FaRegMoneyBillAlt>
+                            Total Price: ${res.cost}</Card.Text>
+                        <Card.Text extra>
+                                <BsMap></BsMap>
+                            <a id='card-link' href={res.directions} target="_blank">
                                 Directions
                             </a>
-                        </Card.Content>
-                    <Popup trigger = {reservationDate >= currentDate ? <Button inverted color='red'>Cancel</Button> : null} modal nested>
-                        {
-                            close => (
-                                <div className="modal">
-                                    <div className="content">
-                                        Are you sure you want to cancel this reservation?
-                                        <Button inverted color='blue' onClick=
-                                            {() => close()}>
-                                            Nevermind, don't cancel
-                                        </Button>
-                                        <Button inverted color='red' onClick={() => handleCancelClick(res.id)}>
-                                            Yes, Cancel
-                                        </Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    </Popup>
-                    <Popup trigger= {reservationDate >= currentDate ? <Button inverted color='purple'
-                    // onClick={() => handleEdit(res.id)}
-                    >
-                            Edit
-                        </Button> : null} modal nested>
-                        {
-                            close => (
-                            <div className='modal'>
-                                <div className='content'>
-                                Edit Reservation
-                                <form id="new-reservation" onSubmit={handleSubmit}>
-                                    <label htmlFor="date">Edit date: </label>
-                                    <input id="date" name="date" type="date" onChange={handleChange}></input>
-                                    <label htmlFor="time">Edit Time: </label>
-                                    {/* <input id="time" name="time" type="number" min="10" max="20" onChange={handleChange}></input> */}
+                    </Card.Text>
+                    <ButtonGroup>
+                        {reservationDate >= currentDate ? <Button id='cancel-btn' onClick={handleCancelModalShow}className="mr-2">Cancel</Button> : null}
+                        {reservationDate >= currentDate ? <Button id='sign-save-btn' onClick={handleEditModalShow}
+                        className="ml-2">Edit</Button> : null}
+                    </ButtonGroup>
+                    <Modal show={showCancelModal} onHide={handleCancelModalClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title id='modal-title'>Cancel Reservation</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body id='modal-title'>Are you sure you want to cancel this reservation?</Modal.Body>
+                        <Modal.Footer>
+                            <Button id='sign-save-btn' onClick={handleCancelModalClose}>Nevermind, don't cancel</Button>
+                            <Button id='cancel-btn' onClick={() => handleCancelClick(res.id)}>Yes, Cancel</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    <Modal show={showEditModal} onHide={handleEditModalClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title id='modal-title'>Edit Reservation</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                        <Form id="edit-form" onSubmit={handleSubmit}>
+                                <Form.Group>
+                                    <Form.Label htmlFor="date">Edit date: </Form.Label>
+                                    <Form.Control id="date" name="date" type="date" style={{ width: '30%' }} onChange={handleChange}></Form.Control>
+                                    <br />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label htmlFor="time">Edit Time: </Form.Label>
+                                    <br />
                                     {renderTimes}
-                                    <label htmlFor="duration">How many hours would you like to reserve? </label>
-                                    <input id="duration" name="duration" type="number" min="1" max="3" onChange={handleChange}></input>
-                                    <Button type="submit" inverted color='purple'>Save
-                                    </Button>
-                                </form>
-                                {errors ? <h3>{errors}</h3> : null}
-                                </div>
-                            <div>
-                                <Button inverted color='blue' onClick=
-                                    {() => close()}>
-                                        Exit
-                                </Button>
-                            </div>
-                        </div>
-                            )
-                        }
-                    </Popup>
-                    </Card.Content>
+                                </Form.Group>
+                                    <br />
+                                    <Form.Label htmlFor="duration">How many hours would you like to reserve? </Form.Label>
+                                    <Form.Control id="duration" name="duration" type="number" style={{ width: '15%' }} min="1" max="3" onChange={handleChange}></Form.Control>
+                                </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button id='regular-btn' onClick={handleEditModalClose}>Exit</Button>
+                            <Button id='sign-save-btn' type="submit" onClick={handleSubmit}>Save</Button>
+                        </Modal.Footer>
+                    </Modal>
+                    {errors ? <h3>{errors}</h3> : null}
+                    </Card.Body>
                 </Card>
-            </Card.Group>
+                </Col>
+            </Row>
         </div>
     )
 }

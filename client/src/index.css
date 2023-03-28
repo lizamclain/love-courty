@@ -12,11 +12,18 @@
 }
 
 body {
-  margin: 30;
+  margin: 0;
   font-family: 'Assistant', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* #centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
 
 h1 {
   color: var(--primary-color);
@@ -36,21 +43,222 @@ h4 {
 }
 
 label {
-  color: var(--fifth-color);
+  color: var(--secondary-color);
 }
+
+#menu {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+#nav {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+#nav:hover {
+  background-color: white;
+  color: var(--secondary-color);
+}
+
+#login-label {
+  color: var(--secondary-color);
+}
+
+button {
+  font-family: 'Assistant', sans-serif;
+}
+
+#regular-btn {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border-color: var(--font-color);
+  width: auto;
+}
+
+#regular-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+.selected {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#sign-save-btn {
+  background-color: var(--bg-color);
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  width: auto;
+}
+
+#sign-save-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#cancel-btn {
+  background-color: var(--bg-color);
+  color: var(--fifth-color);
+  border-color: var(--fifth-color);
+  width: auto;
+}
+
+#cancel-btn:hover {
+  background-color: var(--fifth-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#edit-btn {
+  background-color: var(--bg-color);
+  color: var(--fourth-color);
+  border-color: var(--fourth-color);
+  width: auto;
+}
+
+#edit-btn:hover {
+  background-color: var(--fourth-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
+#link-btn {
+  background-color: var(--bg-color);
+  color: var(--fourth-color);
+  text-decoration-color: var(--fourth-color);
+  border-color: var(--fourth-color);
+  width: auto;
+}
+
+#link-btn:hover {
+  background-color: var(--fourth-color);
+  color: var(--bg-color);
+  text-decoration-color: var(--fourth-color);
+  border-color: var(--bg-color);
+}
+
+#park-page-link {
+  text-decoration-color: var(--secondary-color);
+}
+
+#park-list-div {
+  margin: auto;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 35px;
+  margin-top: 2%;
+}
+
+.cards {
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.card-title {
+  color: var(--primary-color)
+}
+
+.card-subtitle {
+  color: var(--primary-color)
+}
+
+.card-text {
+  color: var(--primary-color)
+}
+
+#card-link {
+  text-decoration-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+#card-list {
+  color: var(--primary-color)
+}
+
+#card-border {
+  border-color: var(--primary-color)
+}
+
+#edit-form {
+  font-weight: bold;
+}
+
+#modal-title {
+  color: var(--primary-color)
+}
+
+#search {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 20px;
+  align-content: center;
+  width: 100vw;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.park-container {
+  display: flex;
+}
+
+.park-details-container {
+  flex: 1 1 50%;
+  padding-right: 20px;
+}
+
+.park-image-container {
+  flex: 1 1 50%;
+  text-align: right;
+}
+
+/* #top-right-filter {
+  position: absolute;
+  top: 125px;
+  right: 85px;
+  display: flex;
+  flex-direction: column;
+}
+
+#top-left-filter {
+  position: absolute;
+  top: 125px;
+  left: 85px;
+  display: flex;
+  flex-direction: column;
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-ul {
+/* ul {
   list-style-type: none;
-}
+} */
 
 .required {
   font-weight: bold;
 }
+
 .required:after {
   color: #e32;
   content: ' *';
@@ -59,11 +267,6 @@ ul {
 
 #required-text {
   color: #e32;
-}
-
-.selected {
-  background-color: #007bff;
-  color: #fff;
 }
 
 .rating {

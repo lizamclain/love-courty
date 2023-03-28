@@ -1,6 +1,9 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import { Card , Button , Icon , Label , Image , Container, Modal } from "semantic-ui-react";
+import { Card, Button }from 'react-bootstrap';
+import { BsMap, BsLightbulb } from 'react-icons/bs';
+import { FaRegMoneyBillAlt } from 'react-icons/fa';
+import { GiRunningShoe } from 'react-icons/gi';
 
 export default function ParkCard({park, setParkId}) {
     const navigate = useNavigate();
@@ -12,28 +15,32 @@ export default function ParkCard({park, setParkId}) {
     }
     return (
         <div>
-            <Card>
-                <Card.Content>
-                    <Card.Header>{park.name} ⭐️{park.avg_rating}</Card.Header>
-                    <Card.Meta>{park.neighborhood} | {park.open_time} - {park.close_time}
-                    </Card.Meta>
-                    <Image src={park.park_image} alt={park.name}/>
-                    <Card.Content>
-                        Court Type: {park.court_type} | Lights: {park.lights} | {park.number_of_courts} courts
-                    </Card.Content>
-                    <Card.Content extra>
-                        <Icon name="money bill alternate outline"/>${park.price_per_hour} per hour
-                    </Card.Content>
-                    <Card.Content extra>
-                        <a href={park.directions} target="_blank">
-                            <Icon name="map outline"/>
-                            Directions
+            <Card id="card-border" style={{ width: '18rem' }}>
+                    <Card.Title>{park.name} ⭐️{park.avg_rating}</Card.Title>
+                    <Card.Subtitle>{park.neighborhood} | {park.open_time} - {park.close_time}
+                    </Card.Subtitle>
+                    <Card.Img src={park.park_image} alt={park.name} variant='top'/>
+                    <Card.Text>
+                        <GiRunningShoe></GiRunningShoe>
+                        Court Type: {park.court_type} | {park.number_of_courts} courts
+                    </Card.Text>
+                    <Card.Text>
+                        <BsLightbulb></BsLightbulb>
+                        Lights: {park.lights}
+                    </Card.Text>
+                    <Card.Text>
+                        <FaRegMoneyBillAlt></FaRegMoneyBillAlt>
+                        ${park.price_per_hour} per hour
+                    </Card.Text>
+                    <Card.Text>
+                            <BsMap></BsMap>
+                            <i class="bi bi-map"></i>
+                        <a href={park.directions} target="_blank">Directions
                         </a>
-                    </Card.Content>
-                    <Button inverted color='green' onClick={handleParkClick}>
+                    </Card.Text>
+                    <Button id='sign-save-btn' onClick={handleParkClick}>
                         Go to Park
                     </Button>
-                </Card.Content>
             </Card>
         </div>
     )

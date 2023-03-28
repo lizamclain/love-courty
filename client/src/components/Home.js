@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-import { Card } from "semantic-ui-react";
 
-import NavBar from './NavBar';
+import Menu from './Menu';
 import News from './News'
 import ReservationCard from './ReservationCard'
 
@@ -57,14 +56,18 @@ export default function Home({updateUser, user, setParkId}) {
 
     return (
         user !== null ?
-            <>
-                <NavBar updateUser={updateUser}/>
+            <div class="mx-3">
+                <Menu updateUser={updateUser}/>
+                <h1>Welcome, {user.first_name}!</h1>
                 <h2>Today's Reservations</h2>
-                {resTodayCardsList.length === 0 ? <h4><em>You have no reservations today.</em></h4> : <Card.Group>{resTodayCardsList}</Card.Group>}
-                <Card.Group><News/></Card.Group>
+                        {resTodayCardsList.length === 0 ?
+                        <h4><em>You have no reservations today.</em></h4> :
+                        <div className="cards">{resTodayCardsList}</div>}
+                <br />
+                <News/>
                 <h2>Top Rated Parks</h2>
-                <Card.Group>{topParksCardsList}</Card.Group>
-            </>
+                    <div className="cards">{topParksCardsList}</div>
+            </div>
             :
             <div className="not-loggedin">
                 <p>You are not logged in!</p>
