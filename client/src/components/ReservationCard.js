@@ -83,7 +83,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                 r.json().then((json) => setErrors(json.errors));
             }
         });
-        console.log(formData);
+        // console.log(formData);
         handleEditModalClose();
     }
 

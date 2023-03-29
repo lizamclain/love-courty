@@ -26,7 +26,7 @@ export default function MyReservations({updateUser, setUser, user}) {
         setResPast(user.past_reservations)
     }, [user])
 
-    console.log(resToday)
+    // console.log(resToday)
 
     const handleCancelClick = (id) => {
         fetch(`/reservations/${id}`,{
@@ -47,7 +47,7 @@ export default function MyReservations({updateUser, setUser, user}) {
                 reservation.id === updatedRes.id ? updatedRes : reservation
             );
             setResToday(updatedTodayReservations);
-            console.log(updatedTodayReservations)
+            // console.log(updatedTodayReservations)
             setEditPopup(true);
     }
 
