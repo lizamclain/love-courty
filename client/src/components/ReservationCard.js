@@ -35,8 +35,6 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
         cost: res.cost
     }
 
-    // console.log(initialState)
-
     const [formData, setFormData] = useState(initialState)
 
     // helper functions for new reservation form changes
@@ -58,6 +56,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                 id='regular-btn'
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
+                placeholder={initialState.time}
             >
                 {time >= 12 ? time === 12 ? '12:00 PM' : `${time - 12}:00 PM` : `${time}:00 AM`}
             </Button>
@@ -135,7 +134,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                         <Form id="edit-form" onSubmit={handleSubmit}>
                                 <Form.Group>
                                     <Form.Label htmlFor="date">Edit date: </Form.Label>
-                                    <Form.Control id="date" name="date" type="date" style={{ width: '30%' }} onChange={handleChange}></Form.Control>
+                                    <Form.Control id="date" name="date" type="date" style={{ width: '30%' }} placeholder={initialState.date} onChange={handleChange}></Form.Control>
                                     <br />
                                 </Form.Group>
                                 <Form.Group>
@@ -145,7 +144,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                 </Form.Group>
                                     <br />
                                     <Form.Label htmlFor="duration">How many hours would you like to reserve? </Form.Label>
-                                    <Form.Control id="duration" name="duration" type="number" style={{ width: '15%' }} min="1" max="3" onChange={handleChange}></Form.Control>
+                                    <Form.Control id="duration" name="duration" type="number" style={{ width: '15%' }} min="1" max="3" placeholder={initialState.duration} onChange={handleChange}></Form.Control>
                                 </Form>
                         </Modal.Body>
                         <Modal.Footer>
