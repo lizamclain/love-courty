@@ -4,14 +4,20 @@ Love-Courtly allows users create an account to book reservations at tennis court
 
 ## github repo
 https://github.com/lizareed5/love-courtly
+1. Fork and clone this repository
+2. Run `rails db:migrate` to migrate
+3. Run `rails db:seed` for seeds data
+4. Run `rails s` to get the backend server up and running
+5. `cd` into the client directory and run `npm i && npm start`
 
-## Wireframe
-Full Wireframe
-* Detailed wireframes for pages [here](#detailed-wireframe)
-<img
-    src="client/assets/full_wireframe.png"
-    alt="Wireframe for Love-Courty"
-    title="Wireframe for Love-Courty">
+## Technologies
+* JavaScript
+* React
+* Ruby
+* Ruby on Rails
+* ActiveRecord
+* CSS
+* Bootstrap
 
 ## User Stories
 1. A User can create a user profile
@@ -25,6 +31,39 @@ Full Wireframe
 9. A User can view their reservations, past and upcoming
 10. A User can edit or delete their reservation
 11. A User can rate a park
+
+## Website Demo
+### Browse Parks
+<img
+    src="client/assets/browse_parks_GIF.gif"
+    alt="Browse Parks GIF"
+    title="Browse Parks GIF">
+
+### Reserve a Court
+<img
+    src="client/assets/reserve_court_GIF.gif"
+    alt="Reserve a Court GIF"
+    title="Reserve a Court GIF">
+
+### Edit / Cancel a Reservation
+<img
+    src="client/assets/edit_cancel_GIF.gif"
+    alt="Edit or Cancel a reservation GIF"
+    title="Edit or Cancel a reservation GIF">
+
+### Edit Profile
+<img
+    src="client/assets/edit_profile_GIF.gif"
+    alt="Edit Profile GIF"
+    title="Edit Profile GIF">
+
+## Wireframe
+Full Wireframe
+* Detailed wireframes for pages [here](#detailed-wireframe)
+<img
+    src="client/assets/full_wireframe.png"
+    alt="Wireframe for Love-Courty"
+    title="Wireframe for Love-Courty">
 
 ## Backend
 ### Models
@@ -149,11 +188,3 @@ ERD with StretchERD with Stretch Goals
     src="client/assets/ERD_with_stretch.png"
     alt="ERD with Stretch"
     title="ERD with Stretch">
-
-## Technologies
-* Ruby
-* Ruby on Rails
-* ActiveRecord
-* React
-* JavaScript
-* CSS
