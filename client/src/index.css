@@ -82,6 +82,12 @@ button {
   border-color: var(--bg-color);
 }
 
+#regular-btn-selected {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+  border-color: var(--bg-color);
+}
+
 .selected {
   background-color: var(--primary-color);
   color: var(--bg-color);

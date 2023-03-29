@@ -45,7 +45,7 @@ export default function ParkPage({parkId, updateUser, user}) {
                 type="button"
                 name="time"
                 value={time}
-                id='regular-btn'
+                id={isSelected ? 'regular-btn-selected' : 'regular-btn'}
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
             >

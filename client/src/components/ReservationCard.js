@@ -47,13 +47,13 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
 
     // function to render available park times
     const renderTimes = park.available_times.map((time) => {
-        const isSelected = time === formData.time
+        const isSelected = time === formData.time || time === initialState.time
         return (
             <Button
                 type="button"
                 name="time"
                 value={time}
-                id='regular-btn'
+                id={isSelected ? 'regular-btn-selected' : 'regular-btn'}
                 onClick={() => handleClick(time)}
                 className={isSelected ? "selected" : ""}
                 placeholder={initialState.time}
@@ -145,7 +145,7 @@ export default function ReservationCard({res, handleCancelClick, handleEdit, use
                                     <br />
                                     <Form.Label htmlFor="duration">How many hours would you like to reserve? </Form.Label>
                                     <Form.Control id="duration" name="duration" type="number" style={{ width: '15%' }} min="1" max="3" placeholder={initialState.duration} onChange={handleChange}></Form.Control>
-                                </Form>
+                        </Form>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button id='regular-btn' onClick={handleEditModalClose}>Exit</Button>
